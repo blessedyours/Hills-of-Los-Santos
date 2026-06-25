@@ -99,7 +99,7 @@ Nametag_Hide(playerid)
     return 1;
 }
 
-Nametag_Update(playerid)
+stock Nametag_Update(playerid)
 {
     Nametag_Hide(playerid);
     Nametag_Show(playerid);

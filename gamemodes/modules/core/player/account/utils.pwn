@@ -297,10 +297,9 @@ stock Account_UpdateCharacterName(playerid, const charname[])
 }
 
 // Loads the character name from the database.
-Account_LoadCharacterName(playerid)
+stock Account_LoadCharacterName(playerid)
 {
-    new
-        query[128];
+    new query[128];
 
     mysql_format(g_DatabaseHandle, query, sizeof(query),
         "SELECT `character_name` FROM `player_accounts` WHERE `account_id` = %d LIMIT 1;",
@@ -334,7 +333,7 @@ stock GetPlayerCharacterName(playerid, charname[], len = 31)
     return 1;
 }
 
-SetPlayerAccountName(playerid, const account[])
+stock SetPlayerAccountName(playerid, const account[])
 {
     if(!IsPlayerConnected(playerid))
         return 0;
