@@ -208,10 +208,10 @@ Account_ShowCharacterNameDialog(playerid)
         playerid,
         DIALOG_CHARACTER_NAME,
         DIALOG_STYLE_INPUT,
-        "> Character Creation Panel",
+        "> Hills of Los Santos",
         dialogText,
         "Create",
-        "Exit"
+        "Back"
     );
 
     return 1;

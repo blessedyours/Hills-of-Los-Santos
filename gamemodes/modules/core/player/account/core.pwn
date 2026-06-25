@@ -87,7 +87,7 @@ hook OnPlayerConnect(playerid)
         "> Hills of Los Santos",
         MAIN_MENU_TEXT,
         "Select",
-        "Exit"
+        ""
     );
 
     return 1;
@@ -179,7 +179,7 @@ hook OnPlayerAccountCheck(playerid)
             "> Hills of Los Santos",
             MAIN_MENU_TEXT,
             "Select",
-            "Exit"
+            ""
         );
         return 1;
     }
@@ -257,7 +257,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         "> Hills of Los Santos",
                         "{FFFFFF}Hills of Los Santos\n\n{FF6347}Version v0.1b\n{FFFFFF}Developed by: ZipLoc and Peluchon\n\n{FF6347}Special thanks to: Open.mp, YSI, and the SA:MP community.",
                         "Back",
-                        "Exit"
+                        ""
                     );
                 }
             }
@@ -276,7 +276,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 "> Hills of Los Santos",
                 MAIN_MENU_TEXT,
                 "Select",
-                "Exit"
+                ""
             );
             return 1;
         }
@@ -292,7 +292,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     "> Hills of Los Santos",
                     MAIN_MENU_TEXT,
                     "Select",
-                    "Exit"
+                    ""
                 );
                 return 1;
             }
@@ -360,7 +360,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if (!IsValidCharacterName(inputtext))
             {
                 SendClientMessage(playerid, -1,
-                    "{FF6347}[ ! ]: {FFFFFF}Formato invalido. Usa Nombre_Apellido.");
+                    "{FF6347}[ ! ]: {FFFFFF}Invalid format. Use First_Last_Name.");
 
                 Account_ShowCharacterNameDialog(playerid);
                 return 1;
@@ -371,7 +371,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 if (strcmp(inputtext, ForbiddenNames[i], true) == 0)
                 {
                     SendClientMessage(playerid, -1,
-                        "{FF6347}[ ! ]: {FFFFFF}Ese nombre de personaje no esta permitido.");
+                        "{FF6347}[ ! ]: {FFFFFF}That character name is not allowed.");
 
                     Account_ShowCharacterNameDialog(playerid);
                     return 1;
@@ -389,7 +389,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 if (strcmp(inputtext, otherCharname, true) == 0)
                 {
                     SendClientMessage(playerid, -1,
-                        "{FF6347}[ ! ]: {FFFFFF}Ese nombre de personaje ya esta en uso. Elige otro.");
+                        "{FF6347}[ ! ]: {FFFFFF}That character name is already in use. Please choose another.");
 
                     Account_ShowCharacterNameDialog(playerid);
                     return 1;
@@ -481,9 +481,6 @@ hook OnPasswordCheck(playerid, bool:match)
     else
     {
         s_PlayerLoginAttempts[playerid]++;
-
-        SendClientMessage(playerid, -1,
-            "{ff6347}[ ! ]: {FFFFFF}Authentication failed. The password you entered is incorrect. Please try again.");
 
         if (s_PlayerLoginAttempts[playerid] >= MAX_LOGIN_ATTEMPTS)
         {
