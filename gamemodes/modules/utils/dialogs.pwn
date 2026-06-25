@@ -1,0 +1,8 @@
+// LOGIN DIALOGS
+#define DIALOG_MAIN_ACCOUNT    (49)
+#define DIALOG_ACCOUNT_NAME    (50)
+#define DIALOG_CREDITS         (51)
+#define DIALOG_REGISTRATION    (52)
+#define DIALOG_LOGIN           (53)
+#define DIALOG_CHARACTER_NAME  (54)
+#define DIALOG_NAME_LOGIN      (55)
