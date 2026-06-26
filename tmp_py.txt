@@ -1,0 +1,5 @@
+from pathlib import Path 
+p=Path('gamemodes\\modules\\gangs\\pickups.pwn') 
+lines=p.read_text(errors='replace').splitlines() 
+for i in range(240,271): 
+   print(i+1, repr(lines[i])) 

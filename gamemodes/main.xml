@@ -2420,20 +2420,9 @@
 			<referrer name="GetAmxHeaderNow"/>
 			<library>amx_assembly amx_header</library>
 		</member>
-		<member name="C:DIALOG_CHARACTER_NAME" value="3">
-			<referrer name="Account_ShowCharacterNameDialog"/>
-			<referrer name="_@yHOnDialogResponse@02"/>
-		</member>
-		<member name="C:DIALOG_LOGIN" value="2">
-			<referrer name="Account_ShowLoginDialog"/>
-			<referrer name="_@yHOnDialogResponse@02"/>
-		</member>
-		<member name="C:DIALOG_REGISTRATION" value="1">
-			<referrer name="Account_ShowRegistrationDialog"/>
-			<referrer name="_@yHOnDialogResponse@02"/>
-		</member>
 		<member name="C:EOS" value="0">
 			<referrer name="strcopy"/>
+			<referrer name="Nametag_BuildLabel"/>
 		</member>
 		<member name="C:E_INDIRECTION_CLAIM__" value="8">
 			<referrer name="Indirect_Claim_"/>
@@ -2869,6 +2858,10 @@
 			<referrer name="CallFunction"/>
 			<referrer name="CodeScanCall"/>
 			<library>y_emit</library>  <remarks>  The JIT plugin address translation register value for use in <c>LCTRL</c>  and <c>SCTRL</c>.  </remarks> 
+		</member>
+		<member name="C:__line" value="52">
+			<referrer name="cmd_joingang"/>
+			<referrer name="cmd_joinlspd"/>
 		</member>
 		<member name="C:__local0_offset" value="-4">
 			<referrer name="K@"/>
@@ -3314,13 +3307,17 @@
 			<referrer name="Hooks_MakeLongName"/>
 			<referrer name="Hooks_MakeShortName"/>
 			<referrer name="CGen_OnCodeInit"/>
-			<referrer name="Account_Check"/>
 			<referrer name="IsValidPassword"/>
 			<referrer name="IsPlayerLoggedIn"/>
 			<referrer name="IsValidCharacterName"/>
-			<referrer name="_@yHOnPlayerConnect@02"/>
+			<referrer name="_@yHOnGameModeInit@02"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
+			<referrer name="_@yHOnPlayerRegister@02"/>
 			<referrer name="_@yHOnPasswordCheck@02"/>
 			<referrer name="_@yHOnPlayerDisconnect@02"/>
+			<referrer name="Nametag_OnDamage"/>
+			<referrer name="Indirection_OnGameModeInit"/>
+			<referrer name="GangPickupResetTimer"/>
 		</member>
 		<member name="C:true" value="1">
 			<tagname value="bool"/>
@@ -3407,17 +3404,24 @@
 			<referrer name="IsValidPassword"/>
 			<referrer name="IsValidCharacterName"/>
 			<referrer name="@yH_OnPlayerConnect@02"/>
+			<referrer name="@yH_OnGameModeInit@02"/>
+			<referrer name="@yH_OnPlayerRequestSpawn@02"/>
+			<referrer name="@yH_OnPlayerSpawn@02"/>
+			<referrer name="_@yHOnPlayerSpawn@02"/>
+			<referrer name="@yH_OnPlayerTakeDamage@02"/>
 			<referrer name="@yH_OnPlayerAccountCheck@02"/>
 			<referrer name="@yH_OnDialogResponse@02"/>
 			<referrer name="_@yHOnDialogResponse@02"/>
 			<referrer name="@yH_OnPasswordHash@02"/>
 			<referrer name="@yH_OnPlayerRegister@02"/>
+			<referrer name="_@yHOnPlayerRegister@02"/>
 			<referrer name="@yH_OnPasswordCheck@02"/>
 			<referrer name="_@yHOnPasswordCheck@02"/>
-			<referrer name="@yH_OnPlayerLogin@02"/>
-			<referrer name="OnCharacterNameUpdated"/>
 			<referrer name="@yH_OnPlayerDisconnect@02"/>
-			<referrer name="Nametag_Show"/>
+			<referrer name="OnCharacterNameUpdated"/>
+			<referrer name="Nametag_CreateLabel"/>
+			<referrer name="Indirection_OnGameModeInit"/>
+			<referrer name="OnPlayerPickUpPickup"/>
 		</member>
 		<member name="C:ucharmax" value="16777215">
 			<referrer name="YSI_IsLocalVarPackedString__"/>
@@ -3623,6 +3627,9 @@
 			<referrer name="Hooks_RepairJITInit"/>
 			<library>y_shortvar</library>  <remarks>  <c>false</c>, but usable in tests without a constant expression warning.  </remarks> 
 		</member>
+		<member name="F:ForbiddenNames">
+			<referrer name="_@yHOnDialogResponse@02"/>
+		</member>
 		<member name="F:I@">
 			<referrer name="SetTimerExAddr"/>
 			<referrer name="Files_DoCopy"/>
@@ -3740,12 +3747,15 @@
 			<referrer name="@yH_OnGameModeInit@01"/>
 			<referrer name="@yH_OnGameModeExit@01"/>
 			<referrer name="@yH_OnPlayerConnect@02"/>
+			<referrer name="@yH_OnGameModeInit@02"/>
+			<referrer name="@yH_OnPlayerRequestSpawn@02"/>
+			<referrer name="@yH_OnPlayerSpawn@02"/>
+			<referrer name="@yH_OnPlayerTakeDamage@02"/>
 			<referrer name="@yH_OnPlayerAccountCheck@02"/>
 			<referrer name="@yH_OnDialogResponse@02"/>
 			<referrer name="@yH_OnPasswordHash@02"/>
 			<referrer name="@yH_OnPlayerRegister@02"/>
 			<referrer name="@yH_OnPasswordCheck@02"/>
-			<referrer name="@yH_OnPlayerLogin@02"/>
 			<referrer name="@yH_OnPlayerDisconnect@02"/>
 			<library>amx_assembly addressof_light</library>
 		</member>
@@ -4352,6 +4362,16 @@
 			<referrer name="YVers_PrintHeader"/>
 		</member>
 		<member name="F:__file">
+			<referrer name="cmd_joingang"/>
+			<referrer name="cmd_joinlspd"/>
+		</member>
+		<member name="F:__file">
+		</member>
+		<member name="F:__file">
+		</member>
+		<member name="F:__file">
+		</member>
+		<member name="F:__file">
 		</member>
 		<member name="F:__file">
 		</member>
@@ -4944,6 +4964,11 @@
 			<referrer name="CodeScanRun"/>
 			<library>amx_assembly codescan</library>
 		</member>
+		<member name="F:gGangPickupCoords">
+			<tagname value="Float"/>
+			<referrer name="Indirection_OnGameModeInit"/>
+			<referrer name="GangPickupResetTimer"/>
+		</member>
 		<member name="F:gHdr">
 			<referrer name="CodeScanAddSwitchTarget"/>
 			<referrer name="CodeScanInit"/>
@@ -5030,6 +5055,46 @@
 			<referrer name="Account_UpdateCharacterName"/>
 			<referrer name="Account_LoadCharacterName"/>
 		</member>
+		<member name="F:g_GangPickupColor">
+			<referrer name="Indirection_OnGameModeInit"/>
+			<referrer name="cmd_joingang"/>
+		</member>
+		<member name="F:g_GangPickupID">
+			<referrer name="Indirection_OnGameModeInit"/>
+			<referrer name="OnPlayerPickUpPickup"/>
+		</member>
+		<member name="F:g_GangPickupLabelID">
+			<tagname value="Text3D"/>
+			<referrer name="Indirection_OnGameModeInit"/>
+		</member>
+		<member name="F:g_GangPickupModel">
+			<referrer name="Indirection_OnGameModeInit"/>
+		</member>
+		<member name="F:g_GangPickupName">
+			<referrer name="Indirection_OnGameModeInit"/>
+			<referrer name="OnPlayerPickUpPickup"/>
+			<referrer name="cmd_joingang"/>
+		</member>
+		<member name="F:g_GangPickupPending">
+			<referrer name="Indirection_OnGameModeInit"/>
+			<referrer name="GangPickupResetTimer"/>
+			<referrer name="OnPlayerPickUpPickup"/>
+			<referrer name="cmd_joingang"/>
+			<referrer name="cmd_joinlspd"/>
+		</member>
+		<member name="F:g_GangPickupSeen">
+			<tagname value="bool"/>
+			<referrer name="GangPickupResetTimer"/>
+			<referrer name="OnPlayerPickUpPickup"/>
+		</member>
+		<member name="F:g_GangPickupTag">
+			<referrer name="OnPlayerPickUpPickup"/>
+			<referrer name="cmd_joingang"/>
+		</member>
+		<member name="F:g_PlayerGang">
+			<referrer name="Indirection_OnGameModeInit"/>
+			<referrer name="cmd_joingang"/>
+		</member>
 		<member name="F:g_StrlibBuffer">
 			<referrer name="strcatmid"/>
 		</member>
@@ -5075,16 +5140,15 @@
 		</member>
 		<member name="F:s_CharacterNameSaved">
 			<tagname value="bool"/>
-			<referrer name="_@yHOnPlayerConnect@02"/>
+			<referrer name="_@yHOnPlayerRegister@02"/>
 			<referrer name="_@yHOnPasswordCheck@02"/>
-			<referrer name="OnCharacterNameUpdated"/>
 			<referrer name="_@yHOnPlayerDisconnect@02"/>
+			<referrer name="OnCharacterNameUpdated"/>
 		</member>
 		<member name="F:s_IsFirstLogin">
 			<tagname value="bool"/>
-			<referrer name="_@yHOnDialogResponse@02"/>
+			<referrer name="_@yHOnPlayerRegister@02"/>
 			<referrer name="_@yHOnPasswordCheck@02"/>
-			<referrer name="OnCharacterNameLoaded"/>
 			<referrer name="_@yHOnPlayerDisconnect@02"/>
 		</member>
 		<member name="F:s_IsPlayerLoggedIn">
@@ -5092,10 +5156,24 @@
 			<referrer name="SetPlayerLoggedIn"/>
 			<referrer name="IsPlayerLoggedIn"/>
 		</member>
+		<member name="F:s_IsRegistering">
+			<tagname value="bool"/>
+			<referrer name="_@yHOnPlayerAccountCheck@02"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
+			<referrer name="_@yHOnPlayerDisconnect@02"/>
+		</member>
+		<member name="F:s_NametagResetTimer">
+			<referrer name="Nametag_Hide"/>
+			<referrer name="Nametag_OnDamage"/>
+			<referrer name="Nametag_ResetColor"/>
+		</member>
 		<member name="F:s_PlayerAccountID">
-			<referrer name="Account_Check"/>
 			<referrer name="SetPlayerAccountID"/>
 			<referrer name="GetPlayerAccountID"/>
+		</member>
+		<member name="F:s_PlayerAccountName">
+			<referrer name="SetPlayerAccountName"/>
+			<referrer name="GetPlayerAccountName"/>
 		</member>
 		<member name="F:s_PlayerCharacterName">
 			<referrer name="SetPlayerCharacterName"/>
@@ -5103,11 +5181,13 @@
 		</member>
 		<member name="F:s_PlayerLoginAttempts">
 			<referrer name="_@yHOnPasswordCheck@02"/>
+			<referrer name="_@yHOnPlayerDisconnect@02"/>
 		</member>
 		<member name="F:s_PlayerNameTag">
-			<tagname value="PlayerText3D"/>
-			<referrer name="Nametag_Show"/>
+			<tagname value="Text3D"/>
+			<referrer name="Nametag_CreateLabel"/>
 			<referrer name="Nametag_Hide"/>
+			<referrer name="Nametag_OnDamage"/>
 		</member>
 		<member name="F:y_core_OPEN_MP_VERSION">
 			<remarks>  If running on SA:MP this will remain <c>0</c>, open.mp will set it.  open.mp versions look like:  <code>  01.04.02.0544  </code>  Thus they are encoded here as:  <code>  (major << 28) | (minor << 21) | (patch << 14) | (prerel)  </code>  </remarks> 
@@ -5311,6 +5391,7 @@
 			<referrer name="RandomPointsInCircleSampled"/>
 			<referrer name="RandomPointInCircleSampled"/>
 			<referrer name="BiGramSimilarity"/>
+			<referrer name="GangPickupResetTimer"/>
 			<param name="oper1">
 				<paraminfo>Float </paraminfo>
 			</param>
@@ -5342,6 +5423,8 @@
 			<referrer name="RandomPointInCircleSampled"/>
 			<referrer name="RandomPointInCircleCentred"/>
 			<referrer name="RandomPointInCircleDistributed"/>
+			<referrer name="Indirection_OnGameModeInit"/>
+			<referrer name="GangPickupResetTimer"/>
 			<param name="oper1">
 				<paraminfo>Float </paraminfo>
 			</param>
@@ -5393,6 +5476,7 @@
 			<referrer name="RandomPointInCircleCentred"/>
 			<referrer name="RandomPointInCircleDistributed"/>
 			<referrer name="BiGramSimilarity"/>
+			<referrer name="GangPickupResetTimer"/>
 			<param name="oper1">
 				<paraminfo>Float </paraminfo>
 			</param>
@@ -5722,6 +5806,7 @@
 		<member name="M:operator&gt;(Float:,Float:)" syntax="operator&gt;(Float:,Float:)(__oper1, __oper2)">
 			<tagname value="bool"/>
 			<stacksize value="4"/>
+			<referrer name="GangPickupResetTimer"/>
 			<dependency name="floatcmp"/>
 			<param name="__oper1">
 				<paraminfo>Float </paraminfo>
@@ -6925,6 +7010,15 @@
 			<dependency name="_@yHOnGameModeInit@01"/>
 			<dependency name="true"/>
 		</member>
+		<member name="M:@yH_OnGameModeInit@02" syntax="@yH_OnGameModeInit@02()">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnGameModeInit@02"/>
+			<dependency name="true"/>
+		</member>
 		<member name="M:@yH_OnPasswordCheck@02" syntax="@yH_OnPasswordCheck@02(&amp;playerid, &amp;match)">
 			<attribute name="public"/>
 			<stacksize value="8"/>
@@ -6991,18 +7085,6 @@
 				<paraminfo> &amp; </paraminfo>
 			</param>
 		</member>
-		<member name="M:@yH_OnPlayerLogin@02" syntax="@yH_OnPlayerLogin@02(&amp;playerid)">
-			<attribute name="public"/>
-			<stacksize value="8"/>
-			<dependency name="O@A_"/>
-			<dependency name="O@V_"/>
-			<dependency name="_@Hy"/>
-			<dependency name="_@yHOnPlayerLogin@02"/>
-			<dependency name="true"/>
-			<param name="playerid">
-				<paraminfo> &amp; </paraminfo>
-			</param>
-		</member>
 		<member name="M:@yH_OnPlayerRegister@02" syntax="@yH_OnPlayerRegister@02(&amp;playerid)">
 			<attribute name="public"/>
 			<stacksize value="8"/>
@@ -7012,6 +7094,54 @@
 			<dependency name="_@yHOnPlayerRegister@02"/>
 			<dependency name="true"/>
 			<param name="playerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+		</member>
+		<member name="M:@yH_OnPlayerRequestSpawn@02" syntax="@yH_OnPlayerRequestSpawn@02(&amp;playerid)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnPlayerRequestSpawn@02"/>
+			<dependency name="true"/>
+			<param name="playerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+		</member>
+		<member name="M:@yH_OnPlayerSpawn@02" syntax="@yH_OnPlayerSpawn@02(&amp;playerid)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnPlayerSpawn@02"/>
+			<dependency name="true"/>
+			<param name="playerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+		</member>
+		<member name="M:@yH_OnPlayerTakeDamage@02" syntax="@yH_OnPlayerTakeDamage@02(&amp;playerid, &amp;issuerid, &amp;amount, &amp;weaponid, &amp;bodypart)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnPlayerTakeDamage@02"/>
+			<dependency name="true"/>
+			<param name="playerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="issuerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="amount">
+				<paraminfo>Float &amp; </paraminfo>
+			</param>
+			<param name="weaponid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="bodypart">
 				<paraminfo> &amp; </paraminfo>
 			</param>
 		</member>
@@ -8493,24 +8623,20 @@
 			<library>amx_assembly phys_memory</library>
 		</member>
 		<member name="M:Account_Check" syntax="Account_Check(playerid)">
-			<stacksize value="161"/>
-			<referrer name="_@yHOnPlayerConnect@02"/>
-			<dependency name="ReturnPlayerName"/>
-			<dependency name="ReturnPlayerName"/>
-			<dependency name="SetPlayerLoggedIn"/>
-			<dependency name="false"/>
+			<stacksize value="287"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
+			<dependency name="GetPlayerAccountName"/>
 			<dependency name="g_DatabaseHandle"/>
 			<dependency name="mysql_format"/>
 			<dependency name="mysql_tquery"/>
-			<dependency name="s_PlayerAccountID"/>
 			<param name="playerid">
 			</param>
 		</member>
 		<member name="M:Account_Create" syntax="Account_Create(playerid, hash[])">
-			<stacksize value="289"/>
+			<stacksize value="320"/>
 			<referrer name="_@yHOnPasswordHash@02"/>
-			<dependency name="ReturnPlayerName"/>
-			<dependency name="ReturnPlayerName"/>
+			<dependency name="GetPlayerAccountName"/>
+			<dependency name="GetPlayerCharacterName"/>
 			<dependency name="g_DatabaseHandle"/>
 			<dependency name="mysql_format"/>
 			<dependency name="mysql_tquery"/>
@@ -8522,7 +8648,6 @@
 		</member>
 		<member name="M:Account_LoadCharacterName" syntax="Account_LoadCharacterName(playerid)">
 			<stacksize value="136"/>
-			<referrer name="_@yHOnPlayerLogin@02"/>
 			<dependency name="GetPlayerAccountID"/>
 			<dependency name="g_DatabaseHandle"/>
 			<dependency name="mysql_format"/>
@@ -8532,21 +8657,18 @@
 		</member>
 		<member name="M:Account_ShowCharacterNameDialog" syntax="Account_ShowCharacterNameDialog(playerid)">
 			<stacksize value="521"/>
+			<referrer name="_@yHOnPlayerAccountCheck@02"/>
 			<referrer name="_@yHOnDialogResponse@02"/>
-			<referrer name="_@yHOnPlayerRegister@02"/>
-			<dependency name="DIALOG_CHARACTER_NAME"/>
 			<dependency name="ShowPlayerDialog"/>
 			<dependency name="format"/>
 			<param name="playerid">
 			</param>
 		</member>
 		<member name="M:Account_ShowLoginDialog" syntax="Account_ShowLoginDialog(playerid)">
-			<stacksize value="544"/>
+			<stacksize value="552"/>
 			<referrer name="_@yHOnPlayerAccountCheck@02"/>
 			<referrer name="_@yHOnPasswordCheck@02"/>
-			<dependency name="DIALOG_LOGIN"/>
-			<dependency name="ReturnPlayerName"/>
-			<dependency name="ReturnPlayerName"/>
+			<dependency name="GetPlayerCharacterName"/>
 			<dependency name="ShowPlayerDialog"/>
 			<dependency name="format"/>
 			<param name="playerid">
@@ -8554,9 +8676,7 @@
 		</member>
 		<member name="M:Account_ShowRegistrationDialog" syntax="Account_ShowRegistrationDialog(playerid, badpass)">
 			<stacksize value="521"/>
-			<referrer name="_@yHOnPlayerAccountCheck@02"/>
 			<referrer name="_@yHOnDialogResponse@02"/>
-			<dependency name="DIALOG_REGISTRATION"/>
 			<dependency name="SendClientMessage"/>
 			<dependency name="ShowPlayerDialog"/>
 			<dependency name="format"/>
@@ -8568,7 +8688,6 @@
 		</member>
 		<member name="M:Account_UpdateCharacterName" syntax="Account_UpdateCharacterName(playerid, charname[])">
 			<stacksize value="265"/>
-			<referrer name="_@yHOnDialogResponse@02"/>
 			<dependency name="GetPlayerAccountID"/>
 			<dependency name="g_DatabaseHandle"/>
 			<dependency name="mysql_format"/>
@@ -8578,6 +8697,51 @@
 			<param name="charname">
 				<paraminfo> [] </paraminfo>
 			</param>
+		</member>
+		<member name="M:AddPlayerClass" syntax="AddPlayerClass(skin, spawnX, spawnY, spawnZ, angle, weapon1, ammo1, weapon2, ammo2, weapon3, ammo3)">
+			<attribute name="native"/>
+			<referrer name="_@yHOnGameModeInit@02"/>
+			<param name="skin">
+				The <a href="https://open.mp/docs/scripting/resources/skins">skin</a> which the player  will  spawn with
+			</param>
+			<param name="spawnX">
+				<paraminfo>Float </paraminfo>
+				The x coordinate of the spawnpoint of this class
+			</param>
+			<param name="spawnY">
+				<paraminfo>Float </paraminfo>
+				The y coordinate of the spawnpoint of this class
+			</param>
+			<param name="spawnZ">
+				<paraminfo>Float </paraminfo>
+				The z coordinate of the spawnpoint of this class
+			</param>
+			<param name="angle">
+				<paraminfo>Float </paraminfo>
+				The direction in which the player should face after spawning
+			</param>
+			<param name="weapon1">
+				<paraminfo>t_WEAPON </paraminfo>
+				The first spawn-<a href="https://open.mp/docs/scripting/resources/weaponids">weapon</a>  for  the player
+			</param>
+			<param name="ammo1">
+				The amount of ammunition for the primary spawn weapon
+			</param>
+			<param name="weapon2">
+				<paraminfo>t_WEAPON </paraminfo>
+				The second spawn-<a href="https://open.mp/docs/scripting/resources/weaponids">weapon</a>  for  the player
+			</param>
+			<param name="ammo2">
+				The amount of ammunition for the second spawn weapon
+			</param>
+			<param name="weapon3">
+				<paraminfo>t_WEAPON </paraminfo>
+				The third spawn-<a href="https://open.mp/docs/scripting/resources/weaponids">weapon</a>  for  the player
+			</param>
+			<param name="ammo3">
+				The amount of ammunition for the third spawn weapon
+			</param>
+			<library>omp_class</library>  <summary>Adds a class to class selection.  Classes are used so players may spawn with a skin of their  choice.</summary>                        <returns>  <ul>  <li>The <b>ID of the class</b> which was just added.</li>  <li><b><c>319</c></b> if the class limit (<b><c>320</c></b>) was reached.  The highest possible  class ID is <b><c>319</c></b>.</li>  </ul>  </returns>  <remarks>  The maximum class ID is <b><c>319</c></b> (starting from <b><c>0</c></b>, so a total of <b><c>320</c></b>  classes).  When this limit is reached, any more classes that are added will replace ID <b><c>319</c></b>.  </remarks>  <seealso name="AddPlayerClassEx" />  <seealso name="SetSpawnInfo" />  <seealso name="SetPlayerSkin" /> 
 		</member>
 		<member name="M:AddressofResolve" syntax="AddressofResolve()">
 			<stacksize value="371"/>
@@ -8702,6 +8866,16 @@
 			<param name="playerid">
 			</param>
 			<param name="reason">
+			</param>
+		</member>
+		<member name="M:ApplyPlayerName" syntax="ApplyPlayerName(playerid, charname[])">
+			<stacksize value="4"/>
+			<referrer name="FinishLogin"/>
+			<dependency name="SetPlayerName"/>
+			<param name="playerid">
+			</param>
+			<param name="charname">
+				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
 		<member name="M:AsmClearError" syntax="AsmClearError(ctx[])">
@@ -11171,6 +11345,31 @@
 			</param>
 			<library>amx_assembly asm</library>
 		</member>
+		<member name="M:Attach3DTextLabelToPlayer" syntax="Attach3DTextLabelToPlayer(textid, parentid, offsetX, offsetY, offsetZ)">
+			<tagname value="bool"/>
+			<attribute name="native"/>
+			<referrer name="Nametag_CreateLabel"/>
+			<param name="textid">
+				<paraminfo>Text3D </paraminfo>
+				The ID of the 3D text label to attach.  Returned by <a href="#Create3DTextLabel">Create3DTextLabel</a>
+			</param>
+			<param name="parentid">
+				The ID of the player to attach the label to
+			</param>
+			<param name="offsetX">
+				<paraminfo>Float </paraminfo>
+				The x offset from the player
+			</param>
+			<param name="offsetY">
+				<paraminfo>Float </paraminfo>
+				The y offset from the player
+			</param>
+			<param name="offsetZ">
+				<paraminfo>Float </paraminfo>
+				The z offset from the player
+			</param>
+			<library>omp_textlabel</library>  <summary>Attach a 3D text label to a player.</summary>            <seealso name="Create3DTextLabel" />  <seealso name="Delete3DTextLabel" />  <seealso name="Attach3DTextLabelToVehicle" />  <seealso name="Update3DTextLabelText" />  <seealso name="CreatePlayer3DTextLabel" />  <seealso name="DeletePlayer3DTextLabel" />  <seealso name="UpdatePlayer3DTextLabelText" />  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  This means the player and/or label do not exist.  </returns> 
+		</member>
 		<member name="M:BCD" syntax="BCD(number)">
 			<stacksize value="1"/>
 			<param name="number">
@@ -12231,7 +12430,6 @@
 			<referrer name="PawnRakNet_OnGameModeInit"/>
 			<referrer name="K@"/>
 			<referrer name="D@"/>
-			<referrer name="_@yHOnPasswordCheck@02"/>
 			<param name="functionName">
 				<paraminfo> [] </paraminfo>
 				Public function's name
@@ -13442,50 +13640,71 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
-		<member name="M:CreatePlayer3DTextLabel" syntax="CreatePlayer3DTextLabel(playerid, text[], colour, x, y, z, drawDistance, parentPlayerid, parentVehicleid, testLOS, ...)">
-			<tagname value="PlayerText3D"/>
+		<member name="M:Create3DTextLabel" syntax="Create3DTextLabel(text[], colour, x, y, z, drawDistance, virtualWorld, testLOS, ...)">
+			<tagname value="Text3D"/>
 			<attribute name="native"/>
-			<referrer name="Nametag_Show"/>
-			<param name="playerid">
-				The player which should see the newly created 3DText Label
-			</param>
+			<referrer name="Nametag_CreateLabel"/>
+			<referrer name="Indirection_OnGameModeInit"/>
 			<param name="text">
 				<paraminfo> [] </paraminfo>
-				The text to display.  May be optionally formatted.
+				The initial text string.  May be optionally formatted.
 			</param>
 			<param name="colour">
-				The text colour
+				The text colour, as an integer or hex in <b>RGBA</b> colour format
 			</param>
 			<param name="x">
 				<paraminfo>Float </paraminfo>
-				x Coordinate (or offset if attached)
+				x-Coordinate
 			</param>
 			<param name="y">
 				<paraminfo>Float </paraminfo>
-				y Coordinate (or offset if attached)
+				y-Coordinate
 			</param>
 			<param name="z">
 				<paraminfo>Float </paraminfo>
-				z Coordinate (or offset if attached)
+				z-Coordinate
 			</param>
 			<param name="drawDistance">
 				<paraminfo>Float </paraminfo>
-				The distance where you are able to see the 3D Text Label
+				The distance from where you are able to see the 3D Text Label
 			</param>
-			<param name="parentPlayerid">
-				The player you want to attach the 3D Text Label to. (optional=<b><c>INVALID_PLAYER_ID</c></b>)
-			</param>
-			<param name="parentVehicleid">
-				The vehicle you want to attach the 3D Text Label to. (optional=<b><c>INVALID_VEHICLE_ID</c></b>)
+			<param name="virtualWorld">
+				The virtual world in which you are able to see the 3D Text
 			</param>
 			<param name="testLOS">
 				<paraminfo>bool </paraminfo>
-				Test the line-of-sight so this text can't be seen through walls (optional=<b><c>0</c></b>)
+				Test the line-of-sight so this text can't be seen through objects (optional=<b><c>0</c></b>)
 			</param>
 			<param name="...">
 				<paraminfo> {Bit,Bitmap,XML,XMLEntry,Group,INI,Language,Style,DB,DBResult,Menu,Text,PlayerText,Text3D,PlayerText3D,File,Float,CUSTOM_TAG_TYPES,_} </paraminfo>
 			</param>
-			<library>omp_textlabel</library>  <summary>Creates a 3D Text Label only for a specific player.</summary>                      <seealso name="Create3DTextLabel" />  <seealso name="Delete3DTextLabel" />  <seealso name="Attach3DTextLabelToPlayer" />  <seealso name="Attach3DTextLabelToVehicle" />  <seealso name="Update3DTextLabelText" />  <seealso name="DeletePlayer3DTextLabel" />  <seealso name="UpdatePlayer3DTextLabelText" />  <remarks>If <paramref name="text" /> is empty, the server/clients next to the text might crash!</remarks>  <remarks>drawdistance seems to be a lot smaller when spectating.</remarks>  <returns>The ID of the newly created Player 3D Text Label, or <b><c>INVALID_3DTEXT_ID</c></b> if  the Player 3D Text Label limit (<b><c>MAX_3DTEXT_PLAYER</c></b>) was reached.</returns> 
+			<library>omp_textlabel</library>  <summary>Creates a 3D Text Label at a specific location in the world.</summary>                  <seealso name="Delete3DTextLabel" />  <seealso name="Attach3DTextLabelToPlayer" />  <seealso name="Attach3DTextLabelToVehicle" />  <seealso name="Update3DTextLabelText" />  <seealso name="CreatePlayer3DTextLabel" />  <seealso name="DeletePlayer3DTextLabel" />  <seealso name="UpdatePlayer3DTextLabelText" />  <remarks>  If <paramref name="text" /> is empty, the server/clients next to the text might crash!<br />  If the virtualWorld is set as <b><c>-1</c></b> the text will not appear.  </remarks>  <remarks>drawdistance seems to be a lot smaller when spectating.</remarks>  <remarks>Use <a href="https://www.open.mp/docs/scripting/resources/colorslist">colour embedding</a>  for multiple colours in the text.</remarks>  <returns>The ID of the newly created 3D Text Label, or <b><c>INVALID_3DTEXT_ID</c></b> if the 3D  Text Label limit (<b><c>MAX_3DTEXT_GLOBAL</c></b>) was reached.</returns> 
+		</member>
+		<member name="M:CreatePickup" syntax="CreatePickup(model, type, x, y, z, virtualWorld)">
+			<attribute name="native"/>
+			<referrer name="Indirection_OnGameModeInit"/>
+			<param name="model">
+				The <a href="https://open.mp/docs/scripting/resources/pickupids">model</a> of the  pickup
+			</param>
+			<param name="type">
+				The pickup spawn type (see table under remarks)
+			</param>
+			<param name="x">
+				<paraminfo>Float </paraminfo>
+				The x coordinate to create the pickup at
+			</param>
+			<param name="y">
+				<paraminfo>Float </paraminfo>
+				The y coordinate to create the pickup at
+			</param>
+			<param name="z">
+				<paraminfo>Float </paraminfo>
+				The z coordinate to create the pickup at
+			</param>
+			<param name="virtualWorld">
+				The virtual world ID of the pickup.  Use <b><c>-1</c></b> to make the  pickup show in all worlds (optional=<b><c>0</c></b>)
+			</param>
+			<library>omp_pickup</library>  <summary>This function does exactly the same as AddStaticPickup, except it returns a pickup ID which  can be used to destroy it afterwards and be tracked using <a href="#OnPlayerPickUpPickup">OnPlayerPickUpPickup</a>.</summary>              <seealso name="AddStaticPickup" />  <seealso name="DestroyPickup" />  <seealso name="OnPlayerPickUpPickup" />  <remarks>  <b>Known Bugs:</b><br />  Pickups that have a x or y lower than <b><c>-4096.0</c></b> or bigger than <b><c>4096.0</c></b>  won't show up and won't trigger <a href="#OnPlayerPickUpPickup">OnPlayerPickUpPickup</a> either.  </remarks>  <remarks>  The only type of pickup that can be picked up from inside a vehicle is <b><c>14</c></b> (except  for special pickups such as bribes).<br />  Pickups are shown to, and can be picked up by all players.<br />  It is possible that if <a href="#DestroyPickup">DestroyPickup</a> is used when a pickup is picked  up, more than one player can pick up the pickup, due to lag.  This can be circumvented through the  use of variables.<br />  Certain pickup types come with 'automatic responses', for example using an M4 model in the pickup  will automatically give the player the weapon and some ammo.  For fully scripted pickups, type <b><c>1</c></b>  should be used. <br />  </remarks>  <remarks>  <b>Available Pickup Types</b><br />  Most other IDs are either undocumented or are similar to type <b><c>1</c></b> (but do not use them  just because they seem similar to ID <b><c>1</c></b>, they might have side-effects like ID <b><c>18</c></b>  and <b><c>20</c></b>).  <ul>  <li><b><c>0</c></b> - The pickup does not always display.  If displayed, it can't be picked up  and does not trigger <a href="#OnPlayerPickUpPickup">OnPlayerPickUpPickup</a> and it will stay after  server shutdown.  Now disabled.</li>  <li><b><c>1</c></b> - Exists always.  Disables pickup scripts such as horseshoes and oysters  to allow for scripted actions ONLY.  Will trigger <a href="#OnPlayerPickUpPickup">OnPlayerPickUpPickup</a>  every few seconds.</li>  <li><b><c>2</c></b> - Disappears after pickup, respawns after 30 seconds if the player is at  a distance of at least 15 meters.</li>  <li><b><c>3</c></b> - Disappears after pickup, respawns after death.</li>  <li><b><c>4</c></b> - Disappears after 15 to 20 seconds.  Respawns after death.</li>  <li><b><c>8</c></b> - Disappears after pickup, but has no effect.</li>  <li><b><c>11</c></b> - Blows up a few seconds after being created (bombs?)</li>  <li><b><c>12</c></b> - Blows up a few seconds after being created.</li>  <li><b><c>13</c></b> - Invisible.  Triggers checkpoint sound when picked up with a vehicle, but  doesn't trigger <a href="#OnPlayerPickUpPickup">OnPlayerPickUpPickup</a>.</li>  <li><b><c>14</c></b> - Disappears after pickup, can only be picked up with a vehicle.  Triggers  checkpoint sound.</li>  <li><b><c>15</c></b> - Same as type <b><c>2</c></b>.</li>  <li><b><c>18</c></b> - Similar to type <b><c>1</c></b>.  Pressing Tab (<b><c>KEY_ACTION</c></b>)  makes it disappear but the key press doesn't trigger <a href="#OnPlayerPickUpPickup">OnPlayerPickUpPickup</a>.</li>  <li><b><c>19</c></b> - Disappears after pickup, but doesn't respawn.  Makes "cash pickup" sound  if picked up.</li>  <li><b><c>20</c></b> - Similar to type <b><c>1</c></b>.  Disappears when you take a picture of  it with the Camera weapon, which triggers "Snapshot # out of 0" message.  Taking a picture doesn't  trigger <a href="#OnPlayerPickUpPickup">OnPlayerPickUpPickup</a>.</li>  <li><b><c>22</c></b> - Same as type <b><c>3</c></b>.</li>  </ul>  </remarks>  <returns>The ID of the created pickup, <b><c>-1</c></b> on failure (<a href="https://open.mp/docs/scripting/resources/limits">pickup  max limit</a>).</returns> 
 		</member>
 		<member name="M:D@" syntax="D@(function[], fmat[], ...)">
 			<stacksize value="9"/>
@@ -13812,10 +14031,22 @@
 			<param name="addr">
 			</param>
 		</member>
+		<member name="M:Delete3DTextLabel" syntax="Delete3DTextLabel(textid)">
+			<tagname value="bool"/>
+			<attribute name="native"/>
+			<referrer name="Nametag_CreateLabel"/>
+			<referrer name="Nametag_Hide"/>
+			<param name="textid">
+				<paraminfo>Text3D </paraminfo>
+				The ID of the 3D text label to delete
+			</param>
+			<library>omp_textlabel</library>  <summary>Delete a 3D text label (created with <a href="#Create3DTextLabel">Create3DTextLabel</a>).</summary>    <seealso name="Create3DTextLabel" />  <seealso name="Attach3DTextLabelToPlayer" />  <seealso name="Attach3DTextLabelToVehicle" />  <seealso name="Update3DTextLabelText" />  <seealso name="CreatePlayer3DTextLabel" />  <seealso name="DeletePlayer3DTextLabel" />  <seealso name="UpdatePlayer3DTextLabelText" />  <returns><b><c>1</c></b> if the 3D text label was deleted, otherwise <b><c>0</c></b>.</returns> 
+		</member>
 		<member name="M:DeletePVar" syntax="DeletePVar(playerid, pvar[])">
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="_@yHOnPasswordCheck@02"/>
+			<referrer name="_@yHOnPlayerDisconnect@02"/>
 			<param name="playerid">
 				The ID of the player whose player variable to delete
 			</param>
@@ -13824,19 +14055,6 @@
 				The name of the player variable to delete
 			</param>
 			<library>omp_variable</library>  <summary>Deletes a previously set player variable.</summary>      <seealso name="SetPVarInt" />  <seealso name="GetPVarInt" />  <seealso name="SetPVarString" />  <seealso name="GetPVarString" />  <seealso name="SetPVarFloat" />  <seealso name="GetPVarFloat" />  <remarks>Once a variable is deleted, attempts to retrieve the value will return <b><c>0</c></b> (for  integers and floats and <b><c>NULL</c></b> for strings).</remarks>  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  Either the player specified isn't connected or  there is no variable set with the given name.  </returns> 
-		</member>
-		<member name="M:DeletePlayer3DTextLabel" syntax="DeletePlayer3DTextLabel(playerid, textid)">
-			<tagname value="bool"/>
-			<attribute name="native"/>
-			<referrer name="Nametag_Hide"/>
-			<param name="playerid">
-				The ID of the player whose 3D text label to delete
-			</param>
-			<param name="textid">
-				<paraminfo>PlayerText3D </paraminfo>
-				The ID of the player's 3D text label to delete
-			</param>
-			<library>omp_textlabel</library>  <summary>Destroy a 3D text label that was created using <a href="#CreatePlayer3DTextLabel">CreatePlayer3DTextLabel</a>.</summary>      <seealso name="Create3DTextLabel" />  <seealso name="Attach3DTextLabelToPlayer" />  <seealso name="Attach3DTextLabelToVehicle" />  <seealso name="Update3DTextLabelText" />  <seealso name="CreatePlayer3DTextLabel" />  <seealso name="UpdatePlayer3DTextLabelText" />  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  This means the label specified doesn't exist.  </returns> 
 		</member>
 		<member name="M:DisableCrashDetectAddr0" syntax="DisableCrashDetectAddr0()">
 			<stacksize value="1"/>
@@ -14655,6 +14873,18 @@
 			</param>
 			<library>y_utils - files</library>      <remarks>  Moves a file from <c>src</c> to <c>dst</c>.  </remarks> 
 		</member>
+		<member name="M:FinishLogin" syntax="FinishLogin(playerid)">
+			<stacksize value="37"/>
+			<referrer name="_@yHOnPlayerRegister@02"/>
+			<referrer name="_@yHOnPasswordCheck@02"/>
+			<dependency name="ApplyPlayerName"/>
+			<dependency name="GetPlayerCharacterName"/>
+			<dependency name="Nametag_Show"/>
+			<dependency name="SetPlayerPos"/>
+			<dependency name="SpawnPlayer"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:FloatAbs" syntax="FloatAbs(value)">
 			<tagname value="Float"/>
 			<attribute name="native"/>
@@ -14672,6 +14902,21 @@
 				<paraminfo> {_,Bit,Text,Group,File,Float,Text3D} </paraminfo>
 			</param>
 			<library>y_shortfunc</library>  <remarks>  Just a dead-end for spare parameters.  Implementation of  <c>__pragma("unused", x);</c>, which disables the warning for a unused  variable, by using it!  Returns a string, in case that's useful in macros.  </remarks> 
+		</member>
+		<member name="M:GangPickupResetTimer" syntax="GangPickupResetTimer()">
+			<attribute name="public"/>
+			<stacksize value="10"/>
+			<dependency name="operator-(Float:,Float:)"/>
+			<dependency name="operator+(Float:,Float:)"/>
+			<dependency name="operator*(Float:,Float:)"/>
+			<dependency name="operator&gt;(Float:,Float:)"/>
+			<dependency name="GetPlayerPos"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="false"/>
+			<dependency name="gGangPickupCoords"/>
+			<dependency name="g_GangPickupPending"/>
+			<dependency name="g_GangPickupSeen"/>
+			<dependency name="g_GangPickupSeen"/>
 		</member>
 		<member name="M:GetActorPoolSize" syntax="GetActorPoolSize()">
 			<stacksize value="1"/>
@@ -15549,6 +15794,7 @@
 		<member name="M:GetPVarString" syntax="GetPVarString(playerid, pvar[], output[], len)">
 			<attribute name="native"/>
 			<referrer name="_@yHOnDialogResponse@02"/>
+			<referrer name="_@yHOnPasswordCheck@02"/>
 			<param name="playerid">
 				The ID of the player whose player variable to get
 			</param>
@@ -15574,13 +15820,33 @@
 			<param name="playerid">
 			</param>
 		</member>
-		<member name="M:GetPlayerCharacterName" syntax="GetPlayerCharacterName(playerid, charname[], len)">
-			<stacksize value="7"/>
-			<referrer name="Nametag_Show"/>
+		<member name="M:GetPlayerAccountName" syntax="GetPlayerAccountName(playerid, account[], len)">
+			<stacksize value="6"/>
+			<referrer name="Account_Check"/>
+			<referrer name="Account_Create"/>
 			<dependency name="IsPlayerConnected"/>
+			<dependency name="format"/>
+			<dependency name="s_PlayerAccountName"/>
+			<dependency name="s_PlayerAccountName"/>
+			<param name="playerid">
+			</param>
+			<param name="account">
+				<paraminfo> [] </paraminfo>
+			</param>
+			<param name="len">
+			</param>
+		</member>
+		<member name="M:GetPlayerCharacterName" syntax="GetPlayerCharacterName(playerid, charname[], len)">
+			<stacksize value="6"/>
+			<referrer name="Account_ShowLoginDialog"/>
+			<referrer name="Account_Create"/>
+			<referrer name="FinishLogin"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
+			<referrer name="Nametag_BuildLabel"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="format"/>
 			<dependency name="s_PlayerCharacterName"/>
 			<dependency name="s_PlayerCharacterName"/>
-			<dependency name="strmid"/>
 			<param name="playerid">
 			</param>
 			<param name="charname">
@@ -15640,6 +15906,27 @@
 			<referrer name="PR_SendPacketToVehicleStream"/>
 			<referrer name="PR_SendRPCToVehicleStream"/>
 			<library>omp_core</library>  <summary>Gets the highest playerid currently in use on the server.</summary>  <seealso name="GetVehiclePoolSize" />  <seealso name="GetMaxPlayers" />  <returns>The highest playerid currently in use on the server or <b><c>0</c></b> if there are no connected  players.</returns> 
+		</member>
+		<member name="M:GetPlayerPos" syntax="GetPlayerPos(playerid, &amp;x, &amp;y, &amp;z)">
+			<tagname value="bool"/>
+			<attribute name="native"/>
+			<referrer name="GangPickupResetTimer"/>
+			<param name="playerid">
+				The ID of the player to get the position of
+			</param>
+			<param name="x">
+				<paraminfo>Float &amp; </paraminfo>
+				A float variable in which to store the x coordinate in, passed by reference
+			</param>
+			<param name="y">
+				<paraminfo>Float &amp; </paraminfo>
+				A float variable in which to store the y coordinate in, passed by reference
+			</param>
+			<param name="z">
+				<paraminfo>Float &amp; </paraminfo>
+				A float variable in which to store the z coordinate in, passed by reference
+			</param>
+			<library>omp_player</library>  <summary>Get the position of a player, represented by x, y and z coordinates.</summary>          <seealso name="SetPlayerPos" />  <seealso name="GetVehiclePos" />  <seealso name="IsPlayerInRangeOfPoint" />  <seealso name="GetPlayerDistanceFromPoint" />  <remarks>This function is known to return unreliable values when used in <a href="#OnPlayerDisconnect">OnPlayerDisconnect</a>  and <a href="#OnPlayerRequestClass">OnPlayerRequestClass</a>.  This is because the player is not  spawned.</remarks>  <returns><b><c>true</c></b> on success, <b><c>false</c></b> on failure (i.e.  player not connected).</returns> 
 		</member>
 		<member name="M:GetPlayerRPComponents" syntax="GetPlayerRPComponents(playerid, names[][], components, len)">
 			<stacksize value="35"/>
@@ -17240,6 +17527,28 @@
 			</param>
 			<library>indirection</library>      <remarks>  Functions are tagged with a special tag containing their specifiers.  Get  the string value of that tag from the AMX header.  </remarks> 
 		</member>
+		<member name="M:Indirection_OnGameModeInit" syntax="Indirection_OnGameModeInit()">
+			<attribute name="public"/>
+			<stacksize value="75"/>
+			<dependency name="operator+(Float:,Float:)"/>
+			<dependency name="Create3DTextLabel"/>
+			<dependency name="CreatePickup"/>
+			<dependency name="SetTimer"/>
+			<dependency name="false"/>
+			<dependency name="format"/>
+			<dependency name="gGangPickupCoords"/>
+			<dependency name="gGangPickupCoords"/>
+			<dependency name="g_GangPickupColor"/>
+			<dependency name="g_GangPickupID"/>
+			<dependency name="g_GangPickupLabelID"/>
+			<dependency name="g_GangPickupLabelID"/>
+			<dependency name="g_GangPickupModel"/>
+			<dependency name="g_GangPickupName"/>
+			<dependency name="g_GangPickupName"/>
+			<dependency name="g_GangPickupPending"/>
+			<dependency name="g_PlayerGang"/>
+			<dependency name="true"/>
+		</member>
 		<member name="M:InitOpcodeTable" syntax="InitOpcodeTable()">
 			<stacksize value="25"/>
 			<referrer name="RelocateOpcode"/>
@@ -17599,6 +17908,11 @@
 			<referrer name="IsPlayerLoggedIn"/>
 			<referrer name="SetPlayerCharacterName"/>
 			<referrer name="GetPlayerCharacterName"/>
+			<referrer name="SetPlayerAccountName"/>
+			<referrer name="GetPlayerAccountName"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
+			<referrer name="Nametag_ResetColor"/>
+			<referrer name="GangPickupResetTimer"/>
 			<param name="playerid">
 				The ID of the player to check
 			</param>
@@ -17607,6 +17921,8 @@
 		<member name="M:IsPlayerLoggedIn" syntax="IsPlayerLoggedIn(playerid)">
 			<tagname value="bool"/>
 			<stacksize value="3"/>
+			<referrer name="_@yHOnPlayerRequestSpawn@02"/>
+			<referrer name="_@yHOnPlayerSpawn@02"/>
 			<dependency name="IsPlayerConnected"/>
 			<dependency name="false"/>
 			<dependency name="s_IsPlayerLoggedIn"/>
@@ -18009,6 +18325,8 @@
 			<referrer name="PawnRakNet_OnGameModeInit"/>
 			<referrer name="FIXES_OnClientCheckResponse"/>
 			<referrer name="SSCANF_OnPlayerDisconnect"/>
+			<referrer name="Nametag_Hide"/>
+			<referrer name="Nametag_OnDamage"/>
 			<param name="timerid">
 				The ID of the timer to kill (returned by <a href="#SetTimer">SetTimer</a> or  <a href="#SetTimerEx">SetTimerEx</a>)
 			</param>
@@ -18143,36 +18461,82 @@
 			</param>
 			<library>y_utils - maths</library>        <returns>  Is the value outside the given range.  </returns>  <remarks>  Equivalent to:  <code>		(%1) &lt;= (%0) &lt; (%2)</code>  </remarks> 
 		</member>
+		<member name="M:Nametag_BuildLabel" syntax="Nametag_BuildLabel(playerid, output[], len)">
+			<stacksize value="38"/>
+			<referrer name="Nametag_CreateLabel"/>
+			<dependency name="EOS"/>
+			<dependency name="GetPlayerCharacterName"/>
+			<dependency name="format"/>
+			<dependency name="strlen"/>
+			<param name="playerid">
+			</param>
+			<param name="output">
+				<paraminfo> [] </paraminfo>
+			</param>
+			<param name="len">
+			</param>
+		</member>
+		<member name="M:Nametag_CreateLabel" syntax="Nametag_CreateLabel(playerid, color)">
+			<stacksize value="74"/>
+			<referrer name="Nametag_Show"/>
+			<referrer name="Nametag_OnDamage"/>
+			<referrer name="Nametag_ResetColor"/>
+			<dependency name="Attach3DTextLabelToPlayer"/>
+			<dependency name="Create3DTextLabel"/>
+			<dependency name="Delete3DTextLabel"/>
+			<dependency name="Nametag_BuildLabel"/>
+			<dependency name="s_PlayerNameTag"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+			<param name="color">
+			</param>
+		</member>
 		<member name="M:Nametag_Hide" syntax="Nametag_Hide(playerid)">
-			<stacksize value="4"/>
+			<stacksize value="3"/>
 			<referrer name="_@yHOnPlayerDisconnect@02"/>
 			<referrer name="Nametag_Update"/>
-			<dependency name="DeletePlayer3DTextLabel"/>
+			<dependency name="Delete3DTextLabel"/>
+			<dependency name="KillTimer"/>
+			<dependency name="s_NametagResetTimer"/>
 			<dependency name="s_PlayerNameTag"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:Nametag_OnDamage" syntax="Nametag_OnDamage(playerid)">
+			<stacksize value="7"/>
+			<referrer name="_@yHOnPlayerTakeDamage@02"/>
+			<dependency name="KillTimer"/>
+			<dependency name="Nametag_CreateLabel"/>
+			<dependency name="SetTimerEx"/>
+			<dependency name="false"/>
+			<dependency name="s_NametagResetTimer"/>
+			<dependency name="s_PlayerNameTag"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:Nametag_ResetColor" syntax="Nametag_ResetColor(playerid)">
+			<attribute name="public"/>
+			<stacksize value="5"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="Nametag_CreateLabel"/>
+			<dependency name="s_NametagResetTimer"/>
 			<param name="playerid">
 			</param>
 		</member>
 		<member name="M:Nametag_Show" syntax="Nametag_Show(playerid)">
-			<stacksize value="74"/>
-			<referrer name="OnCharacterNameLoaded"/>
+			<stacksize value="5"/>
+			<referrer name="FinishLogin"/>
 			<referrer name="Nametag_Update"/>
-			<dependency name="CreatePlayer3DTextLabel"/>
-			<dependency name="GetPlayerCharacterName"/>
-			<dependency name="s_PlayerNameTag"/>
-			<dependency name="strcat"/>
-			<dependency name="strlen"/>
-			<dependency name="true"/>
+			<dependency name="Nametag_CreateLabel"/>
 			<param name="playerid">
 			</param>
 		</member>
-		<member name="M:Nametag_Update" syntax="Nametag_Update(playerid, charname[])">
+		<member name="M:Nametag_Update" syntax="Nametag_Update(playerid)">
 			<stacksize value="4"/>
 			<dependency name="Nametag_Hide"/>
 			<dependency name="Nametag_Show"/>
 			<param name="playerid">
-			</param>
-			<param name="charname">
-				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
 		<member name="M:NtCompare" syntax="NtCompare(s1, s2[])">
@@ -18251,12 +18615,15 @@
 			<referrer name="@yH_OnGameModeInit@01"/>
 			<referrer name="@yH_OnGameModeExit@01"/>
 			<referrer name="@yH_OnPlayerConnect@02"/>
+			<referrer name="@yH_OnGameModeInit@02"/>
+			<referrer name="@yH_OnPlayerRequestSpawn@02"/>
+			<referrer name="@yH_OnPlayerSpawn@02"/>
+			<referrer name="@yH_OnPlayerTakeDamage@02"/>
 			<referrer name="@yH_OnPlayerAccountCheck@02"/>
 			<referrer name="@yH_OnDialogResponse@02"/>
 			<referrer name="@yH_OnPasswordHash@02"/>
 			<referrer name="@yH_OnPlayerRegister@02"/>
 			<referrer name="@yH_OnPasswordCheck@02"/>
-			<referrer name="@yH_OnPlayerLogin@02"/>
 			<referrer name="@yH_OnPlayerDisconnect@02"/>
 			<dependency name="O@V_"/>
 			<dependency name="cellbytes"/>
@@ -18327,13 +18694,7 @@
 		</member>
 		<member name="M:OnCharacterNameLoaded" syntax="OnCharacterNameLoaded(playerid)">
 			<attribute name="public"/>
-			<stacksize value="37"/>
-			<dependency name="Nametag_Show"/>
-			<dependency name="SendClientMessage"/>
-			<dependency name="SetPlayerCharacterName"/>
-			<dependency name="cache_get_value_name"/>
-			<dependency name="s_IsFirstLogin"/>
-			<dependency name="strlen"/>
+			<stacksize value="1"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -19285,7 +19646,19 @@
 			</param>
 		</member>
 		<member name="M:OnPlayerPickUpPickup" syntax="OnPlayerPickUpPickup(playerid, pickupid)">
-			<stacksize value="1"/>
+			<attribute name="public"/>
+			<stacksize value="264"/>
+			<dependency name="SendClientMessage"/>
+			<dependency name="format"/>
+			<dependency name="g_GangPickupID"/>
+			<dependency name="g_GangPickupName"/>
+			<dependency name="g_GangPickupName"/>
+			<dependency name="g_GangPickupPending"/>
+			<dependency name="g_GangPickupSeen"/>
+			<dependency name="g_GangPickupSeen"/>
+			<dependency name="g_GangPickupTag"/>
+			<dependency name="g_GangPickupTag"/>
+			<dependency name="true"/>
 			<param name="playerid">
 				The ID of the player that picked up the pickup
 			</param>
@@ -20873,9 +21246,6 @@
 		</member>
 		<member name="M:ReturnPlayerName" syntax="ReturnPlayerName(playerid)">
 			<stacksize value="29"/>
-			<referrer name="Account_Check"/>
-			<referrer name="Account_ShowLoginDialog"/>
-			<referrer name="Account_Create"/>
 			<dependency name="GetPlayerName"/>
 			<dependency name="ReturnPlayerName"/>
 			<param name="playerid">
@@ -21253,6 +21623,30 @@
 				The size of the destination array.
 			</param>
 			<library>sscanf</library>      <remarks>  Get the SSCANF plugin version as a string (e.g. <c>"2.11.2"</c>) <em>or</em>  a BCD-encoded value (e.g. <c>0x021102</c>).  This function returns a string  (by reference) when called with parameters, or a number (directly) when not.  </remarks> 
+		</member>
+		<member name="M:SSCANF__" syntax="SSCANF__(file[], line, data[], format[], ...)">
+			<attribute name="native"/>
+			<referrer name="cmd_joingang"/>
+			<referrer name="cmd_joinlspd"/>
+			<param name="file">
+				<paraminfo> [] </paraminfo>
+				The file in which this call is found.
+			</param>
+			<param name="line">
+				The line at which this call is found.
+			</param>
+			<param name="data">
+				<paraminfo> [] </paraminfo>
+				The input string containing the data to parse out.
+			</param>
+			<param name="format">
+				<paraminfo> [] </paraminfo>
+				The format description of what the input data should contain.
+			</param>
+			<param name="...">
+				<paraminfo> {T_WEAPON,Float,_} </paraminfo>
+			</param>
+			<library>sscanf</library>          <remarks>  The current true implementation of <c>sscanf</c> in the plugin.  This is  wrapped by macros to provide <c>sscanf</c> enhanced with filenames and line  numbers so that errors have more information.  The plugin also contains a  native function called <c>sscanf</c> which is only for backwards-  compatibility with older versions of this include.  </remarks> 
 		</member>
 		<member name="M:ScriptInit_CallOnCodeInit" syntax="ScriptInit_CallOnCodeInit(jit, fs)">
 			<tagname value="bool"/>
@@ -21634,9 +22028,13 @@
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="Account_ShowRegistrationDialog"/>
+			<referrer name="_@yHOnPlayerAccountCheck@02"/>
 			<referrer name="_@yHOnDialogResponse@02"/>
+			<referrer name="_@yHOnPlayerRegister@02"/>
 			<referrer name="_@yHOnPasswordCheck@02"/>
-			<referrer name="OnCharacterNameLoaded"/>
+			<referrer name="OnPlayerPickUpPickup"/>
+			<referrer name="cmd_joingang"/>
+			<referrer name="cmd_joinlspd"/>
 			<param name="playerid">
 				The ID of the player to display the message to
 			</param>
@@ -22238,11 +22636,25 @@
 		</member>
 		<member name="M:SetPlayerAccountID" syntax="SetPlayerAccountID(playerid, accountid)">
 			<stacksize value="1"/>
+			<referrer name="_@yHOnPlayerAccountCheck@02"/>
 			<referrer name="_@yHOnPlayerRegister@02"/>
 			<dependency name="s_PlayerAccountID"/>
 			<param name="playerid">
 			</param>
 			<param name="accountid">
+			</param>
+		</member>
+		<member name="M:SetPlayerAccountName" syntax="SetPlayerAccountName(playerid, account[])">
+			<stacksize value="5"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="s_PlayerAccountName"/>
+			<dependency name="s_PlayerAccountName"/>
+			<dependency name="strcat"/>
+			<param name="playerid">
+			</param>
+			<param name="account">
+				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
 		<member name="M:SetPlayerArmedWeapon" syntax="SetPlayerArmedWeapon(playerid, weaponid)">
@@ -22258,10 +22670,56 @@
 			</param>
 			<library>omp_player</library>  <summary>Sets which weapon (that a player already has) the player is holding.</summary>      <seealso name="GivePlayerWeapon" />  <seealso name="GetPlayerWeapon" />  <remarks>This function arms a player with a weapon they <b>already have</b>; it does not give them  a new weapon.  See <a href="#GivePlayerWeapon">GivePlayerWeapon</a>.</remarks>  <returns>  <b><c>1</c></b>: The function executed successfully.  Success is returned even when the function  fails to execute (the player doesn't have the weapon specified, or it is an invalid weapon).<br />  <b><c>0</c></b>: The function failed to execute. The player is not connected.  </returns> 
 		</member>
+		<member name="M:SetPlayerCameraLookAt" syntax="SetPlayerCameraLookAt(playerid, x, y, z, cut)">
+			<tagname value="bool"/>
+			<attribute name="native"/>
+			<referrer name="_@yHOnPlayerConnect@02"/>
+			<param name="playerid">
+				The ID of the player whose camera to set
+			</param>
+			<param name="x">
+				<paraminfo>Float </paraminfo>
+				The x coordinate for the player's camera to look at
+			</param>
+			<param name="y">
+				<paraminfo>Float </paraminfo>
+				The y coordinate for the player's camera to look at
+			</param>
+			<param name="z">
+				<paraminfo>Float </paraminfo>
+				The z coordinate for the player's camera to look at
+			</param>
+			<param name="cut">
+				<paraminfo>t_CAM_MOVE </paraminfo>
+				The style of the change.  Can be used to interpolate (change slowly) from old pos  to new pos using <b><c>CAMERA_MOVE</c></b>.  Added in <b>0.3e</b>.  Leave out for older versions  (optional=<b><c>CAMERA_CUT</c></b>)
+			</param>
+			<library>omp_player</library>  <summary>Set the direction a player's camera looks at.  Generally meant to be used in combination  with <a href="#SetPlayerCameraPos">SetPlayerCameraPos</a>.</summary>            <seealso name="SetPlayerCameraPos" />  <seealso name="SetCameraBehindPlayer" />  <seealso name="GetPlayerCameraPos" />  <seealso name="GetPlayerCameraFrontVector" />  <remarks>Using the camera functions directly after enabling spectator mode doesn't work.</remarks>  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  The player specified does not exist.  </returns> 
+		</member>
+		<member name="M:SetPlayerCameraPos" syntax="SetPlayerCameraPos(playerid, x, y, z)">
+			<tagname value="bool"/>
+			<attribute name="native"/>
+			<referrer name="_@yHOnPlayerConnect@02"/>
+			<param name="playerid">
+				ID of the player
+			</param>
+			<param name="x">
+				<paraminfo>Float </paraminfo>
+				The x coordinate to place the camera at
+			</param>
+			<param name="y">
+				<paraminfo>Float </paraminfo>
+				The y coordinate to place the camera at
+			</param>
+			<param name="z">
+				<paraminfo>Float </paraminfo>
+				The z coordinate to place the camera at
+			</param>
+			<library>omp_player</library>  <summary>Sets the camera to a specific position for a player.</summary>          <seealso name="SetPlayerCameraLookAt" />  <seealso name="SetCameraBehindPlayer" />  <remarks>You may also have to use <a href="#SetPlayerCameraLookAt">SetPlayerCameraLookAt</a> with  this function in order to work properly.</remarks>  <remarks>Use <a href="#SetCameraBehindPlayer">SetCameraBehindPlayer</a> to reset the camera to behind  the player.</remarks>  <remarks>Using the camera functions directly after enabling spectator mode doesn't work.</remarks>  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  The player specified doesn't exist.  </returns> 
+		</member>
 		<member name="M:SetPlayerCharacterName" syntax="SetPlayerCharacterName(playerid, charname[])">
 			<stacksize value="5"/>
 			<referrer name="_@yHOnDialogResponse@02"/>
-			<referrer name="OnCharacterNameLoaded"/>
+			<referrer name="_@yHOnPasswordCheck@02"/>
 			<referrer name="_@yHOnPlayerDisconnect@02"/>
 			<dependency name="IsPlayerConnected"/>
 			<dependency name="s_PlayerCharacterName"/>
@@ -22300,8 +22758,7 @@
 		</member>
 		<member name="M:SetPlayerLoggedIn" syntax="SetPlayerLoggedIn(playerid, set)">
 			<stacksize value="3"/>
-			<referrer name="Account_Check"/>
-			<referrer name="_@yHOnDialogResponse@02"/>
+			<referrer name="_@yHOnPlayerRegister@02"/>
 			<referrer name="_@yHOnPasswordCheck@02"/>
 			<referrer name="_@yHOnPlayerDisconnect@02"/>
 			<dependency name="IsPlayerConnected"/>
@@ -22311,6 +22768,39 @@
 			<param name="set">
 				<paraminfo>bool </paraminfo>
 			</param>
+		</member>
+		<member name="M:SetPlayerName" syntax="SetPlayerName(playerid, name[])">
+			<attribute name="native"/>
+			<referrer name="ApplyPlayerName"/>
+			<param name="playerid">
+				The ID of the player to set the name of
+			</param>
+			<param name="name">
+				<paraminfo> [] </paraminfo>
+				The name to set.  Must be 1-24 characters long and only contain valid characters  (<b>0-9</b>, <b>a-z</b>, <b>A-z</b>, <b>[]</b>, <b>()</b>, <b>$</b>, <b>@</b>, <b>.</b>, <b>_</b>,  <b>=</b>)
+			</param>
+			<library>omp_player</library>  <summary>Sets the name of a player.</summary>      <seealso name="GetPlayerName" />  <remarks>Changing the players' name to the same name but with different character cases (e.g. "John"  to "JOHN") will not work. </remarks>  <remarks>If used in <a href="#OnPlayerConnect">OnPlayerConnect</a>, the new name will <b>not</b>  be shown for the connecting player. </remarks>  <remarks>Passing a null string as the new name will crash the server. </remarks>  <remarks>Player names can be up to 24 characters when using this function, but when joining the server  from the server browser, players' names must be no more than 20 and less than 3 characters  (the server will deny entry).  This allows for 4 characters extra when using <a href="#SetPlayerName">SetPlayerName</a>.  </remarks>  <returns>  <b><c>1</c></b> The name was changed successfully.<br />  <b><c>0</c></b> The player is not connected or the name is already in use.<br />  <b><c>-1</c></b> The name can not be changed (it's less than 3 symbols, too long or has invalid characters).  </returns> 
+		</member>
+		<member name="M:SetPlayerPos" syntax="SetPlayerPos(playerid, x, y, z)">
+			<tagname value="bool"/>
+			<attribute name="native"/>
+			<referrer name="FinishLogin"/>
+			<param name="playerid">
+				The ID of the player to set the position of
+			</param>
+			<param name="x">
+				<paraminfo>Float </paraminfo>
+				The x coordinate to position the player at
+			</param>
+			<param name="y">
+				<paraminfo>Float </paraminfo>
+				The y coordinate to position the player at
+			</param>
+			<param name="z">
+				<paraminfo>Float </paraminfo>
+				The z coordinate to position the player at
+			</param>
+			<library>omp_player</library>  <summary>Set a player's position.</summary>          <seealso name="SetPlayerPosFindZ" />  <seealso name="SetPlayerFacingAngle" />  <seealso name="GetPlayerPos" />  <seealso name="SetVehiclePos" />  <seealso name="GetVehiclePos" />  <remarks>Using this function on a player in a vehicle will instantly remove them from the vehicle.  Useful for quickly ejecting players.</remarks>  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  This means the player specified does not exist.  </returns> 
 		</member>
 		<member name="M:SetPlayerVelocity" syntax="SetPlayerVelocity(playerid, x, y, z)">
 			<tagname value="bool"/>
@@ -22387,6 +22877,22 @@
 			</param>
 			<library>omp_class</library>  <summary>This function is used to change the amount of teams used in the gamemode.  It has no obvious  way of being used, but can help to indicate the number of teams used for better (more effective)  internal handling.  This function should only be used in the <a href="#OnGameModeInit">OnGameModeInit</a>  callback.  Important: You can pass 2 billion here if you like, this function has no effect at all.</summary>    <seealso name="GetPlayerTeam" />  <seealso name="SetPlayerTeam" /> 
 		</member>
+		<member name="M:SetTimer" syntax="SetTimer(functionName[], interval, repeating)">
+			<attribute name="native"/>
+			<referrer name="Indirection_OnGameModeInit"/>
+			<param name="functionName">
+				<paraminfo> [] </paraminfo>
+				Name of the function to call as a string.  This must be a public function  (forwarded).  A null string here will crash the server
+			</param>
+			<param name="interval">
+				Interval in milliseconds
+			</param>
+			<param name="repeating">
+				<paraminfo>bool </paraminfo>
+				Whether the timer should repeat or not
+			</param>
+			<library>omp_core</library>  <summary>Sets a 'timer' to call a function after some time.  Can be set to repeat.</summary>        <seealso name="SetTimerEx" />  <seealso name="KillTimer" />  <remarks>Timer IDs are never used twice.  You can use <a href="#KillTimer">KillTimer</a> on a timer  ID and it won't matter if it's running or not. </remarks>  <remarks>The function that should be called must be public. </remarks>  <remarks>The use of many timers will result in increased memory/cpu usage. </remarks>  <returns>The ID of the timer that was started.  Timer IDs start at <b><c>1</c></b>.</returns> 
+		</member>
 		<member name="M:SetTimerAddr" syntax="SetTimerAddr(addr, time, repeat)">
 			<stacksize value="7"/>
 			<referrer name="ScriptInit_PurgeTemporaries"/>
@@ -22406,6 +22912,7 @@
 			<attribute name="native"/>
 			<referrer name="SetTimerAddr"/>
 			<referrer name="SetTimerExAddr"/>
+			<referrer name="Nametag_OnDamage"/>
 			<param name="functionName">
 				<paraminfo> [] </paraminfo>
 				The name of a public function to call when the timer expires
@@ -22487,12 +22994,34 @@
 			</param>
 			<library>omp_vehicle</library>  <summary>Sets the x, y and z velocity of a vehicle.</summary>          <remarks>This function has no affect on un-occupied vehicles and does not affect trains.</remarks>  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  The vehicle does not exist.  </returns> 
 		</member>
+		<member name="M:ShowLSPDRecruitmentDialog" syntax="ShowLSPDRecruitmentDialog(playerid)">
+			<attribute name="public"/>
+			<stacksize value="2057"/>
+			<referrer name="cmd_joinlspd"/>
+			<dependency name="ShowPlayerDialog"/>
+			<dependency name="strcat"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:ShowNameTags" syntax="ShowNameTags(show)">
+			<attribute name="native"/>
+			<referrer name="_@yHOnGameModeInit@02"/>
+			<param name="show">
+				<paraminfo>bool </paraminfo>
+				<b><c>0</c></b> to disable, <b><c>1</c></b> to enable (enabled by default)
+			</param>
+			<library>omp_core</library>  <summary>Toggle the drawing of nametags, health bars and armor bars above players.</summary>    <seealso name="DisableNameTagLOS" />  <seealso name="ShowPlayerNameTagForPlayer" />  <seealso name="ShowPlayerMarkers" />  <remarks>This function can only be used in <a href="#OnGameModeInit">OnGameModeInit</a>.  For other  times, see <a href="#ShowPlayerNameTagForPlayer">ShowPlayerNameTagForPlayer</a>.</remarks> 
+		</member>
 		<member name="M:ShowPlayerDialog" syntax="ShowPlayerDialog(playerid, dialogid, style, title[], body[], button1[], button2[], ...)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="Account_ShowRegistrationDialog"/>
 			<referrer name="Account_ShowLoginDialog"/>
 			<referrer name="Account_ShowCharacterNameDialog"/>
+			<referrer name="_@yHOnPlayerConnect@02"/>
+			<referrer name="_@yHOnPlayerAccountCheck@02"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
+			<referrer name="ShowLSPDRecruitmentDialog"/>
 			<param name="playerid">
 				The ID of the player to show the dialog to
 			</param>
@@ -22536,6 +23065,15 @@
 				The start of the whitespace.
 			</param>
 			<library>y_utils - strings</library>      <returns>  The end of the whitespace.  </returns>  <remarks>  Doesn't skip over NULL terminators.  </remarks> 
+		</member>
+		<member name="M:SpawnPlayer" syntax="SpawnPlayer(playerid)">
+			<tagname value="bool"/>
+			<attribute name="native"/>
+			<referrer name="FinishLogin"/>
+			<param name="playerid">
+				The ID of the player to spawn
+			</param>
+			<library>omp_class</library>  <summary>(Re)Spawns a player.</summary>    <seealso name="SetSpawnInfo" />  <seealso name="AddPlayerClass" />  <seealso name="OnPlayerSpawn" />  <remarks>Kills the player if they are in a vehicle and then they spawn with a bottle in their hand.</remarks>  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  This means the player is not connected.  </returns> 
 		</member>
 		<member name="M:StrCpy" syntax="StrCpy(dest[], src[], len)">
 			<attribute name="native"/>
@@ -22817,6 +23355,18 @@
 			<param name="c">
 			</param>
 			<library>amx_assembly disasm</library>
+		</member>
+		<member name="M:TogglePlayerControllable" syntax="TogglePlayerControllable(playerid, controllable)">
+			<tagname value="bool"/>
+			<attribute name="native"/>
+			<referrer name="_@yHOnPlayerSpawn@02"/>
+			<param name="playerid">
+				The ID of the player to toggle the controllability of
+			</param>
+			<param name="controllable">
+				<paraminfo>bool </paraminfo>
+			</param>
+			<library>omp_player</library>  <summary>Toggles whether a player can control their character or not.  The player will also be unable  to move their camera.</summary>    <param name="toggle"><b><c>0</c></b> to make them uncontrollable, <b><c>1</c></b> to make them controllable</param>  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  The player specified does not exist.  </returns> 
 		</member>
 		<member name="M:Trim" syntax="Trim(str[], &amp;start, &amp;end)">
 			<stacksize value="4"/>
@@ -23598,12 +24148,15 @@
 			<referrer name="@yH_OnGameModeInit@01"/>
 			<referrer name="@yH_OnGameModeExit@01"/>
 			<referrer name="@yH_OnPlayerConnect@02"/>
+			<referrer name="@yH_OnGameModeInit@02"/>
+			<referrer name="@yH_OnPlayerRequestSpawn@02"/>
+			<referrer name="@yH_OnPlayerSpawn@02"/>
+			<referrer name="@yH_OnPlayerTakeDamage@02"/>
 			<referrer name="@yH_OnPlayerAccountCheck@02"/>
 			<referrer name="@yH_OnDialogResponse@02"/>
 			<referrer name="@yH_OnPasswordHash@02"/>
 			<referrer name="@yH_OnPlayerRegister@02"/>
 			<referrer name="@yH_OnPasswordCheck@02"/>
-			<referrer name="@yH_OnPlayerLogin@02"/>
 			<referrer name="@yH_OnPlayerDisconnect@02"/>
 			<dependency name="Debug_Kill_"/>
 			<dependency name="Debug_Print0"/>
@@ -23805,22 +24358,27 @@
 			<attribute name="public"/>
 			<stacksize value="68"/>
 			<referrer name="@yH_OnDialogResponse@02"/>
+			<dependency name="Account_Check"/>
 			<dependency name="Account_ShowCharacterNameDialog"/>
 			<dependency name="Account_ShowRegistrationDialog"/>
-			<dependency name="Account_UpdateCharacterName"/>
-			<dependency name="DIALOG_CHARACTER_NAME"/>
-			<dependency name="DIALOG_LOGIN"/>
-			<dependency name="DIALOG_REGISTRATION"/>
+			<dependency name="ForbiddenNames"/>
+			<dependency name="ForbiddenNames"/>
 			<dependency name="GetPVarString"/>
+			<dependency name="GetPlayerCharacterName"/>
 			<dependency name="HashPassword"/>
+			<dependency name="IsPlayerConnected"/>
 			<dependency name="IsValidCharacterName"/>
 			<dependency name="IsValidPassword"/>
 			<dependency name="Kick"/>
 			<dependency name="SendClientMessage"/>
+			<dependency name="SetPlayerAccountName"/>
 			<dependency name="SetPlayerCharacterName"/>
-			<dependency name="SetPlayerLoggedIn"/>
+			<dependency name="ShowPlayerDialog"/>
 			<dependency name="bcrypt_verify"/>
-			<dependency name="s_IsFirstLogin"/>
+			<dependency name="false"/>
+			<dependency name="s_IsRegistering"/>
+			<dependency name="strcmp"/>
+			<dependency name="strlen"/>
 			<dependency name="true"/>
 			<param name="playerid">
 			</param>
@@ -23851,17 +24409,28 @@
 			<dependency name="mysql_connect_file"/>
 			<dependency name="mysql_errno"/>
 		</member>
+		<member name="M:_@yHOnGameModeInit@02" syntax="_@yHOnGameModeInit@02()">
+			<attribute name="public"/>
+			<stacksize value="13"/>
+			<referrer name="@yH_OnGameModeInit@02"/>
+			<dependency name="AddPlayerClass"/>
+			<dependency name="ShowNameTags"/>
+			<dependency name="false"/>
+		</member>
 		<member name="M:_@yHOnPasswordCheck@02" syntax="_@yHOnPasswordCheck@02(playerid, match)">
 			<attribute name="public"/>
-			<stacksize value="8"/>
+			<stacksize value="136"/>
 			<referrer name="@yH_OnPasswordCheck@02"/>
 			<dependency name="Account_ShowLoginDialog"/>
-			<dependency name="CallLocalFunction"/>
 			<dependency name="DeletePVar"/>
+			<dependency name="FinishLogin"/>
+			<dependency name="GetPVarString"/>
 			<dependency name="Kick"/>
 			<dependency name="SendClientMessage"/>
+			<dependency name="SetPlayerCharacterName"/>
 			<dependency name="SetPlayerLoggedIn"/>
 			<dependency name="false"/>
+			<dependency name="format"/>
 			<dependency name="s_CharacterNameSaved"/>
 			<dependency name="s_IsFirstLogin"/>
 			<dependency name="s_PlayerLoginAttempts"/>
@@ -23883,23 +24452,28 @@
 		</member>
 		<member name="M:_@yHOnPlayerAccountCheck@02" syntax="_@yHOnPlayerAccountCheck@02(playerid)">
 			<attribute name="public"/>
-			<stacksize value="67"/>
+			<stacksize value="100"/>
 			<referrer name="@yH_OnPlayerAccountCheck@02"/>
+			<dependency name="Account_ShowCharacterNameDialog"/>
 			<dependency name="Account_ShowLoginDialog"/>
-			<dependency name="Account_ShowRegistrationDialog"/>
+			<dependency name="SendClientMessage"/>
 			<dependency name="SetPVarString"/>
+			<dependency name="SetPlayerAccountID"/>
+			<dependency name="ShowPlayerDialog"/>
 			<dependency name="cache_get_value_name"/>
+			<dependency name="cache_get_value_name_int"/>
 			<dependency name="cache_num_rows"/>
+			<dependency name="s_IsRegistering"/>
 			<param name="playerid">
 			</param>
 		</member>
 		<member name="M:_@yHOnPlayerConnect@02" syntax="_@yHOnPlayerConnect@02(playerid)">
 			<attribute name="public"/>
-			<stacksize value="4"/>
+			<stacksize value="9"/>
 			<referrer name="@yH_OnPlayerConnect@02"/>
-			<dependency name="Account_Check"/>
-			<dependency name="false"/>
-			<dependency name="s_CharacterNameSaved"/>
+			<dependency name="SetPlayerCameraLookAt"/>
+			<dependency name="SetPlayerCameraPos"/>
+			<dependency name="ShowPlayerDialog"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -23907,33 +24481,69 @@
 			<attribute name="public"/>
 			<stacksize value="5"/>
 			<referrer name="@yH_OnPlayerDisconnect@02"/>
+			<dependency name="DeletePVar"/>
 			<dependency name="Nametag_Hide"/>
 			<dependency name="SetPlayerCharacterName"/>
 			<dependency name="SetPlayerLoggedIn"/>
 			<dependency name="false"/>
 			<dependency name="s_CharacterNameSaved"/>
 			<dependency name="s_IsFirstLogin"/>
+			<dependency name="s_IsRegistering"/>
+			<dependency name="s_PlayerLoginAttempts"/>
 			<param name="playerid">
 			</param>
 			<param name="reason">
-			</param>
-		</member>
-		<member name="M:_@yHOnPlayerLogin@02" syntax="_@yHOnPlayerLogin@02(playerid)">
-			<attribute name="public"/>
-			<stacksize value="4"/>
-			<referrer name="@yH_OnPlayerLogin@02"/>
-			<dependency name="Account_LoadCharacterName"/>
-			<param name="playerid">
 			</param>
 		</member>
 		<member name="M:_@yHOnPlayerRegister@02" syntax="_@yHOnPlayerRegister@02(playerid)">
 			<attribute name="public"/>
 			<stacksize value="6"/>
 			<referrer name="@yH_OnPlayerRegister@02"/>
-			<dependency name="Account_ShowCharacterNameDialog"/>
+			<dependency name="FinishLogin"/>
+			<dependency name="SendClientMessage"/>
 			<dependency name="SetPlayerAccountID"/>
+			<dependency name="SetPlayerLoggedIn"/>
 			<dependency name="cache_insert_id"/>
+			<dependency name="false"/>
+			<dependency name="s_CharacterNameSaved"/>
+			<dependency name="s_IsFirstLogin"/>
+			<dependency name="true"/>
 			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:_@yHOnPlayerRequestSpawn@02" syntax="_@yHOnPlayerRequestSpawn@02(playerid)">
+			<attribute name="public"/>
+			<stacksize value="4"/>
+			<referrer name="@yH_OnPlayerRequestSpawn@02"/>
+			<dependency name="IsPlayerLoggedIn"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:_@yHOnPlayerSpawn@02" syntax="_@yHOnPlayerSpawn@02(playerid)">
+			<attribute name="public"/>
+			<stacksize value="4"/>
+			<referrer name="@yH_OnPlayerSpawn@02"/>
+			<dependency name="IsPlayerLoggedIn"/>
+			<dependency name="TogglePlayerControllable"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:_@yHOnPlayerTakeDamage@02" syntax="_@yHOnPlayerTakeDamage@02(playerid, issuerid, amount, weaponid, bodypart)">
+			<attribute name="public"/>
+			<stacksize value="4"/>
+			<referrer name="@yH_OnPlayerTakeDamage@02"/>
+			<dependency name="Nametag_OnDamage"/>
+			<param name="playerid">
+			</param>
+			<param name="issuerid">
+			</param>
+			<param name="amount">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="weaponid">
+			</param>
+			<param name="bodypart">
 			</param>
 		</member>
 		<member name="M:_FIXES_OnClientCheckResponse" syntax="_FIXES_OnClientCheckResponse()">
@@ -24468,7 +25078,6 @@
 		<member name="M:cache_get_value_name" syntax="cache_get_value_name(row_idx, column_name[], destination[], max_len)">
 			<attribute name="native"/>
 			<referrer name="_@yHOnPlayerAccountCheck@02"/>
-			<referrer name="OnCharacterNameLoaded"/>
 			<param name="row_idx">
 			</param>
 			<param name="column_name">
@@ -24495,6 +25104,7 @@
 		<member name="M:cache_get_value_name_int" syntax="cache_get_value_name_int(row_idx, column_name[], &amp;destination)">
 			<attribute name="native"/>
 			<referrer name="cache_get_value_name_bool"/>
+			<referrer name="_@yHOnPlayerAccountCheck@02"/>
 			<param name="row_idx">
 			</param>
 			<param name="column_name">
@@ -24569,6 +25179,42 @@
 		<member name="M:clrscr" syntax="clrscr()">
 			<stacksize value="1"/>
 			<library>console</library>  <summary>Clear the screen.</summary>  <seealso name="clreol"/>  <return>This function always returns 0.</return>  <remarks>Clears the display and moves the cursor to the upper left corner.</remarks> 
+		</member>
+		<member name="M:cmd_joingang" syntax="cmd_joingang(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="234"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SendClientMessage"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
+			<dependency name="format"/>
+			<dependency name="g_GangPickupColor"/>
+			<dependency name="g_GangPickupName"/>
+			<dependency name="g_GangPickupName"/>
+			<dependency name="g_GangPickupPending"/>
+			<dependency name="g_GangPickupTag"/>
+			<dependency name="g_GangPickupTag"/>
+			<dependency name="g_PlayerGang"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:cmd_joinlspd" syntax="cmd_joinlspd(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="73"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SendClientMessage"/>
+			<dependency name="ShowLSPDRecruitmentDialog"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
+			<dependency name="g_GangPickupPending"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
 		</member>
 		<member name="M:copy_1" syntax="copy_1(&amp;dest, source[], start)">
 			<stacksize value="1"/>
@@ -25057,6 +25703,13 @@
 			<referrer name="Account_ShowRegistrationDialog"/>
 			<referrer name="Account_ShowLoginDialog"/>
 			<referrer name="Account_ShowCharacterNameDialog"/>
+			<referrer name="GetPlayerCharacterName"/>
+			<referrer name="GetPlayerAccountName"/>
+			<referrer name="_@yHOnPasswordCheck@02"/>
+			<referrer name="Nametag_BuildLabel"/>
+			<referrer name="Indirection_OnGameModeInit"/>
+			<referrer name="OnPlayerPickUpPickup"/>
+			<referrer name="cmd_joingang"/>
 			<param name="output">
 				<paraminfo> [] </paraminfo>
 				The string to output the result to
@@ -26182,7 +26835,8 @@
 			<referrer name="Hooks_GetPreHooks"/>
 			<referrer name="Hooks_GetDefaultReturn"/>
 			<referrer name="SetPlayerCharacterName"/>
-			<referrer name="Nametag_Show"/>
+			<referrer name="SetPlayerAccountName"/>
+			<referrer name="ShowLSPDRecruitmentDialog"/>
 			<param name="dest">
 				<paraminfo> [] </paraminfo>
 				The string to store the two concatenated strings in
@@ -26235,6 +26889,7 @@
 			<referrer name="Hooks_MakeShortName"/>
 			<referrer name="_@Hy"/>
 			<referrer name="Hooks_Collate"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 			<param name="string1">
 				<paraminfo> [] </paraminfo>
 				The first string to compare
@@ -26539,8 +27194,8 @@
 			<referrer name="_Hooks_AddReplacement"/>
 			<referrer name="IsValidPassword"/>
 			<referrer name="IsValidCharacterName"/>
-			<referrer name="OnCharacterNameLoaded"/>
-			<referrer name="Nametag_Show"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
+			<referrer name="Nametag_BuildLabel"/>
 			<param name="string">
 				<paraminfo> [] </paraminfo>
 				The string to get the length of
@@ -26552,7 +27207,6 @@
 			<referrer name="strexplode"/>
 			<referrer name="ret_strmid"/>
 			<referrer name="GetPlayerRPComponents"/>
-			<referrer name="GetPlayerCharacterName"/>
 			<param name="dest">
 				<paraminfo> [] </paraminfo>
 				The string to store the extracted characters in

@@ -48,3 +48,4 @@
 
 // Player Modules
 #include "modules/player/nametag.pwn"
+#include "modules/gangs/header.pwn"
