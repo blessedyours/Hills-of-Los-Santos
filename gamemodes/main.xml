@@ -536,6 +536,14 @@
 			<referrer name="_@E_SCRIPTINIT_STATE"/>
 			<library>y_scriptinit</library>  <remarks>  Where in initialisation the script currently is.  Handles multiple ways of  starting the script, including cache loads and JIT.  </remarks> 
 		</member>
+		<member name="T:E_SKIN_MENU_DATA" value="49">
+			<tagname value="E_SKIN_MENU_DATA"/>
+			<member name="C:skinModel" value="0">
+			</member>
+			<member name="C:skinName" value="1">
+				<size value="48"/>
+			</member>
+		</member>
 		<member name="T:E_YSI_DIR" value="2">
 			<tagname value="E_YSI_DIR"/>
 			<member name="C:E_YSI_DIR_FIXES" value="0">
@@ -3676,13 +3684,22 @@
 		<member name="F:CELLMIN_ON_MATCHES">
 			<library>sscanf</library>  <remarks>  The <c>CELLMIN_ON_MATCHES</c> option as a constant string so you can get  compile-time spell checking on the name.  Whatever the value of  <c>MATCH_NAME_PARTIAL</c>, the first found player will always be returned,  so if you do a search for <c>_</c> on an RP server, you could get almost  anyone.  To detect this case, if more than one player will match the  specified string then <em>sscanf</em> will return an ID of <c>cellmin</c>  instead.  This can be combined with <c>U</c> for a lot more power:  <code>  sscanf(params, "?&lt;CELLMIN_ON_MATCHES=1&gt;U(-1)", id);                <br />  if (id == -1)                                                            <br />  {                                                                        <br /><indent />  // No player was entered.                                            <br />  }                                                                        <br />  else if (id == cellmin)                                                  <br />  {                                                                        <br /><indent />  // Multiple matches found                                            <br />  }                                                                        <br />  else if (id == INVALID_PLAYER_ID)                                        <br />  {                                                                        <br /><indent />  // Entered player is not connected.                                  <br />  }                                                                        <br />  else                                                                     <br />  {                                                                        <br /><indent />  // Found just one player.                                            <br />  }  </code>  </remarks> 
 		</member>
+		<member name="F:CivilianSkins">
+			<referrer name="ShowCivilianSkinMenu"/>
+		</member>
 		<member name="F:FALSE">
 			<tagname value="bool"/>
 			<referrer name="Hooks_RepairJITInit"/>
 			<library>y_shortvar</library>  <remarks>  <c>false</c>, but usable in tests without a constant expression warning.  </remarks> 
 		</member>
+		<member name="F:FYBSkins">
+			<referrer name="ShowFYBSkinMenu"/>
+		</member>
 		<member name="F:ForbiddenNames">
 			<referrer name="_@yHOnDialogResponse@02"/>
+		</member>
+		<member name="F:GSFSkins">
+			<referrer name="ShowGSFSkinMenu"/>
 		</member>
 		<member name="F:I@">
 			<referrer name="SetTimerExAddr"/>
@@ -3777,6 +3794,15 @@
 		<member name="F:J@">
 			<library>y_shortvar</library>  <remarks>  A "nul" target - send things there if they need ignoring or if a  parameter needs ignoring.  Not guaranteed to keep its value for any  length of time.  If you set it, don't expect it to remain the same!  </remarks> 
 		</member>
+		<member name="F:KTBSkins">
+			<referrer name="ShowKTBSkinMenu"/>
+		</member>
+		<member name="F:LSPDSkins">
+			<referrer name="ShowLSPDSkinMenu"/>
+		</member>
+		<member name="F:LSVSkins">
+			<referrer name="ShowLSVSkinMenu"/>
+		</member>
 		<member name="F:MATCH_NAME_FIRST">
 			<library>sscanf</library>  <remarks>  The <c>MATCH_NAME_FIRST</c> option as a constant string so you can get compile-  time spell checking on the name.  Specify whether <c>u</c> etc keep searching  for better matching player names after finding one:  <code>  SSCANF_Option(MATCH_NAME_FIRST, 0); // Enable scanning for the best name match not the first (default).  <br />  SSCANF_Option(MATCH_NAME_FIRST, 1); // Enable scanning for the first name match not the best (old behaviour).  </code>  </remarks> 
 		</member>
@@ -3834,6 +3860,12 @@
 			<referrer name="G@"/>
 			<library>y_shortvar</library>  <remarks>  A temporary string variable, mainly for interim results.  </remarks> 
 		</member>
+		<member name="F:RHBSkins">
+			<referrer name="ShowRHBSkinMenu"/>
+		</member>
+		<member name="F:SBFSkins">
+			<referrer name="ShowSBFSkinMenu"/>
+		</member>
 		<member name="F:SSCANF_ALPHA">
 			<library>sscanf</library>  <remarks>  The <c>SSCANF_ALPHA</c> option as a constant string so you can get compile-  time spell checking on the name.  Specify the default alpha value for colours  (<c>m</c>) which don't manually specify an alpha channel.  The alpha values  are specified as a <em>decimal</em> number, <em>not</em> a <em>hex</em>  number, so setting an alpha of <c>0x80</c> would be:  <code>  SSCANF_Option(SSCANF_ALPHA, 128);  </code>  </remarks> 
 		</member>
@@ -3886,6 +3918,9 @@
 		<member name="F:Streamer_IncludeFileVersion">
 			<attribute name="public"/>
 		</member>
+		<member name="F:TDFSkins">
+			<referrer name="ShowTDFSkinMenu"/>
+		</member>
 		<member name="F:TRUE">
 			<tagname value="bool"/>
 			<library>y_shortvar</library>  <remarks>  <c>true</c>, but usable in tests without a constant expression warning.  </remarks> 
@@ -3895,6 +3930,9 @@
 		<member name="F:UNIQUE_SYMBOL_LESS_THAN_0063">
 		</member>
 		<member name="F:UNIQUE_SYMBOL_LESS_THAN_0063">
+		</member>
+		<member name="F:VLASkins">
+			<referrer name="ShowVLASkinMenu"/>
 		</member>
 		<member name="F:YSIM_VERMAX">
 			<library>y_core</library>  <remarks>  The property name used for some short code.  </remarks> 
@@ -4428,6 +4466,10 @@
 		</member>
 		<member name="F:__date">
 			<referrer name="YVers_PrintHeader"/>
+		</member>
+		<member name="F:__file">
+		</member>
+		<member name="F:__file">
 		</member>
 		<member name="F:__file">
 		</member>
@@ -12962,8 +13004,25 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
+		<member name="M:AddCharModel" syntax="AddCharModel(baseid, newid, dff[], textureLibrary[])">
+			<tagname value="bool"/>
+			<attribute name="native"/>
+			<referrer name="HLS_AddCharModel"/>
+			<param name="baseid">
+			</param>
+			<param name="newid">
+			</param>
+			<param name="dff">
+				<paraminfo> [] </paraminfo>
+			</param>
+			<param name="textureLibrary">
+				<paraminfo> [] </paraminfo>
+			</param>
+			<library>omp_object</library> 
+		</member>
 		<member name="M:AddModelMenuItem" syntax="AddModelMenuItem(menulist, modelid, text[], usingrotation, rotx, roty, rotz, zoom, vehiclecolor1, vehiclecolor2)">
 			<stacksize value="79"/>
+			<referrer name="SkinSelector_AddItems"/>
 			<dependency name="format"/>
 			<dependency name="g_eItemRotX"/>
 			<dependency name="g_eItemRotY"/>
@@ -20750,6 +20809,21 @@
 			</param>
 			<remarks>  Create a <c>const</c> that is never used, which has pawndoc documentation  attached to it.  This seems to be the best way to prevent the documentation  from appearing in XML (<c>-r</c>) output - even conditional compilation  doesn't work on comments.  Used internally as <c>YSI_HIDE_PAWNDOC</c>.  <p/>  The input should have some unique name, so when using it within an ifdef  block, don't use the same name as the tested symbol, because the the  replacement in question will be applied to the hidden variable as well.  <p/>  This should also be a globally unique symbol name, because this only works  with `<c>const</c>`, not `<c>static const</c>`.  </remarks> 
 		</member>
+		<member name="M:HLS_AddCharModel" syntax="HLS_AddCharModel(baseid, newid, dff[], txd[])">
+			<stacksize value="6"/>
+			<referrer name="Models_AddSkins"/>
+			<dependency name="AddCharModel"/>
+			<param name="baseid">
+			</param>
+			<param name="newid">
+			</param>
+			<param name="dff">
+				<paraminfo> [] </paraminfo>
+			</param>
+			<param name="txd">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
 		<member name="M:HasCrashDetectAddr0" syntax="HasCrashDetectAddr0()">
 			<tagname value="bool"/>
 			<stacksize value="1"/>
@@ -22880,6 +22954,11 @@
 			</param>
 			<library>y_utils - maths</library>      <returns>  The mathematical modal value of the array.  </returns>  <remarks>  Must sort the array first.  </remarks> 
 		</member>
+		<member name="M:Models_AddSkins" syntax="Models_AddSkins()">
+			<stacksize value="7"/>
+			<referrer name="PP_main"/>
+			<dependency name="HLS_AddCharModel"/>
+		</member>
 		<member name="M:NOT_IN_RANGE" syntax="NOT_IN_RANGE(value, lower, upper)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
@@ -23319,7 +23398,10 @@
 
 		</member>
 		<member name="M:OnModelSelectionResponse" syntax="OnModelSelectionResponse(playerid, extraid, index, modelid, response)">
-			<stacksize value="1"/>
+			<attribute name="public"/>
+			<stacksize value="5"/>
+			<dependency name="SendClientMessage"/>
+			<dependency name="SetPlayerSkin"/>
 			<param name="playerid">
 			</param>
 			<param name="extraid">
@@ -24752,6 +24834,15 @@
 			<dependency name="ceildiv"/>
 			<dependency name="floordiv"/>
 			<remarks>  Use this after all other pawndoc fixes to finish off the <c>PAWNDOC</c>  function in the current file.  </remarks> 
+		</member>
+		<member name="M:PP_MRET" syntax="PP_MRET()">
+			<attribute name="public"/>
+			<stacksize value="1"/>
+		</member>
+		<member name="M:PP_main" syntax="PP_main()">
+			<attribute name="public"/>
+			<stacksize value="3"/>
+			<dependency name="Models_AddSkins"/>
 		</member>
 		<member name="M:PR_Init" syntax="PR_Init()">
 			<attribute name="native"/>
@@ -26862,6 +26953,7 @@
 			<referrer name="cmd_joingang"/>
 			<referrer name="cmd_leavegang"/>
 			<referrer name="cmd_joinlspd"/>
+			<referrer name="OnModelSelectionResponse"/>
 			<param name="playerid">
 				The ID of the player to display the message to
 			</param>
@@ -27686,6 +27778,18 @@
 			</param>
 			<library>omp_player</library>  <summary>Set a player's position.</summary>          <seealso name="SetPlayerPosFindZ" />  <seealso name="SetPlayerFacingAngle" />  <seealso name="GetPlayerPos" />  <seealso name="SetVehiclePos" />  <seealso name="GetVehiclePos" />  <remarks>Using this function on a player in a vehicle will instantly remove them from the vehicle.  Useful for quickly ejecting players.</remarks>  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  This means the player specified does not exist.  </returns> 
 		</member>
+		<member name="M:SetPlayerSkin" syntax="SetPlayerSkin(playerid, skinid)">
+			<tagname value="bool"/>
+			<attribute name="native"/>
+			<referrer name="OnModelSelectionResponse"/>
+			<param name="playerid">
+				The ID of the player to set the skin of
+			</param>
+			<param name="skinid">
+				The <a href="https://www.open.mp/docs/scripting/resources/skins">skin</a> the player  should use
+			</param>
+			<library>omp_player</library>  <summary>Set the skin of a player.  A player's skin is their character model.</summary>      <seealso name="GetPlayerSkin" />  <seealso name="SetSpawnInfo" />  <remarks>If a player's skin is set when they are crouching, in a vehicle, or performing certain animations,  they will become frozen or otherwise glitched.  This can be fixed by using  <a href="#TogglePlayerControllable">TogglePlayerControllable</a>.  Players can be detected as being crouched through <a href="#GetPlayerSpecialAction">GetPlayerSpecialAction</a>  (<b><c>SPECIAL_ACTION_DUCK</c></b>).</remarks>  <remarks>Setting a player's skin when he is dead may crash players around him.</remarks>  <remarks>Note that 'success' is reported even when skin ID is invalid (not <b><c>0</c></b>-<b><c>311</c></b>,  or <b><c>74</c></b>), but the skin will be set to ID <b><c>0</c></b> (CJ).</remarks>  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  This means the player specified does not exist.<br  />  </returns> 
+		</member>
 		<member name="M:SetPlayerVelocity" syntax="SetPlayerVelocity(playerid, x, y, z)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
@@ -27896,6 +28000,42 @@
 				<paraminfo>List </paraminfo>
 			</param>
 		</member>
+		<member name="M:ShowCivilianSkinMenu" syntax="ShowCivilianSkinMenu(playerid)">
+			<stacksize value="8"/>
+			<dependency name="CivilianSkins"/>
+			<dependency name="ShowModelSelectionMenu"/>
+			<dependency name="SkinSelector_AddItems"/>
+			<dependency name="list_new"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:ShowFYBSkinMenu" syntax="ShowFYBSkinMenu(playerid)">
+			<stacksize value="8"/>
+			<dependency name="FYBSkins"/>
+			<dependency name="ShowModelSelectionMenu"/>
+			<dependency name="SkinSelector_AddItems"/>
+			<dependency name="list_new"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:ShowGSFSkinMenu" syntax="ShowGSFSkinMenu(playerid)">
+			<stacksize value="8"/>
+			<dependency name="GSFSkins"/>
+			<dependency name="ShowModelSelectionMenu"/>
+			<dependency name="SkinSelector_AddItems"/>
+			<dependency name="list_new"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:ShowKTBSkinMenu" syntax="ShowKTBSkinMenu(playerid)">
+			<stacksize value="8"/>
+			<dependency name="KTBSkins"/>
+			<dependency name="ShowModelSelectionMenu"/>
+			<dependency name="SkinSelector_AddItems"/>
+			<dependency name="list_new"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:ShowLSPDRecruitmentDialog" syntax="ShowLSPDRecruitmentDialog(playerid)">
 			<attribute name="public"/>
 			<stacksize value="2057"/>
@@ -27905,9 +28045,37 @@
 			<param name="playerid">
 			</param>
 		</member>
+		<member name="M:ShowLSPDSkinMenu" syntax="ShowLSPDSkinMenu(playerid)">
+			<stacksize value="8"/>
+			<dependency name="LSPDSkins"/>
+			<dependency name="ShowModelSelectionMenu"/>
+			<dependency name="SkinSelector_AddItems"/>
+			<dependency name="list_new"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:ShowLSVSkinMenu" syntax="ShowLSVSkinMenu(playerid)">
+			<stacksize value="8"/>
+			<dependency name="LSVSkins"/>
+			<dependency name="ShowModelSelectionMenu"/>
+			<dependency name="SkinSelector_AddItems"/>
+			<dependency name="list_new"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:ShowModelSelectionMenu" syntax="ShowModelSelectionMenu(playerid, header[], extraid, items)">
 			<stacksize value="5"/>
 			<referrer name="ShowAsyncModelSelectionMenu"/>
+			<referrer name="ShowCivilianSkinMenu"/>
+			<referrer name="ShowFYBSkinMenu"/>
+			<referrer name="ShowGSFSkinMenu"/>
+			<referrer name="ShowKTBSkinMenu"/>
+			<referrer name="ShowLSVSkinMenu"/>
+			<referrer name="ShowRHBSkinMenu"/>
+			<referrer name="ShowSBFSkinMenu"/>
+			<referrer name="ShowTDFSkinMenu"/>
+			<referrer name="ShowVLASkinMenu"/>
+			<referrer name="ShowLSPDSkinMenu"/>
 			<dependency name="GetTickCount"/>
 			<dependency name="HideModelSelectionMenu"/>
 			<dependency name="IsPlayerConnected"/>
@@ -28013,6 +28181,66 @@
 				<paraminfo> {Bit,Bitmap,XML,XMLEntry,Group,INI,Language,Style,DB,DBResult,Menu,Text,PlayerText,Text3D,PlayerText3D,File,Float,CUSTOM_TAG_TYPES,_} </paraminfo>
 			</param>
 			<library>omp_dialog</library>  <summary>Shows the player a synchronous (only one at a time) dialog box.</summary>                <seealso name="TextDrawShowForPlayer" />  <seealso name="OnDialogResponse" />  <remarks>Use colour embedding for multiple colours in the text. </remarks>  <remarks>Using <b><c>-1</c></b> as dialogid closes all dialogs currently shown on the client's screen.  </remarks>  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  This means the player is not connected.<br />  </returns> 
+		</member>
+		<member name="M:ShowRHBSkinMenu" syntax="ShowRHBSkinMenu(playerid)">
+			<stacksize value="8"/>
+			<dependency name="RHBSkins"/>
+			<dependency name="ShowModelSelectionMenu"/>
+			<dependency name="SkinSelector_AddItems"/>
+			<dependency name="list_new"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:ShowSBFSkinMenu" syntax="ShowSBFSkinMenu(playerid)">
+			<stacksize value="8"/>
+			<dependency name="SBFSkins"/>
+			<dependency name="ShowModelSelectionMenu"/>
+			<dependency name="SkinSelector_AddItems"/>
+			<dependency name="list_new"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:ShowTDFSkinMenu" syntax="ShowTDFSkinMenu(playerid)">
+			<stacksize value="8"/>
+			<dependency name="ShowModelSelectionMenu"/>
+			<dependency name="SkinSelector_AddItems"/>
+			<dependency name="TDFSkins"/>
+			<dependency name="list_new"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:ShowVLASkinMenu" syntax="ShowVLASkinMenu(playerid)">
+			<stacksize value="8"/>
+			<dependency name="ShowModelSelectionMenu"/>
+			<dependency name="SkinSelector_AddItems"/>
+			<dependency name="VLASkins"/>
+			<dependency name="list_new"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:SkinSelector_AddItems" syntax="SkinSelector_AddItems(menu, skins[][], size)">
+			<stacksize value="14"/>
+			<referrer name="ShowCivilianSkinMenu"/>
+			<referrer name="ShowFYBSkinMenu"/>
+			<referrer name="ShowGSFSkinMenu"/>
+			<referrer name="ShowKTBSkinMenu"/>
+			<referrer name="ShowLSVSkinMenu"/>
+			<referrer name="ShowRHBSkinMenu"/>
+			<referrer name="ShowSBFSkinMenu"/>
+			<referrer name="ShowTDFSkinMenu"/>
+			<referrer name="ShowVLASkinMenu"/>
+			<referrer name="ShowLSPDSkinMenu"/>
+			<dependency name="AddModelMenuItem"/>
+			<dependency name="skinModel"/>
+			<dependency name="skinName"/>
+			<param name="menu">
+				<paraminfo>List </paraminfo>
+			</param>
+			<param name="skins">
+				<paraminfo> [][49] </paraminfo>
+			</param>
+			<param name="size">
+			</param>
 		</member>
 		<member name="M:SkipWhitespace" syntax="SkipWhitespace(str[], pos)">
 			<stacksize value="4"/>
@@ -31384,6 +31612,20 @@
 			</param>
 			<param name="index">
 			</param>
+		</member>
+		<member name="M:list_new" syntax="list_new()">
+			<tagname value="List"/>
+			<attribute name="native"/>
+			<referrer name="ShowCivilianSkinMenu"/>
+			<referrer name="ShowFYBSkinMenu"/>
+			<referrer name="ShowGSFSkinMenu"/>
+			<referrer name="ShowKTBSkinMenu"/>
+			<referrer name="ShowLSVSkinMenu"/>
+			<referrer name="ShowRHBSkinMenu"/>
+			<referrer name="ShowSBFSkinMenu"/>
+			<referrer name="ShowTDFSkinMenu"/>
+			<referrer name="ShowVLASkinMenu"/>
+			<referrer name="ShowLSPDSkinMenu"/>
 		</member>
 		<member name="M:list_size" syntax="list_size(list)">
 			<attribute name="native"/>
