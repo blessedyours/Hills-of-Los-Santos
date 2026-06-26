@@ -2859,10 +2859,6 @@
 			<referrer name="CodeScanCall"/>
 			<library>y_emit</library>  <remarks>  The JIT plugin address translation register value for use in <c>LCTRL</c>  and <c>SCTRL</c>.  </remarks> 
 		</member>
-		<member name="C:__line" value="52">
-			<referrer name="cmd_joingang"/>
-			<referrer name="cmd_joinlspd"/>
-		</member>
 		<member name="C:__local0_offset" value="-4">
 			<referrer name="K@"/>
 			<referrer name="D@"/>
@@ -4362,8 +4358,6 @@
 			<referrer name="YVers_PrintHeader"/>
 		</member>
 		<member name="F:__file">
-			<referrer name="cmd_joingang"/>
-			<referrer name="cmd_joinlspd"/>
 		</member>
 		<member name="F:__file">
 		</member>
@@ -5058,6 +5052,7 @@
 		<member name="F:g_GangPickupColor">
 			<referrer name="Indirection_OnGameModeInit"/>
 			<referrer name="cmd_joingang"/>
+			<referrer name="cmd_leavegang"/>
 		</member>
 		<member name="F:g_GangPickupID">
 			<referrer name="Indirection_OnGameModeInit"/>
@@ -5074,6 +5069,7 @@
 			<referrer name="Indirection_OnGameModeInit"/>
 			<referrer name="OnPlayerPickUpPickup"/>
 			<referrer name="cmd_joingang"/>
+			<referrer name="cmd_leavegang"/>
 		</member>
 		<member name="F:g_GangPickupPending">
 			<referrer name="Indirection_OnGameModeInit"/>
@@ -5090,10 +5086,17 @@
 		<member name="F:g_GangPickupTag">
 			<referrer name="OnPlayerPickUpPickup"/>
 			<referrer name="cmd_joingang"/>
+			<referrer name="cmd_leavegang"/>
 		</member>
 		<member name="F:g_PlayerGang">
 			<referrer name="Indirection_OnGameModeInit"/>
 			<referrer name="cmd_joingang"/>
+			<referrer name="cmd_leavegang"/>
+		</member>
+		<member name="F:g_PlayerGangCooldown">
+			<referrer name="Indirection_OnGameModeInit"/>
+			<referrer name="cmd_joingang"/>
+			<referrer name="cmd_leavegang"/>
 		</member>
 		<member name="F:g_StrlibBuffer">
 			<referrer name="strcatmid"/>
@@ -17547,6 +17550,7 @@
 			<dependency name="g_GangPickupName"/>
 			<dependency name="g_GangPickupPending"/>
 			<dependency name="g_PlayerGang"/>
+			<dependency name="g_PlayerGangCooldown"/>
 			<dependency name="true"/>
 		</member>
 		<member name="M:InitOpcodeTable" syntax="InitOpcodeTable()">
@@ -21624,30 +21628,6 @@
 			</param>
 			<library>sscanf</library>      <remarks>  Get the SSCANF plugin version as a string (e.g. <c>"2.11.2"</c>) <em>or</em>  a BCD-encoded value (e.g. <c>0x021102</c>).  This function returns a string  (by reference) when called with parameters, or a number (directly) when not.  </remarks> 
 		</member>
-		<member name="M:SSCANF__" syntax="SSCANF__(file[], line, data[], format[], ...)">
-			<attribute name="native"/>
-			<referrer name="cmd_joingang"/>
-			<referrer name="cmd_joinlspd"/>
-			<param name="file">
-				<paraminfo> [] </paraminfo>
-				The file in which this call is found.
-			</param>
-			<param name="line">
-				The line at which this call is found.
-			</param>
-			<param name="data">
-				<paraminfo> [] </paraminfo>
-				The input string containing the data to parse out.
-			</param>
-			<param name="format">
-				<paraminfo> [] </paraminfo>
-				The format description of what the input data should contain.
-			</param>
-			<param name="...">
-				<paraminfo> {T_WEAPON,Float,_} </paraminfo>
-			</param>
-			<library>sscanf</library>          <remarks>  The current true implementation of <c>sscanf</c> in the plugin.  This is  wrapped by macros to provide <c>sscanf</c> enhanced with filenames and line  numbers so that errors have more information.  The plugin also contains a  native function called <c>sscanf</c> which is only for backwards-  compatibility with older versions of this include.  </remarks> 
-		</member>
 		<member name="M:ScriptInit_CallOnCodeInit" syntax="ScriptInit_CallOnCodeInit(jit, fs)">
 			<tagname value="bool"/>
 			<stacksize value="41"/>
@@ -22034,6 +22014,7 @@
 			<referrer name="_@yHOnPasswordCheck@02"/>
 			<referrer name="OnPlayerPickUpPickup"/>
 			<referrer name="cmd_joingang"/>
+			<referrer name="cmd_leavegang"/>
 			<referrer name="cmd_joinlspd"/>
 			<param name="playerid">
 				The ID of the player to display the message to
@@ -25182,11 +25163,8 @@
 		</member>
 		<member name="M:cmd_joingang" syntax="cmd_joingang(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="234"/>
-			<dependency name="SSCANF__"/>
+			<stacksize value="170"/>
 			<dependency name="SendClientMessage"/>
-			<dependency name="__file"/>
-			<dependency name="__line"/>
 			<dependency name="format"/>
 			<dependency name="g_GangPickupColor"/>
 			<dependency name="g_GangPickupName"/>
@@ -25195,6 +25173,8 @@
 			<dependency name="g_GangPickupTag"/>
 			<dependency name="g_GangPickupTag"/>
 			<dependency name="g_PlayerGang"/>
+			<dependency name="g_PlayerGangCooldown"/>
+			<dependency name="gettime"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -25203,13 +25183,29 @@
 		</member>
 		<member name="M:cmd_joinlspd" syntax="cmd_joinlspd(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="73"/>
-			<dependency name="SSCANF__"/>
+			<stacksize value="6"/>
 			<dependency name="SendClientMessage"/>
 			<dependency name="ShowLSPDRecruitmentDialog"/>
-			<dependency name="__file"/>
-			<dependency name="__line"/>
 			<dependency name="g_GangPickupPending"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:cmd_leavegang" syntax="cmd_leavegang(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="170"/>
+			<dependency name="SendClientMessage"/>
+			<dependency name="format"/>
+			<dependency name="g_GangPickupColor"/>
+			<dependency name="g_GangPickupName"/>
+			<dependency name="g_GangPickupName"/>
+			<dependency name="g_GangPickupTag"/>
+			<dependency name="g_GangPickupTag"/>
+			<dependency name="g_PlayerGang"/>
+			<dependency name="g_PlayerGangCooldown"/>
+			<dependency name="gettime"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -25710,6 +25706,7 @@
 			<referrer name="Indirection_OnGameModeInit"/>
 			<referrer name="OnPlayerPickUpPickup"/>
 			<referrer name="cmd_joingang"/>
+			<referrer name="cmd_leavegang"/>
 			<param name="output">
 				<paraminfo> [] </paraminfo>
 				The string to output the result to
@@ -25973,6 +25970,8 @@
 			<referrer name="ScriptInit_GetStartTime"/>
 			<referrer name="ScriptInit_PurgeTemporaries"/>
 			<referrer name="fautocleanup"/>
+			<referrer name="cmd_joingang"/>
+			<referrer name="cmd_leavegang"/>
 			<param name="hour">
 				<paraminfo> &amp; </paraminfo>
 				The variable to store the hour in, passed by reference (optional=<b><c>0</c></b>)

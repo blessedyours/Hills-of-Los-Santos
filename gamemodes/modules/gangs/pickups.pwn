@@ -3,6 +3,10 @@
 //-----------------------------------------------------------------------------
 
 #define MAX_GANG_PICKUPS 10
+#define GANG_NONE (-1)
+#define GANG_CHANGE_COOLDOWN 180
+
+new g_PlayerGangCooldown[MAX_PLAYERS];
 
 new const Float:gGangPickupCoords[MAX_GANG_PICKUPS][4] = {
     {2469.5876, -1650.4285, 13.4718, 181.7289}, // GSF
@@ -80,8 +84,9 @@ public OnGameModeInit()
 {
     for (new playerid = 0; playerid < MAX_PLAYERS; playerid++)
     {
-        g_GangPickupPending[playerid] = -1;
-        g_PlayerGang[playerid] = -1;
+        g_GangPickupPending[playerid] = GANG_NONE;
+        g_PlayerGang[playerid] = GANG_NONE;
+        g_PlayerGangCooldown[playerid] = 0;
     }
 
     for (new i = 0; i < MAX_GANG_PICKUPS; i++)
@@ -151,7 +156,7 @@ public GangPickupResetTimer()
                 g_GangPickupSeen[playerid][i] = false;
                 if (g_GangPickupPending[playerid] == i)
                 {
-                    g_GangPickupPending[playerid] = -1;
+                    g_GangPickupPending[playerid] = GANG_NONE;
                 }
             }
         }
