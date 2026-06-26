@@ -22,6 +22,8 @@
 #include <samp_bcrypt>
 #include <crashdetect>
 #include <streamer>
+#include <PawnPlus>
+#include <eSelection>
 #include <Pawn.Regex>
 #include <sscanf2>
 #include <zcmd>
