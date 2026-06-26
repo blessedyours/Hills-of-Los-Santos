@@ -4937,6 +4937,8 @@
 		</member>
 		<member name="F:__file">
 		</member>
+		<member name="F:__file">
+		</member>
 		<member name="F:__gOnce">
 			<p/>
 		</member>
@@ -5327,6 +5329,7 @@
 			<referrer name="Indirection_OnGameModeInit"/>
 			<referrer name="cmd_joingang"/>
 			<referrer name="cmd_leavegang"/>
+			<referrer name="ShowPlayerGangSkinMenu"/>
 		</member>
 		<member name="F:g_PlayerGangCooldown">
 			<referrer name="Indirection_OnGameModeInit"/>
@@ -26953,6 +26956,7 @@
 			<referrer name="cmd_joingang"/>
 			<referrer name="cmd_leavegang"/>
 			<referrer name="cmd_joinlspd"/>
+			<referrer name="ShowPlayerGangSkinMenu"/>
 			<referrer name="OnModelSelectionResponse"/>
 			<param name="playerid">
 				The ID of the player to display the message to
@@ -28002,6 +28006,7 @@
 		</member>
 		<member name="M:ShowCivilianSkinMenu" syntax="ShowCivilianSkinMenu(playerid)">
 			<stacksize value="8"/>
+			<referrer name="ShowPlayerGangSkinMenu"/>
 			<dependency name="CivilianSkins"/>
 			<dependency name="ShowModelSelectionMenu"/>
 			<dependency name="SkinSelector_AddItems"/>
@@ -28011,6 +28016,7 @@
 		</member>
 		<member name="M:ShowFYBSkinMenu" syntax="ShowFYBSkinMenu(playerid)">
 			<stacksize value="8"/>
+			<referrer name="ShowPlayerGangSkinMenu"/>
 			<dependency name="FYBSkins"/>
 			<dependency name="ShowModelSelectionMenu"/>
 			<dependency name="SkinSelector_AddItems"/>
@@ -28020,6 +28026,7 @@
 		</member>
 		<member name="M:ShowGSFSkinMenu" syntax="ShowGSFSkinMenu(playerid)">
 			<stacksize value="8"/>
+			<referrer name="ShowPlayerGangSkinMenu"/>
 			<dependency name="GSFSkins"/>
 			<dependency name="ShowModelSelectionMenu"/>
 			<dependency name="SkinSelector_AddItems"/>
@@ -28029,6 +28036,7 @@
 		</member>
 		<member name="M:ShowKTBSkinMenu" syntax="ShowKTBSkinMenu(playerid)">
 			<stacksize value="8"/>
+			<referrer name="ShowPlayerGangSkinMenu"/>
 			<dependency name="KTBSkins"/>
 			<dependency name="ShowModelSelectionMenu"/>
 			<dependency name="SkinSelector_AddItems"/>
@@ -28047,6 +28055,7 @@
 		</member>
 		<member name="M:ShowLSPDSkinMenu" syntax="ShowLSPDSkinMenu(playerid)">
 			<stacksize value="8"/>
+			<referrer name="ShowPlayerGangSkinMenu"/>
 			<dependency name="LSPDSkins"/>
 			<dependency name="ShowModelSelectionMenu"/>
 			<dependency name="SkinSelector_AddItems"/>
@@ -28056,6 +28065,7 @@
 		</member>
 		<member name="M:ShowLSVSkinMenu" syntax="ShowLSVSkinMenu(playerid)">
 			<stacksize value="8"/>
+			<referrer name="ShowPlayerGangSkinMenu"/>
 			<dependency name="LSVSkins"/>
 			<dependency name="ShowModelSelectionMenu"/>
 			<dependency name="SkinSelector_AddItems"/>
@@ -28182,8 +28192,27 @@
 			</param>
 			<library>omp_dialog</library>  <summary>Shows the player a synchronous (only one at a time) dialog box.</summary>                <seealso name="TextDrawShowForPlayer" />  <seealso name="OnDialogResponse" />  <remarks>Use colour embedding for multiple colours in the text. </remarks>  <remarks>Using <b><c>-1</c></b> as dialogid closes all dialogs currently shown on the client's screen.  </remarks>  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  This means the player is not connected.<br />  </returns> 
 		</member>
+		<member name="M:ShowPlayerGangSkinMenu" syntax="ShowPlayerGangSkinMenu(playerid)">
+			<stacksize value="5"/>
+			<referrer name="cmd_skins"/>
+			<dependency name="SendClientMessage"/>
+			<dependency name="ShowCivilianSkinMenu"/>
+			<dependency name="ShowFYBSkinMenu"/>
+			<dependency name="ShowGSFSkinMenu"/>
+			<dependency name="ShowKTBSkinMenu"/>
+			<dependency name="ShowLSPDSkinMenu"/>
+			<dependency name="ShowLSVSkinMenu"/>
+			<dependency name="ShowRHBSkinMenu"/>
+			<dependency name="ShowSBFSkinMenu"/>
+			<dependency name="ShowTDFSkinMenu"/>
+			<dependency name="ShowVLASkinMenu"/>
+			<dependency name="g_PlayerGang"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:ShowRHBSkinMenu" syntax="ShowRHBSkinMenu(playerid)">
 			<stacksize value="8"/>
+			<referrer name="ShowPlayerGangSkinMenu"/>
 			<dependency name="RHBSkins"/>
 			<dependency name="ShowModelSelectionMenu"/>
 			<dependency name="SkinSelector_AddItems"/>
@@ -28193,6 +28222,7 @@
 		</member>
 		<member name="M:ShowSBFSkinMenu" syntax="ShowSBFSkinMenu(playerid)">
 			<stacksize value="8"/>
+			<referrer name="ShowPlayerGangSkinMenu"/>
 			<dependency name="SBFSkins"/>
 			<dependency name="ShowModelSelectionMenu"/>
 			<dependency name="SkinSelector_AddItems"/>
@@ -28202,6 +28232,7 @@
 		</member>
 		<member name="M:ShowTDFSkinMenu" syntax="ShowTDFSkinMenu(playerid)">
 			<stacksize value="8"/>
+			<referrer name="ShowPlayerGangSkinMenu"/>
 			<dependency name="ShowModelSelectionMenu"/>
 			<dependency name="SkinSelector_AddItems"/>
 			<dependency name="TDFSkins"/>
@@ -28211,6 +28242,7 @@
 		</member>
 		<member name="M:ShowVLASkinMenu" syntax="ShowVLASkinMenu(playerid)">
 			<stacksize value="8"/>
+			<referrer name="ShowPlayerGangSkinMenu"/>
 			<dependency name="ShowModelSelectionMenu"/>
 			<dependency name="SkinSelector_AddItems"/>
 			<dependency name="VLASkins"/>
@@ -30634,6 +30666,16 @@
 			<dependency name="g_PlayerGang"/>
 			<dependency name="g_PlayerGangCooldown"/>
 			<dependency name="gettime"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:cmd_skins" syntax="cmd_skins(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="4"/>
+			<dependency name="ShowPlayerGangSkinMenu"/>
 			<param name="playerid">
 			</param>
 			<param name="params">

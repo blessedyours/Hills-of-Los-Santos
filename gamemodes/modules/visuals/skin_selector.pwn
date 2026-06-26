@@ -110,8 +110,6 @@ new VLASkins[][E_SKIN_MENU_DATA] =
     {20031, "Varrio Los Aztecas IV"}
 };
 
-// Para LSPD no metí las 50+ aquí porque el selector se haría larguísimo.
-// Dejé una selección limpia: patrol, female, metro, platoon, BDU y SWAT.
 new LSPDSkins[][E_SKIN_MENU_DATA] =
 {
     {20032, "LSPD Officer I"},
@@ -179,6 +177,8 @@ stock ShowFYBSkinMenu(playerid)
     ShowModelSelectionMenu(playerid, "Front Yard Ballas Skins", MODEL_SELECTION_FYB_SKINS, skins);
     return 1;
 }
+
+
 
 stock ShowGSFSkinMenu(playerid)
 {
@@ -260,6 +260,67 @@ stock ShowLSPDSkinMenu(playerid)
     return 1;
 }
 
+stock ShowPlayerGangSkinMenu(playerid)
+{
+    switch(g_PlayerGang[playerid])
+    {
+        case 0: // GSF
+        {
+            ShowGSFSkinMenu(playerid);
+        }
+        case 1: // TDF
+        {
+            ShowTDFSkinMenu(playerid);
+        }
+        case 2: // SBF
+        {
+            ShowSBFSkinMenu(playerid);
+        }
+        case 3: // FYB
+        {
+            ShowFYBSkinMenu(playerid);
+        }
+        case 4: // RHB
+        {
+            ShowRHBSkinMenu(playerid);
+        }
+        case 5: // TDB
+        {
+            SendClientMessage(playerid, -1, "{ff6347}[ ! ]: {FFFFFF}Temple Drive Ballas skins are not available yet.");
+        }
+        case 6: // KTB
+        {
+            ShowKTBSkinMenu(playerid);
+        }
+        case 7: // LSV
+        {
+            ShowLSVSkinMenu(playerid);
+        }
+        case 8: // VLA
+        {
+            ShowVLASkinMenu(playerid);
+        }
+        case 9: // LSPD
+        {
+            ShowLSPDSkinMenu(playerid);
+        }
+        default:
+        {
+            ShowCivilianSkinMenu(playerid);
+        }
+    }
+
+    return 1;
+}
+
+command(skins, playerid, params[])
+{
+    #pragma unused params
+
+    ShowPlayerGangSkinMenu(playerid);
+    return 1;
+}
+
 //-----------------------------------------------------------------------------
 // Response
 //-----------------------------------------------------------------------------
@@ -286,11 +347,10 @@ public OnModelSelectionResponse(playerid, extraid, index, modelid, response)
         {
             SetPlayerSkin(playerid, modelid);
 
-            // Aquí luego guardas en MySQL.
             // PlayerInfo[playerid][pSkin] = modelid;
             // Account_SaveSkin(playerid, modelid);
 
-            SendClientMessage(playerid, -1, "You have selected your skin.");
+            SendClientMessage(playerid, -1, "{33AA33}[ + ]: {FFFFFF}You have successfully changed your street appearance.");
             return 1;
         }
     }

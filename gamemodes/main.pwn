@@ -51,8 +51,7 @@
 // Player Modules
 #include "modules/player/nametag.pwn"
 #include "modules/gangs/header.pwn"
-#include "modules/visuals/models.pwn"
-#include "modules/visuals/skin_selector.pwn"
+#include "modules/visuals/header.pwn"
 
 // -----------------------------------------------------------------------------
 
