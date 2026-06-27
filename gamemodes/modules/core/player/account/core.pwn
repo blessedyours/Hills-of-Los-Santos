@@ -578,11 +578,21 @@ hook OnPlayerRegister(playerid)
     s_IsFirstLogin[playerid] = true;
     s_CharacterNameSaved[playerid] = false;
 
-    SendClientMessage(playerid, -1,
-        "{36906b}[ ! ]: {FFFFFF}Welcome to Hills of Los Santos! Your account has been created successfully.");
-    
+    new accountname[24];
     new charname[31];
+    new message[180];
+
+    GetPlayerAccountName(playerid, accountname, sizeof(accountname));
     GetPlayerCharacterName(playerid, charname, sizeof(charname));
+
+    format(message, sizeof(message),
+        "{AAC4E5}[ LOGIN ]: {FFFFFF}Welcome to {36906b}Hills of Los Santos{FFFFFF}, {ffad3f}%s | %s{FFFFFF}. Your account has been successfully registered on the server.",
+        charname,
+        accountname
+    );
+
+    SendClientMessage(playerid, -1, message);
+
     ApplyPlayerName(playerid, charname);
     
     SetTimerEx("ForcePlayerSpawn", 800, false, "d", playerid);
@@ -658,8 +668,18 @@ hook OnPasswordCheck(playerid, bool:match)
 
         SetPlayerCharacterName(playerid, charname);
 
-        SendClientMessage(playerid, -1,
-            "{36906b}[ ! ]: {FFFFFF}Welcome back to Hills of Los Santos!");
+        new accountname[24];
+        new message[180];
+
+        GetPlayerAccountName(playerid, accountname, sizeof(accountname));
+
+        format(message, sizeof(message),
+        "{AAC4E5}[ LOGIN ]: {FFFFFF}Welcome back to {36906b}Hills of Los Santos{FFFFFF}, {ffad3f}%s | %s{FFFFFF}.",
+        charname,
+        accountname
+);
+
+SendClientMessage(playerid, -1, message);
 
         ApplyPlayerName(playerid, charname);
         

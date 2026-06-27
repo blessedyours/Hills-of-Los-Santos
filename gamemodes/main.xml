@@ -20395,6 +20395,8 @@
 			<stacksize value="6"/>
 			<referrer name="Account_Check"/>
 			<referrer name="Account_Create"/>
+			<referrer name="_@yHOnPlayerRegister@02"/>
+			<referrer name="_@yHOnPasswordCheck@02"/>
 			<dependency name="IsPlayerConnected"/>
 			<dependency name="format"/>
 			<dependency name="s_PlayerAccountName"/>
@@ -30152,12 +30154,13 @@
 		</member>
 		<member name="M:_@yHOnPasswordCheck@02" syntax="_@yHOnPasswordCheck@02(playerid, match)">
 			<attribute name="public"/>
-			<stacksize value="136"/>
+			<stacksize value="242"/>
 			<referrer name="@yH_OnPasswordCheck@02"/>
 			<dependency name="Account_ShowLoginDialog"/>
 			<dependency name="ApplyPlayerName"/>
 			<dependency name="DeletePVar"/>
 			<dependency name="GetPVarString"/>
+			<dependency name="GetPlayerAccountName"/>
 			<dependency name="Kick"/>
 			<dependency name="Nametag_Show"/>
 			<dependency name="SendClientMessage"/>
@@ -30259,9 +30262,10 @@
 		</member>
 		<member name="M:_@yHOnPlayerRegister@02" syntax="_@yHOnPlayerRegister@02(playerid)">
 			<attribute name="public"/>
-			<stacksize value="39"/>
+			<stacksize value="243"/>
 			<referrer name="@yH_OnPlayerRegister@02"/>
 			<dependency name="ApplyPlayerName"/>
+			<dependency name="GetPlayerAccountName"/>
 			<dependency name="GetPlayerCharacterName"/>
 			<dependency name="SendClientMessage"/>
 			<dependency name="SetPlayerAccountID"/>
@@ -30269,6 +30273,7 @@
 			<dependency name="SetTimerEx"/>
 			<dependency name="cache_insert_id"/>
 			<dependency name="false"/>
+			<dependency name="format"/>
 			<dependency name="s_CharacterNameSaved"/>
 			<dependency name="s_IsFirstLogin"/>
 			<dependency name="true"/>
@@ -31548,6 +31553,7 @@
 			<referrer name="Account_ShowCharacterNameDialog"/>
 			<referrer name="GetPlayerCharacterName"/>
 			<referrer name="GetPlayerAccountName"/>
+			<referrer name="_@yHOnPlayerRegister@02"/>
 			<referrer name="_@yHOnPasswordCheck@02"/>
 			<referrer name="Nametag_BuildLabel"/>
 			<referrer name="Indirection_OnGameModeInit"/>
