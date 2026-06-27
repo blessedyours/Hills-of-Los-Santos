@@ -13,6 +13,7 @@ forward public OnCharacterNameLoaded(playerid);
 forward public OnCharacterNameUpdated(playerid);
 forward public OnCharacterNameCheck(playerid);
 forward public ForcePlayerSpawn(playerid);
+forward public ApplyLoadedPosition(playerid);
 forward public ResetPlayerCamera(playerid);  // ✓ AGREGAR ESTA LÍNEA
 
 //-----------------------------------------------------------------------------
@@ -584,17 +585,29 @@ public ForcePlayerSpawn(playerid)
     if (IsPlayerConnected(playerid) && IsPlayerLoggedIn(playerid))
     {
         s_InLoginMenu[playerid] = false;
-        new Float:x = GetPVarFloat(playerid, "LoadPosX");
-        new Float:y = GetPVarFloat(playerid, "LoadPosY");
-        new Float:z = GetPVarFloat(playerid, "LoadPosZ");
-        new Float:a = GetPVarFloat(playerid, "LoadPosAngle");
 
-        SetPlayerPos(playerid, x, y, z);
-        SetPlayerFacingAngle(playerid, a);
-        
         SpawnPlayer(playerid);
-        SetTimerEx("ResetPlayerCamera", 200, false, "d", playerid);
+
+        SetTimerEx("ApplyLoadedPosition", 300, false, "d", playerid);
+        SetTimerEx("ResetPlayerCamera", 500, false, "d", playerid);
     }
+    return 1;
+}
+
+public ApplyLoadedPosition(playerid)
+{
+    if (!IsPlayerConnected(playerid) || !IsPlayerLoggedIn(playerid))
+        return 0;
+
+    new Float:x = GetPVarFloat(playerid, "LoadPosX");
+    new Float:y = GetPVarFloat(playerid, "LoadPosY");
+    new Float:z = GetPVarFloat(playerid, "LoadPosZ");
+    new Float:a = GetPVarFloat(playerid, "LoadPosAngle");
+
+    SetPlayerPos(playerid, x, y, z);
+    SetPlayerFacingAngle(playerid, a);
+    SetCameraBehindPlayer(playerid);
+
     return 1;
 }
 

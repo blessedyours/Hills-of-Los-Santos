@@ -13315,6 +13315,18 @@
 			<param name="reason">
 			</param>
 		</member>
+		<member name="M:ApplyLoadedPosition" syntax="ApplyLoadedPosition(playerid)">
+			<attribute name="public"/>
+			<stacksize value="10"/>
+			<dependency name="GetPVarFloat"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="IsPlayerLoggedIn"/>
+			<dependency name="SetCameraBehindPlayer"/>
+			<dependency name="SetPlayerFacingAngle"/>
+			<dependency name="SetPlayerPos"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:ApplyPlayerName" syntax="ApplyPlayerName(playerid, charname[])">
 			<stacksize value="4"/>
 			<referrer name="_@yHOnPlayerRegister@02"/>
@@ -19408,12 +19420,9 @@
 		</member>
 		<member name="M:ForcePlayerSpawn" syntax="ForcePlayerSpawn(playerid)">
 			<attribute name="public"/>
-			<stacksize value="11"/>
-			<dependency name="GetPVarFloat"/>
+			<stacksize value="7"/>
 			<dependency name="IsPlayerConnected"/>
 			<dependency name="IsPlayerLoggedIn"/>
-			<dependency name="SetPlayerFacingAngle"/>
-			<dependency name="SetPlayerPos"/>
 			<dependency name="SetTimerEx"/>
 			<dependency name="SpawnPlayer"/>
 			<dependency name="false"/>
@@ -20321,7 +20330,7 @@
 		<member name="M:GetPVarFloat" syntax="GetPVarFloat(playerid, pvar[])">
 			<tagname value="Float"/>
 			<attribute name="native"/>
-			<referrer name="ForcePlayerSpawn"/>
+			<referrer name="ApplyLoadedPosition"/>
 			<param name="playerid">
 				The ID of the player whose player variable you want to get
 			</param>
@@ -22520,6 +22529,7 @@
 			<referrer name="_@yHOnDialogResponse@02"/>
 			<referrer name="ResetPlayerCamera"/>
 			<referrer name="ForcePlayerSpawn"/>
+			<referrer name="ApplyLoadedPosition"/>
 			<referrer name="Nametag_ResetColor"/>
 			<referrer name="GangPickupResetTimer"/>
 			<param name="playerid">
@@ -22535,6 +22545,7 @@
 			<referrer name="_@yHOnPlayerFinishedDownloading@02"/>
 			<referrer name="_@yHOnPlayerSpawn@02"/>
 			<referrer name="ForcePlayerSpawn"/>
+			<referrer name="ApplyLoadedPosition"/>
 			<referrer name="_@yHOnPlayerDisconnect@02"/>
 			<dependency name="IsPlayerConnected"/>
 			<dependency name="false"/>
@@ -27572,6 +27583,7 @@
 			<attribute name="native"/>
 			<referrer name="_@yHOnPlayerSpawn@02"/>
 			<referrer name="ResetPlayerCamera"/>
+			<referrer name="ApplyLoadedPosition"/>
 			<param name="playerid">
 				The player you want to restore the camera for
 			</param>
@@ -27901,7 +27913,7 @@
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="_@yHOnPlayerRequestSpawn@02"/>
-			<referrer name="ForcePlayerSpawn"/>
+			<referrer name="ApplyLoadedPosition"/>
 			<param name="playerid">
 				The ID of the player to set the facing angle of
 			</param>
@@ -27967,7 +27979,7 @@
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="_@yHOnPlayerRequestSpawn@02"/>
-			<referrer name="ForcePlayerSpawn"/>
+			<referrer name="ApplyLoadedPosition"/>
 			<param name="playerid">
 				The ID of the player to set the position of
 			</param>
