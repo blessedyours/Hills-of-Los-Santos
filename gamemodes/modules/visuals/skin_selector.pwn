@@ -158,13 +158,69 @@ stock SkinSelector_AddItems(List:menu, const skins[][E_SKIN_MENU_DATA], size)
 // Public Menus
 //-----------------------------------------------------------------------------
 
+stock bool:IsRestrictedCivilianSkin(skinid)
+{
+    switch (skinid)
+    {
+        // Story / special characters
+        case 0, 1, 2, 3, 4, 5, 6, 8, 42, 65, 74, 86, 119, 149, 208, 264:
+            return true;
+
+        // Grove Street Families
+        case 105, 106, 107:
+            return true;
+
+        // Ballas
+        case 102, 103, 104:
+            return true;
+
+        // Los Santos Vagos
+        case 108, 109, 110:
+            return true;
+
+        // Varrio Los Aztecas
+        case 114, 115, 116:
+            return true;
+
+        // San Fierro Rifa
+        case 173, 174, 175:
+            return true;
+
+        // Mafia / triads / gangs
+        case 111, 112, 113, 117, 118, 120, 121, 122, 123, 124, 125, 126, 127:
+            return true;
+
+        // Police / FBI / SWAT / Army
+        case 265, 266, 267, 280, 281, 282, 283, 284, 285, 286, 287, 288:
+            return true;
+
+        // Medics
+        case 274, 275, 276:
+            return true;
+
+        // Firefighters
+        case 277, 278, 279:
+            return true;
+    }
+
+    return false;
+}
+
 stock ShowCivilianSkinMenu(playerid)
 {
     new List:skins = list_new();
+    new itemName[32];
 
-    SkinSelector_AddItems(skins, CivilianSkins, sizeof(CivilianSkins));
+    for (new skinid = 0; skinid <= 311; skinid++)
+    {
+        if (IsRestrictedCivilianSkin(skinid))
+            continue;
 
-    ShowModelSelectionMenu(playerid, "Civilian Skins", MODEL_SELECTION_CIVIL_SKINS, skins);
+        format(itemName, sizeof(itemName), "Civilian Skin %d", skinid);
+        AddModelMenuItem(skins, skinid, itemName);
+    }
+
+    ShowModelSelectionMenu(playerid, "Create Your Character", MODEL_SELECTION_CIVIL_SKINS, skins);
     return 1;
 }
 
@@ -334,6 +390,25 @@ public OnModelSelectionResponse(playerid, extraid, index, modelid, response)
 
     switch(extraid)
     {
+        case MODEL_SELECTION_CIVIL_SKINS:
+{
+    SetPlayerSkin(playerid, modelid);
+    SetPVarInt(playerid, "SelectedSkin", modelid);
+
+    if (GetPVarInt(playerid, "SelectingRegisterSkin"))
+    {
+        DeletePVar(playerid, "SelectingRegisterSkin");
+
+        Account_ShowRegistrationDialog(playerid);
+        return 1;
+    }
+
+    SendClientMessage(playerid, -1,
+        "{33AA33}[ + ]: {FFFFFF}Your appearance has been updated.");
+
+    return 1;
+}
+
         case MODEL_SELECTION_FYB_SKINS,
              MODEL_SELECTION_GSF_SKINS,
              MODEL_SELECTION_KTB_SKINS,

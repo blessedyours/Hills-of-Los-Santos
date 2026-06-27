@@ -3374,6 +3374,7 @@
 			<referrer name="Nametag_OnDamage"/>
 			<referrer name="Indirection_OnGameModeInit"/>
 			<referrer name="GangPickupResetTimer"/>
+			<referrer name="IsRestrictedCivilianSkin"/>
 		</member>
 		<member name="C:tag_uid_unknown" value="0">
 			<tagname value="tag_uid"/>
@@ -3494,6 +3495,7 @@
 			<referrer name="Nametag_CreateLabel"/>
 			<referrer name="Indirection_OnGameModeInit"/>
 			<referrer name="OnPlayerPickUpPickup"/>
+			<referrer name="IsRestrictedCivilianSkin"/>
 		</member>
 		<member name="C:ucharmax" value="16777215">
 			<referrer name="YSI_IsLocalVarPackedString__"/>
@@ -3695,7 +3697,6 @@
 			<library>sscanf</library>  <remarks>  The <c>CELLMIN_ON_MATCHES</c> option as a constant string so you can get  compile-time spell checking on the name.  Whatever the value of  <c>MATCH_NAME_PARTIAL</c>, the first found player will always be returned,  so if you do a search for <c>_</c> on an RP server, you could get almost  anyone.  To detect this case, if more than one player will match the  specified string then <em>sscanf</em> will return an ID of <c>cellmin</c>  instead.  This can be combined with <c>U</c> for a lot more power:  <code>  sscanf(params, "?&lt;CELLMIN_ON_MATCHES=1&gt;U(-1)", id);                <br />  if (id == -1)                                                            <br />  {                                                                        <br /><indent />  // No player was entered.                                            <br />  }                                                                        <br />  else if (id == cellmin)                                                  <br />  {                                                                        <br /><indent />  // Multiple matches found                                            <br />  }                                                                        <br />  else if (id == INVALID_PLAYER_ID)                                        <br />  {                                                                        <br /><indent />  // Entered player is not connected.                                  <br />  }                                                                        <br />  else                                                                     <br />  {                                                                        <br /><indent />  // Found just one player.                                            <br />  }  </code>  </remarks> 
 		</member>
 		<member name="F:CivilianSkins">
-			<referrer name="ShowCivilianSkinMenu"/>
 		</member>
 		<member name="F:FALSE">
 			<tagname value="bool"/>
@@ -13017,8 +13018,9 @@
 			</param>
 		</member>
 		<member name="M:Account_Create" syntax="Account_Create(playerid, hash[])">
-			<stacksize value="320"/>
+			<stacksize value="322"/>
 			<referrer name="_@yHOnPasswordHash@02"/>
+			<dependency name="GetPVarInt"/>
 			<dependency name="GetPlayerAccountName"/>
 			<dependency name="GetPlayerCharacterName"/>
 			<dependency name="g_DatabaseHandle"/>
@@ -13064,8 +13066,8 @@
 		</member>
 		<member name="M:Account_ShowRegistrationDialog" syntax="Account_ShowRegistrationDialog(playerid, badpass)">
 			<stacksize value="521"/>
-			<referrer name="_@yHOnCharacterNameCheck@02"/>
 			<referrer name="_@yHOnDialogResponse@02"/>
+			<referrer name="OnModelSelectionResponse"/>
 			<dependency name="SendClientMessage"/>
 			<dependency name="ShowPlayerDialog"/>
 			<dependency name="format"/>
@@ -13106,6 +13108,7 @@
 		<member name="M:AddModelMenuItem" syntax="AddModelMenuItem(menulist, modelid, text[], usingrotation, rotx, roty, rotz, zoom, vehiclecolor1, vehiclecolor2)">
 			<stacksize value="79"/>
 			<referrer name="SkinSelector_AddItems"/>
+			<referrer name="ShowCivilianSkinMenu"/>
 			<dependency name="format"/>
 			<dependency name="g_eItemRotX"/>
 			<dependency name="g_eItemRotY"/>
@@ -13317,13 +13320,15 @@
 		</member>
 		<member name="M:ApplyLoadedPosition" syntax="ApplyLoadedPosition(playerid)">
 			<attribute name="public"/>
-			<stacksize value="10"/>
+			<stacksize value="11"/>
 			<dependency name="GetPVarFloat"/>
+			<dependency name="GetPVarInt"/>
 			<dependency name="IsPlayerConnected"/>
 			<dependency name="IsPlayerLoggedIn"/>
 			<dependency name="SetCameraBehindPlayer"/>
 			<dependency name="SetPlayerFacingAngle"/>
 			<dependency name="SetPlayerPos"/>
+			<dependency name="SetPlayerSkin"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -18569,6 +18574,7 @@
 			<referrer name="_@yHOnCharacterNameCheck@02"/>
 			<referrer name="_@yHOnPasswordCheck@02"/>
 			<referrer name="_@yHOnPlayerDisconnect@02"/>
+			<referrer name="OnModelSelectionResponse"/>
 			<param name="playerid">
 				The ID of the player whose player variable to delete
 			</param>
@@ -20339,6 +20345,20 @@
 				The name of the player variable
 			</param>
 			<library>omp_variable</library>  <summary>Gets a player variable as a float.</summary>      <seealso name="SetPVarInt" />  <seealso name="GetPVarInt" />  <seealso name="SetPVarString" />  <seealso name="GetPVarString" />  <seealso name="SetPVarFloat" />  <seealso name="DeletePVar" />  <returns>The float from the specified player variable.</returns> 
+		</member>
+		<member name="M:GetPVarInt" syntax="GetPVarInt(playerid, pvar[])">
+			<attribute name="native"/>
+			<referrer name="Account_Create"/>
+			<referrer name="ApplyLoadedPosition"/>
+			<referrer name="OnModelSelectionResponse"/>
+			<param name="playerid">
+				The ID of the player whose player variable to get
+			</param>
+			<param name="pvar">
+				<paraminfo> [] </paraminfo>
+				The name of the player variable (case-insensitive).  Assigned in SetPVarInt
+			</param>
+			<library>omp_variable</library>  <summary>Gets an integer player variable's value.</summary>      <seealso name="SetPVarInt" />  <seealso name="SetPVarString" />  <seealso name="GetPVarString" />  <seealso name="SetPVarFloat" />  <seealso name="GetPVarFloat" />  <seealso name="DeletePVar" />  <returns>The integer value of the specified player variable.  It will still return <b><c>0</c></b>  if the variable is not set, or the player does not exist.</returns> 
 		</member>
 		<member name="M:GetPVarString" syntax="GetPVarString(playerid, pvar[], output[], len)">
 			<attribute name="native"/>
@@ -22616,6 +22636,15 @@
 			</param>
 			<library>y_utils - names</library>  <summary>  IsRPName  </summary>        <remarks>  Is this name in the form <c>First_Last</c>?  Note this doesn't handle names  like "MacLeod", nor double-barralled surnames like "Smith-Thompson".  </remarks> 
 		</member>
+		<member name="M:IsRestrictedCivilianSkin" syntax="IsRestrictedCivilianSkin(skinid)">
+			<tagname value="bool"/>
+			<stacksize value="1"/>
+			<referrer name="ShowCivilianSkinMenu"/>
+			<dependency name="false"/>
+			<dependency name="true"/>
+			<param name="skinid">
+			</param>
+		</member>
 		<member name="M:IsTagIDEmpty" syntax="IsTagIDEmpty(tag)">
 			<tagname value="bool"/>
 			<stacksize value="1"/>
@@ -23552,7 +23581,11 @@
 		<member name="M:OnModelSelectionResponse" syntax="OnModelSelectionResponse(playerid, extraid, index, modelid, response)">
 			<attribute name="public"/>
 			<stacksize value="5"/>
+			<dependency name="Account_ShowRegistrationDialog"/>
+			<dependency name="DeletePVar"/>
+			<dependency name="GetPVarInt"/>
 			<dependency name="SendClientMessage"/>
+			<dependency name="SetPVarInt"/>
 			<dependency name="SetPlayerSkin"/>
 			<param name="playerid">
 			</param>
@@ -27791,6 +27824,24 @@
 			</param>
 			<library>omp_variable</library>  <summary>Set a float player variable's value.</summary>        <seealso name="SetPVarInt" />  <seealso name="GetPVarInt" />  <seealso name="SetPVarString" />  <seealso name="GetPVarString" />  <seealso name="GetPVarFloat" />  <seealso name="DeletePVar" />  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  Either the player specified is not connected,  or the variable name is null or over 40 characters.  </returns> 
 		</member>
+		<member name="M:SetPVarInt" syntax="SetPVarInt(playerid, pvar[], value)">
+			<tagname value="bool"/>
+			<attribute name="native"/>
+			<referrer name="_@yHOnPlayerAccountCheck@02"/>
+			<referrer name="_@yHOnCharacterNameCheck@02"/>
+			<referrer name="OnModelSelectionResponse"/>
+			<param name="playerid">
+				The ID of the player whose player variable will be set
+			</param>
+			<param name="pvar">
+				<paraminfo> [] </paraminfo>
+				The name of the player variable
+			</param>
+			<param name="value">
+				The integer to be set
+			</param>
+			<library>omp_variable</library>  <summary>Set an integer player variable.</summary>        <seealso name="GetPVarInt" />  <seealso name="SetPVarString" />  <seealso name="GetPVarString" />  <seealso name="SetPVarFloat" />  <seealso name="GetPVarFloat" />  <seealso name="DeletePVar" />  <remarks>Variables aren't reset until after <a href="#OnPlayerDisconnect">OnPlayerDisconnect</a>  is called, so the values are still accessible in <a href="#OnPlayerDisconnect">OnPlayerDisconnect</a>.</remarks>  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  Either the player specified is not connected,  or the variable name is null or over 40 characters.  </returns> 
+		</member>
 		<member name="M:SetPVarString" syntax="SetPVarString(playerid, pvar[], value[], ...)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
@@ -28000,6 +28051,7 @@
 		<member name="M:SetPlayerSkin" syntax="SetPlayerSkin(playerid, skinid)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="ApplyLoadedPosition"/>
 			<referrer name="OnModelSelectionResponse"/>
 			<param name="playerid">
 				The ID of the player to set the skin of
@@ -28223,11 +28275,13 @@
 			</param>
 		</member>
 		<member name="M:ShowCivilianSkinMenu" syntax="ShowCivilianSkinMenu(playerid)">
-			<stacksize value="8"/>
+			<stacksize value="47"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 			<referrer name="ShowPlayerGangSkinMenu"/>
-			<dependency name="CivilianSkins"/>
+			<dependency name="AddModelMenuItem"/>
+			<dependency name="IsRestrictedCivilianSkin"/>
 			<dependency name="ShowModelSelectionMenu"/>
-			<dependency name="SkinSelector_AddItems"/>
+			<dependency name="format"/>
 			<dependency name="list_new"/>
 			<param name="playerid">
 			</param>
@@ -28377,6 +28431,7 @@
 			<referrer name="Account_ShowCharacterNameDialog"/>
 			<referrer name="_@yHOnPlayerFinishedDownloading@02"/>
 			<referrer name="_@yHOnPlayerAccountCheck@02"/>
+			<referrer name="_@yHOnCharacterNameCheck@02"/>
 			<referrer name="_@yHOnDialogResponse@02"/>
 			<referrer name="ShowLSPDRecruitmentDialog"/>
 			<param name="playerid">
@@ -28470,7 +28525,6 @@
 		</member>
 		<member name="M:SkinSelector_AddItems" syntax="SkinSelector_AddItems(menu, skins[][], size)">
 			<stacksize value="14"/>
-			<referrer name="ShowCivilianSkinMenu"/>
 			<referrer name="ShowFYBSkinMenu"/>
 			<referrer name="ShowGSFSkinMenu"/>
 			<referrer name="ShowKTBSkinMenu"/>
@@ -30014,14 +30068,15 @@
 		</member>
 		<member name="M:_@yHOnCharacterNameCheck@02" syntax="_@yHOnCharacterNameCheck@02(playerid)">
 			<attribute name="public"/>
-			<stacksize value="37"/>
+			<stacksize value="40"/>
 			<referrer name="@yH_OnCharacterNameCheck@02"/>
 			<dependency name="Account_ShowCharacterNameDialog"/>
-			<dependency name="Account_ShowRegistrationDialog"/>
 			<dependency name="DeletePVar"/>
 			<dependency name="GetPVarString"/>
 			<dependency name="SendClientMessage"/>
+			<dependency name="SetPVarInt"/>
 			<dependency name="SetPlayerCharacterName"/>
+			<dependency name="ShowPlayerDialog"/>
 			<dependency name="cache_num_rows"/>
 			<param name="playerid">
 			</param>
@@ -30045,6 +30100,7 @@
 			<dependency name="SendClientMessage"/>
 			<dependency name="SetPVarString"/>
 			<dependency name="SetPlayerAccountName"/>
+			<dependency name="ShowCivilianSkinMenu"/>
 			<dependency name="ShowPlayerDialog"/>
 			<dependency name="bcrypt_verify"/>
 			<dependency name="false"/>
@@ -30132,12 +30188,13 @@
 		</member>
 		<member name="M:_@yHOnPlayerAccountCheck@02" syntax="_@yHOnPlayerAccountCheck@02(playerid)">
 			<attribute name="public"/>
-			<stacksize value="104"/>
+			<stacksize value="105"/>
 			<referrer name="@yH_OnPlayerAccountCheck@02"/>
 			<dependency name="Account_ShowCharacterNameDialog"/>
 			<dependency name="Account_ShowLoginDialog"/>
 			<dependency name="SendClientMessage"/>
 			<dependency name="SetPVarFloat"/>
+			<dependency name="SetPVarInt"/>
 			<dependency name="SetPVarString"/>
 			<dependency name="SetPlayerAccountID"/>
 			<dependency name="ShowPlayerDialog"/>
@@ -31497,6 +31554,7 @@
 			<referrer name="OnPlayerPickUpPickup"/>
 			<referrer name="cmd_joingang"/>
 			<referrer name="cmd_leavegang"/>
+			<referrer name="ShowCivilianSkinMenu"/>
 			<param name="output">
 				<paraminfo> [] </paraminfo>
 				The string to output the result to

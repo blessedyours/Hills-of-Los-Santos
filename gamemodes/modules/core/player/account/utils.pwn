@@ -31,7 +31,7 @@ Account_Check(playerid)
         g_DatabaseHandle,
         query,
         sizeof(query),
-        "SELECT `account_id`, `character_name`, `password_hash`, `pos_x`, `pos_y`, `pos_z`, `pos_angle` \
+        "SELECT `account_id`, `character_name`, `password_hash`, `pos_x`, `pos_y`, `pos_z`, `pos_angle`, `skin_id` \
         FROM `player_accounts` \
         WHERE `username` = '%e' \
         LIMIT 1;",
@@ -123,14 +123,17 @@ Account_Create(playerid, const hash[])
     GetPlayerCharacterName(playerid, charname, sizeof(charname));
     GetPlayerAccountName(playerid, accountname, sizeof(accountname));
 
+    new skinid = GetPVarInt(playerid, "SelectedSkin");
+
     mysql_format(
         g_DatabaseHandle,
         query,
         sizeof(query),
-        "INSERT INTO `player_accounts` (`username`, `character_name`, `password_hash`) VALUES ('%e', '%e', '%e');",
+        "INSERT INTO `player_accounts` (`username`, `character_name`, `password_hash`, `skin_id`) VALUES ('%e', '%e', '%e', %d);",
         accountname,
         charname,
-        hash
+        hash,
+        skinid
     );
 
     mysql_tquery(

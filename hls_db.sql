@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS `player_accounts` (
   `pos_y` float DEFAULT -1677.18,
   `pos_z` float DEFAULT 14.0469,
   `pos_angle` float DEFAULT 269.153,
+  `skin_id` int DEFAULT 0,
   PRIMARY KEY (`account_id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

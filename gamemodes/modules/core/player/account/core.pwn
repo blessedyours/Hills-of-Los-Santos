@@ -230,6 +230,10 @@ hook OnPlayerAccountCheck(playerid)
     SetPVarFloat(playerid, "LoadPosZ", posZ);
     SetPVarFloat(playerid, "LoadPosAngle", posAngle);
 
+    new skinid;
+    cache_get_value_name_int(0, "skin_id", skinid);
+    SetPVarInt(playerid, "LoadSkin", skinid);
+
     new charname[31];
     cache_get_value_name(0, "character_name", charname);
     SetPVarString(playerid, "cachedCharName", charname);
@@ -257,15 +261,22 @@ hook OnCharacterNameCheck(playerid)
         return 1;
     }
 
-    SetPlayerCharacterName(playerid, charname);
-    Account_ShowRegistrationDialog(playerid);
-    
-    return 1;
-}
+SetPlayerCharacterName(playerid, charname);
 
-//-----------------------------------------------------------------------------
-// Dialog responses
-//-----------------------------------------------------------------------------
+SetPVarInt(playerid, "SelectingRegisterSkin", 1);
+
+ShowPlayerDialog(
+    playerid,
+    DIALOG_CHARACTER_CREATION,
+    DIALOG_STYLE_MSGBOX,
+    "> Character Creation",
+    "{FFFFFF}Your character is almost ready.\n\n{FFFFFF}The next step is to choose an appearance.\nThis can be changed later at any clothing store.\n\n{D68924}Press Continue to choose your character appearance.",
+    "Continue",
+    "Back"
+);
+
+return 1;
+}
 
 //-----------------------------------------------------------------------------
 // Dialog responses
@@ -501,6 +512,18 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             return 1;
         }
 
+case DIALOG_CHARACTER_CREATION:
+{
+    if (!response)
+    {
+        Account_ShowCharacterNameDialog(playerid);
+        return 1;
+    }
+
+    ShowCivilianSkinMenu(playerid);
+    return 1;
+}
+
         case DIALOG_LOGIN:
         {
             if (!response)
@@ -603,6 +626,9 @@ public ApplyLoadedPosition(playerid)
     new Float:y = GetPVarFloat(playerid, "LoadPosY");
     new Float:z = GetPVarFloat(playerid, "LoadPosZ");
     new Float:a = GetPVarFloat(playerid, "LoadPosAngle");
+
+    new skinid = GetPVarInt(playerid, "LoadSkin");
+    SetPlayerSkin(playerid, skinid);
 
     SetPlayerPos(playerid, x, y, z);
     SetPlayerFacingAngle(playerid, a);

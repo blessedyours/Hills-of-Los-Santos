@@ -6,3 +6,4 @@
 #define DIALOG_LOGIN           (53)
 #define DIALOG_CHARACTER_NAME  (54)
 #define DIALOG_NAME_LOGIN      (55)
+#define DIALOG_CHARACTER_CREATION (56)
