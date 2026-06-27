@@ -145,7 +145,7 @@ new LSPDSkins[][E_SKIN_MENU_DATA] =
 // Internal Helper
 //-----------------------------------------------------------------------------
 
-stock SkinSelector_AddItems(List:menu, skins[][E_SKIN_MENU_DATA], size)
+stock SkinSelector_AddItems(List:menu, const skins[][E_SKIN_MENU_DATA], size)
 {
     for(new i = 0; i < size; i++)
     {
@@ -334,8 +334,7 @@ public OnModelSelectionResponse(playerid, extraid, index, modelid, response)
 
     switch(extraid)
     {
-        case MODEL_SELECTION_CIVIL_SKINS,
-             MODEL_SELECTION_FYB_SKINS,
+        case MODEL_SELECTION_FYB_SKINS,
              MODEL_SELECTION_GSF_SKINS,
              MODEL_SELECTION_KTB_SKINS,
              MODEL_SELECTION_LSV_SKINS,

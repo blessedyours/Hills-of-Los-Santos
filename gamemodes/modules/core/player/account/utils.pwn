@@ -2,26 +2,24 @@
 // Definitions
 //-----------------------------------------------------------------------------
 
-// Password length limits for account creation.
 #define ACCOUNT_MIN_PASSWORD_LENGTH (6)
-
-// Invalid database account ID.
 #define INVALID_ACCOUNT_ID          (0)
 
-// Player account data variables.
+//-----------------------------------------------------------------------------
+// Player account data variables
+//-----------------------------------------------------------------------------
+
 static
-        s_PlayerAccountID[MAX_PLAYERS]       = { INVALID_ACCOUNT_ID, ... },
-        bool:s_IsPlayerLoggedIn[MAX_PLAYERS] = { false, ...              },
-        s_PlayerCharacterName[MAX_PLAYERS][31] = { "", ...               },
-        s_PlayerAccountName[MAX_PLAYERS][24];
+        s_PlayerAccountID[MAX_PLAYERS]                = { INVALID_ACCOUNT_ID, ... },
+        bool:s_IsPlayerLoggedIn[MAX_PLAYERS]          = { false,              ... },
+        s_PlayerCharacterName[MAX_PLAYERS][31]        = { "",                 ... },
+        s_PlayerAccountName[MAX_PLAYERS][24],
+        bool:s_CharacterNameWarningShown[MAX_PLAYERS] = { false,              ... };
 
 //-----------------------------------------------------------------------------
 // Functions
 //-----------------------------------------------------------------------------
 
-// Checks whether an account with the player's name already exists in the database.
-// This function is used to determine if the player should register or log in.
-// En Account_Check, la query debe traer también el account_id
 Account_Check(playerid)
 {
     new query[256];
@@ -50,14 +48,13 @@ Account_Check(playerid)
 
     return 1;
 }
-// Shows the registration dialog to the player.
+
 Account_ShowRegistrationDialog(playerid, bool:badpass = false)
 {
     new dialogText[512];
 
     format(dialogText, sizeof(dialogText), "{FFFFFF}Welcome to {36906b}Hills of Los Santos{FFFFFF}.\n\n{FFFFFF}This account has not been registered yet.\nTo continue, you must create a password that will be used to protect your account and save your progress on the server.\nFor security reasons, your password must contain at least %d characters.\nYou have a maximum of {D68924}3 registration attempts {FFFFFF}and {D68924}3 minutes {FFFFFF}to complete this form.\nPlease enter a password below to complete your registration:", ACCOUNT_MIN_PASSWORD_LENGTH);
 
-    // Show the dialog.
     ShowPlayerDialog(
         playerid,
         DIALOG_REGISTRATION,
@@ -65,15 +62,12 @@ Account_ShowRegistrationDialog(playerid, bool:badpass = false)
         "> Hills of Los Santos",
         dialogText,
         "Register",
-        "Exit"
+        "Back"
     );
 
-    // If `badpass` is true, it means the player's password didn't meet the length
-    // requirements, so we show a warning explaining what went wrong.
     if (badpass)
     {
         SendClientMessage(playerid, -1, "{ff6347}[ ! ]: {FFFFFF}Password requirements not met. The password you entered is too short. Please choose a longer password and try again.");
-        SendClientMessage(playerid, -1, "{ff6347}[ ! ]: {FFFFFF}The password you entered does not meet the minimum security requirements. Please choose a stronger password and try again.");
     }
 
     return 1;
@@ -99,35 +93,27 @@ Account_ShowLoginDialog(playerid)
         "> Hills of Los Santos",
         dialogText,
         "Login",
-        "Exit"
+        "Back"
     );
 
     return 1;
 }
-// Validates the player's password length and format.
+
 bool:IsValidPassword(const password[])
 {
-    // Check if password length is within allowed limits.
     if (strlen(password) < ACCOUNT_MIN_PASSWORD_LENGTH)
     {
-        // Password length invalid.
         return false;
     }
 
-    // Additional validations can be added here in the future, such as checking
-    // for symbols, uppercase, lowercase letters, etc.
-
-    // Password is valid.
     return true;
 }
 
-// Hashes the given password for the specified player.
 HashPassword(playerid, const password[])
 {
     bcrypt_hash(playerid, "OnPasswordHash", password, BCRYPT_COST);
 }
 
-// Creates a new player account in the database.
 Account_Create(playerid, const hash[])
 {
     new query[256];
@@ -141,9 +127,7 @@ Account_Create(playerid, const hash[])
         g_DatabaseHandle,
         query,
         sizeof(query),
-        "INSERT INTO `player_accounts`
-        (`username`, `character_name`, `password_hash`)
-        VALUES ('%e', '%e', '%e');",
+        "INSERT INTO `player_accounts` (`username`, `character_name`, `password_hash`) VALUES ('%e', '%e', '%e');",
         accountname,
         charname,
         hash
@@ -159,48 +143,47 @@ Account_Create(playerid, const hash[])
 
     return 1;
 }
-// Sets the account ID for the specified player.
+
 SetPlayerAccountID(playerid, accountid)
 {
     s_PlayerAccountID[playerid] = accountid;
-
     return 1;
 }
 
-// Returns the player's account ID.
 stock GetPlayerAccountID(playerid)
 {
     return IsPlayerConnected(playerid)
     ? s_PlayerAccountID[playerid]
-    : INVALID_ACCOUNT_ID
-    ;
+    : INVALID_ACCOUNT_ID;
 }
 
-// Sets the player's logged-in state.
 SetPlayerLoggedIn(playerid, bool:set)
 {
-    // Ensure the player is connected before modifying state.
     if (!IsPlayerConnected(playerid))
     {
         return 0;
     }
 
-    // Update the player's login state.
     s_IsPlayerLoggedIn[playerid] = set;
 
     return 1;
 }
 
-// Returns whether the player is logged in.
 stock bool:IsPlayerLoggedIn(playerid)
 {
     return IsPlayerConnected(playerid) ? s_IsPlayerLoggedIn[playerid] : false;
 }
 
-// Shows the character name dialog to the player (during registration).
 Account_ShowCharacterNameDialog(playerid)
 {
     new dialogText[512];
+
+    // ✓ Solo mostrar el mensaje si no se ha mostrado aún
+    if (!s_CharacterNameWarningShown[playerid])
+    {
+        SendClientMessage(playerid, -1, "{FFCC00} [ ! ]: Avoid using troll names or celebrity names, or you could be banned by an administrator.");
+        s_CharacterNameWarningShown[playerid] = true;
+    }
 
     format(dialogText, sizeof(dialogText), "{FFFFFF}Welcome to {36906b}Hills of Los Santos{FFFFFF}.\n\nBefore entering the server for the first time, you must create a {FFFF00}FirstName_LastName{FFFFFF} to identify the character you will play.\n\nExample: {D68924}Jeffery_Lamar{FFFFFF}\nYour character name must contain between {D68924}3 and 30 characters{FFFFFF}.\nOnly letters and the underscore ({D68924}_{FFFFFF}) are allowed.\nNumbers, spaces and other symbols are not permitted.\n\n{FFD700}Enter your character name:");
 
@@ -217,24 +200,20 @@ Account_ShowCharacterNameDialog(playerid)
     return 1;
 }
 
-// Validates the character name format (must be FirstName_LastName).
 bool:IsValidCharacterName(const charname[])
 {
     new len = strlen(charname);
     new underscorePos = -1;
 
-    // Check total length (3-30 characters).
-    if (len < 7 || len > 30)  // Minimum: 3_3 (Name_Surname)
+    if (len < 7 || len > 30)
     {
         return false;
     }
 
-    // Find the underscore position.
     for (new i = 0; i < len; i++)
     {
         if (charname[i] == '_')
         {
-            // Only one underscore allowed.
             if (underscorePos != -1)
             {
                 return false;
@@ -243,34 +222,28 @@ bool:IsValidCharacterName(const charname[])
         }
     }
 
-    // Must have exactly one underscore.
     if (underscorePos == -1)
     {
         return false;
     }
 
-    // First part (FirstName) must be at least 3 characters.
     if (underscorePos < 3)
     {
         return false;
     }
 
-    // Second part (LastName) must be at least 3 characters.
     if ((len - underscorePos - 1) < 3)
     {
         return false;
     }
 
-    // Check for valid characters (letters only, no underscores except in the middle).
     for (new i = 0; i < len; i++)
     {
         if (i == underscorePos)
         {
-            // This is the underscore position, skip it.
             continue;
         }
 
-        // Must be a letter (A-Z or a-z).
         if (!((charname[i] >= 'A' && charname[i] <= 'Z') ||
               (charname[i] >= 'a' && charname[i] <= 'z')))
         {
@@ -281,11 +254,9 @@ bool:IsValidCharacterName(const charname[])
     return true;
 }
 
-// Updates the character name for the player in the database.
 stock Account_UpdateCharacterName(playerid, const charname[])
 {
-    new
-        query[256];
+    new query[256];
 
     mysql_format(g_DatabaseHandle, query, sizeof(query),
         "UPDATE `player_accounts` SET `character_name` = '%e' WHERE `account_id` = %d;",
@@ -296,7 +267,6 @@ stock Account_UpdateCharacterName(playerid, const charname[])
     return 1;
 }
 
-// Loads the character name from the database.
 stock Account_LoadCharacterName(playerid)
 {
     new query[128];
@@ -310,7 +280,6 @@ stock Account_LoadCharacterName(playerid)
     return 1;
 }
 
-// Sets the character name for the specified player in memory.
 SetPlayerCharacterName(playerid, const charname[])
 {
     if (!IsPlayerConnected(playerid))
@@ -323,7 +292,6 @@ SetPlayerCharacterName(playerid, const charname[])
     return 1;
 }
 
-// Gets the character name for the specified player.
 stock GetPlayerCharacterName(playerid, charname[], len = 31)
 {
     if (!IsPlayerConnected(playerid))

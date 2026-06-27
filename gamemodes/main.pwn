@@ -14,23 +14,24 @@
 // Script Dependencies
 //-----------------------------------------------------------------------------
 
-// Core
-#include <open.mp>
+// gamemode.pwn o donde tengas tus includes
 
-// Plugins
+#include <open.mp>
 #include <a_mysql>
 #include <samp_bcrypt>
 #include <crashdetect>
 #include <streamer>
 #include <PawnPlus>
+
+#define SAMP_COMPAT
 #include <eSelection>
+#undef SAMP_COMPAT 
+
 #include <Pawn.Regex>
 #include <sscanf2>
 #include <zcmd>
 #include <Pawn.RakNet>
 #include <strlib>
-
-// YSI
 #include <YSI_Coding\y_hooks>
 
 //-----------------------------------------------------------------------------

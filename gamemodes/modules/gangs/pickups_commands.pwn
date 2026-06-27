@@ -46,6 +46,8 @@ command(joingang, playerid, params[])
     new response[160];
     format(response, sizeof(response),
         "{FFFFFF}[ HOMIE ]: You've joined {%06x}%s %s{FFFFFF}. Represent your hood.",
+        "{FFCC00[ ! ]: {FFFFFF}Use /skins to be able to see your gang's clothing catalog.",
+
         (g_GangPickupColor[gangIndex] >>> 8),
         g_GangPickupName[gangIndex],
         g_GangPickupTag[gangIndex]
@@ -104,9 +106,12 @@ command(joinlspd, playerid, params[])
     if (gangIndex != GANG_LSPD)
     {
         SendClientMessage(playerid, -1, "{ff6347}[ ! ]: {FFFFFF}You must be at the LSPD spawn to use /joinlspd.");
+        SendClientMessage(playerid, -1, "{FFCC00}[ ! ]: {FFFFFF}Use /skins to be able tto be able to see the police clothing catalog");
         return 1;
     }
 
     ShowLSPDRecruitmentDialog(playerid);
     return 1;
 }
+
+

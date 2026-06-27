@@ -2,7 +2,7 @@
 // Definitions
 //-----------------------------------------------------------------------------
 
-#define NAMETAG_DRAW_DISTANCE   (15.0)
+#define NAMETAG_DRAW_DISTANCE   (25.0)  // ✓ Aumentado para mejor visibilidad
 #define NAMETAG_COLOR_NORMAL    (0xFFFFFFFF)
 #define NAMETAG_COLOR_DAMAGED   (0xFF0000FF)
 #define NAMETAG_DAMAGE_DURATION (1500)
@@ -27,7 +27,7 @@ forward Nametag_ResetColor(playerid);
 static Nametag_BuildLabel(playerid, output[], len)
 {
     new charname[31];
-    GetPlayerCharacterName(playerid, charname);
+    GetPlayerCharacterName(playerid, charname, sizeof(charname));
 
     if (strlen(charname) == 0)
     {
@@ -36,7 +36,7 @@ static Nametag_BuildLabel(playerid, output[], len)
     }
     
     // Formato: Nombre_Apellido(ID)
-    format(output, len, "%s(%d)", charname, playerid);
+    format(output, len, "%s (%d)", charname, playerid);
     return 1;
 }
 
@@ -57,7 +57,7 @@ static Nametag_CreateLabel(playerid, color)
         color,
         0.0,
         0.0,
-        0.5,
+        0.0,  // ✓ Offset Z inicial
         NAMETAG_DRAW_DISTANCE,
         0,
         true
@@ -66,23 +66,33 @@ static Nametag_CreateLabel(playerid, color)
     if (s_PlayerNameTag[playerid] == Text3D:INVALID_3DTEXT_ID)
         return 0;
 
+    // ✓ Posición sobre la cabeza del jugador
     Attach3DTextLabelToPlayer(
         s_PlayerNameTag[playerid],
         playerid,
         0.0,
         0.0,
-        0.5
+        0.7  // ✓ Altura sobre la cabeza (sin barra de vida)
     );
 
     return 1;
 }
 
-Nametag_Show(playerid)
+stock Nametag_Show(playerid)
 {
+    // ✓ Actualizar nombre en TAB primero
+    new charname[31];
+    GetPlayerCharacterName(playerid, charname, sizeof(charname));
+    
+    if (strlen(charname) > 0)
+    {
+        SetPlayerName(playerid, charname);
+    }
+    
     return Nametag_CreateLabel(playerid, NAMETAG_COLOR_NORMAL);
 }
 
-Nametag_Hide(playerid)
+stock Nametag_Hide(playerid)
 {
     if (s_NametagResetTimer[playerid] != -1)
     {
@@ -101,12 +111,21 @@ Nametag_Hide(playerid)
 
 stock Nametag_Update(playerid)
 {
+    // ✓ Actualizar nombre en TAB
+    new charname[31];
+    GetPlayerCharacterName(playerid, charname, sizeof(charname));
+    
+    if (strlen(charname) > 0)
+    {
+        SetPlayerName(playerid, charname);
+    }
+    
     Nametag_Hide(playerid);
     Nametag_Show(playerid);
     return 1;
 }
 
-Nametag_OnDamage(playerid)
+stock Nametag_OnDamage(playerid)
 {
     if (s_PlayerNameTag[playerid] == Text3D:INVALID_3DTEXT_ID)
         return 0;
