@@ -217,6 +217,18 @@ hook OnPlayerAccountCheck(playerid)
     cache_get_value_name_int(0, "account_id", accountID);
     SetPlayerAccountID(playerid, accountID);
 
+    new Float:posX, Float:posY, Float:posZ, Float:posAngle;
+
+    cache_get_value_name_float(0, "pos_x", posX);
+    cache_get_value_name_float(0, "pos_y", posY);
+    cache_get_value_name_float(0, "pos_z", posZ);
+    cache_get_value_name_float(0, "pos_angle", posAngle);
+
+    SetPVarFloat(playerid, "LoadPosX", posX);
+    SetPVarFloat(playerid, "LoadPosY", posY);
+    SetPVarFloat(playerid, "LoadPosZ", posZ);
+    SetPVarFloat(playerid, "LoadPosAngle", posAngle);
+
     new charname[31];
     cache_get_value_name(0, "character_name", charname);
     SetPVarString(playerid, "cachedCharName", charname);
@@ -572,8 +584,13 @@ public ForcePlayerSpawn(playerid)
     if (IsPlayerConnected(playerid) && IsPlayerLoggedIn(playerid))
     {
         s_InLoginMenu[playerid] = false;
-        SetPlayerPos(playerid, 1479.4623, -1677.1764, 14.0469);
-        SetPlayerFacingAngle(playerid, 269.1526);
+        new Float:x = GetPVarFloat(playerid, "LoadPosX");
+        new Float:y = GetPVarFloat(playerid, "LoadPosY");
+        new Float:z = GetPVarFloat(playerid, "LoadPosZ");
+        new Float:a = GetPVarFloat(playerid, "LoadPosAngle");
+
+        SetPlayerPos(playerid, x, y, z);
+        SetPlayerFacingAngle(playerid, a);
         
         SpawnPlayer(playerid);
         SetTimerEx("ResetPlayerCamera", 200, false, "d", playerid);
@@ -648,6 +665,29 @@ hook OnPasswordCheck(playerid, bool:match)
 
 hook OnPlayerDisconnect(playerid, reason)
 {
+    if (IsPlayerLoggedIn(playerid))
+    {
+        new accountID = GetPlayerAccountID(playerid);
+
+        if (accountID > 0)
+        {
+            new Float:x, Float:y, Float:z, Float:a;
+            GetPlayerPos(playerid, x, y, z);
+            GetPlayerFacingAngle(playerid, a);
+
+            new query[256];
+            mysql_format(
+                g_DatabaseHandle,
+                query,
+                sizeof(query),
+                "UPDATE `player_accounts` SET `pos_x` = %f, `pos_y` = %f, `pos_z` = %f, `pos_angle` = %f WHERE `account_id` = %d LIMIT 1;",
+                x, y, z, a, accountID
+            );
+
+            mysql_tquery(g_DatabaseHandle, query);
+        }
+    }
+
     Nametag_Hide(playerid);
 
     SetPlayerLoggedIn(playerid, false);

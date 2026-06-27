@@ -11,38 +11,30 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
--- Database: `hls_db`
---
+CREATE TABLE IF NOT EXISTS `player_accounts` (
+  `account_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `username` varchar(24) NOT NULL,
+  `password_hash` char(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `character_name` varchar(30) DEFAULT NULL,
+  `register_date` datetime DEFAULT current_timestamp(),
+  `pos_x` float DEFAULT 1479.46,
+  `pos_y` float DEFAULT -1677.18,
+  `pos_z` float DEFAULT 14.0469,
+  `pos_angle` float DEFAULT 269.153,
+  PRIMARY KEY (`account_id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
+COMMIT;
 
---
--- Table structure for table `player_accounts`
---
-
-CREATE TABLE player_accounts
-(
-    account_id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(24) NOT NULL UNIQUE,
-    character_name VARCHAR(31) NOT NULL UNIQUE,
-    password_hash VARCHAR(255) NOT NULL
-);
 -- Indexes for dumped tables
 --
 
 --
 -- Indexes for table `player_accounts`
 --
-/*ALTER TABLE `player_accounts`
-  ADD PRIMARY KEY (`account_id`),
-  ADD UNIQUE KEY `username` (`username`);*/
 
 --
 -- AUTO_INCREMENT for dumped tables

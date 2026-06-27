@@ -3362,9 +3362,13 @@
 			<referrer name="IsValidPassword"/>
 			<referrer name="IsPlayerLoggedIn"/>
 			<referrer name="IsValidCharacterName"/>
+			<referrer name="_@yHOnPlayerRequestSpawn@02"/>
 			<referrer name="_@yHOnGameModeInit@02"/>
+			<referrer name="_@yHOnPlayerSpawn@02"/>
+			<referrer name="_@yHOnPlayerUpdate@02"/>
 			<referrer name="_@yHOnDialogResponse@02"/>
 			<referrer name="_@yHOnPlayerRegister@02"/>
+			<referrer name="ForcePlayerSpawn"/>
 			<referrer name="_@yHOnPasswordCheck@02"/>
 			<referrer name="_@yHOnPlayerDisconnect@02"/>
 			<referrer name="Nametag_OnDamage"/>
@@ -3464,14 +3468,20 @@
 			<referrer name="@yH_OnGameModeInit@01"/>
 			<referrer name="@yH_OnGameModeExit@01"/>
 			<referrer name="IsValidPassword"/>
+			<referrer name="Account_ShowCharacterNameDialog"/>
 			<referrer name="IsValidCharacterName"/>
 			<referrer name="@yH_OnPlayerConnect@02"/>
-			<referrer name="@yH_OnGameModeInit@02"/>
+			<referrer name="_@yHOnPlayerConnect@02"/>
+			<referrer name="@yH_OnPlayerTakeDamage@02"/>
 			<referrer name="@yH_OnPlayerRequestSpawn@02"/>
+			<referrer name="@yH_OnPlayerFinishedDownloading@02"/>
+			<referrer name="_@yHOnPlayerFinishedDownloading@02"/>
+			<referrer name="@yH_OnGameModeInit@02"/>
 			<referrer name="@yH_OnPlayerSpawn@02"/>
 			<referrer name="_@yHOnPlayerSpawn@02"/>
-			<referrer name="@yH_OnPlayerTakeDamage@02"/>
+			<referrer name="@yH_OnPlayerUpdate@02"/>
 			<referrer name="@yH_OnPlayerAccountCheck@02"/>
+			<referrer name="@yH_OnCharacterNameCheck@02"/>
 			<referrer name="@yH_OnDialogResponse@02"/>
 			<referrer name="_@yHOnDialogResponse@02"/>
 			<referrer name="@yH_OnPasswordHash@02"/>
@@ -3833,11 +3843,14 @@
 			<referrer name="@yH_OnGameModeInit@01"/>
 			<referrer name="@yH_OnGameModeExit@01"/>
 			<referrer name="@yH_OnPlayerConnect@02"/>
-			<referrer name="@yH_OnGameModeInit@02"/>
-			<referrer name="@yH_OnPlayerRequestSpawn@02"/>
-			<referrer name="@yH_OnPlayerSpawn@02"/>
 			<referrer name="@yH_OnPlayerTakeDamage@02"/>
+			<referrer name="@yH_OnPlayerRequestSpawn@02"/>
+			<referrer name="@yH_OnPlayerFinishedDownloading@02"/>
+			<referrer name="@yH_OnGameModeInit@02"/>
+			<referrer name="@yH_OnPlayerSpawn@02"/>
+			<referrer name="@yH_OnPlayerUpdate@02"/>
 			<referrer name="@yH_OnPlayerAccountCheck@02"/>
+			<referrer name="@yH_OnCharacterNameCheck@02"/>
 			<referrer name="@yH_OnDialogResponse@02"/>
 			<referrer name="@yH_OnPasswordHash@02"/>
 			<referrer name="@yH_OnPlayerRegister@02"/>
@@ -5172,6 +5185,8 @@
 			<referrer name="Account_Create"/>
 			<referrer name="Account_UpdateCharacterName"/>
 			<referrer name="Account_LoadCharacterName"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
+			<referrer name="_@yHOnPlayerDisconnect@02"/>
 		</member>
 		<member name="F:g_GangPickupColor">
 			<referrer name="Indirection_OnGameModeInit"/>
@@ -5386,6 +5401,26 @@
 			<referrer name="_@yHOnPlayerDisconnect@02"/>
 			<referrer name="OnCharacterNameUpdated"/>
 		</member>
+		<member name="F:s_CharacterNameWarningShown">
+			<tagname value="bool"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
+			<referrer name="_@yHOnPlayerDisconnect@02"/>
+		</member>
+		<member name="F:s_CharacterNameWarningShown">
+			<tagname value="bool"/>
+			<referrer name="Account_ShowCharacterNameDialog"/>
+		</member>
+		<member name="F:s_InLoginMenu">
+			<tagname value="bool"/>
+			<referrer name="_@yHOnPlayerConnect@02"/>
+			<referrer name="_@yHOnPlayerRequestSpawn@02"/>
+			<referrer name="_@yHOnPlayerFinishedDownloading@02"/>
+			<referrer name="_@yHOnPlayerSpawn@02"/>
+			<referrer name="_@yHOnPlayerUpdate@02"/>
+			<referrer name="ForcePlayerSpawn"/>
+			<referrer name="_@yHOnPasswordCheck@02"/>
+			<referrer name="_@yHOnPlayerDisconnect@02"/>
+		</member>
 		<member name="F:s_IsFirstLogin">
 			<tagname value="bool"/>
 			<referrer name="_@yHOnPlayerRegister@02"/>
@@ -5421,6 +5456,7 @@
 			<referrer name="GetPlayerCharacterName"/>
 		</member>
 		<member name="F:s_PlayerLoginAttempts">
+			<referrer name="_@yHOnDialogResponse@02"/>
 			<referrer name="_@yHOnPasswordCheck@02"/>
 			<referrer name="_@yHOnPlayerDisconnect@02"/>
 		</member>
@@ -11277,6 +11313,18 @@
 			<stacksize value="1"/>
 			<library>time</library>  <summary>A timer event occurred.</summary>  <remarks>  This function executes after the configured delay or interval expires.  See <c>settimer</c> to  set the delay or interval.  Depending on the timing precision of the host, the call may occur  later than the delay that was set.  <p/>  If the timer was set as a "single-shot", it must be ex plicitly set again for a next execution  for the <c>@timer</c>function.  If the timer is set to be repetitive, <c>@timer</c> will continue  to be called with the set interval until it is disabled with another call to <c>settimer</c>.  </remarks>  <returns>The return value of this function is currently ignored.</returns> 
 		</member>
+		<member name="M:@yH_OnCharacterNameCheck@02" syntax="@yH_OnCharacterNameCheck@02(&amp;playerid)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnCharacterNameCheck@02"/>
+			<dependency name="true"/>
+			<param name="playerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+		</member>
 		<member name="M:@yH_OnDialogResponse@02" syntax="@yH_OnDialogResponse@02(&amp;playerid, &amp;dialogid, &amp;response, &amp;listitem, inputtext[])">
 			<attribute name="public"/>
 			<stacksize value="8"/>
@@ -11394,6 +11442,21 @@
 				<paraminfo> &amp; </paraminfo>
 			</param>
 		</member>
+		<member name="M:@yH_OnPlayerFinishedDownloading@02" syntax="@yH_OnPlayerFinishedDownloading@02(&amp;playerid, &amp;virtualworld)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnPlayerFinishedDownloading@02"/>
+			<dependency name="true"/>
+			<param name="playerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="virtualworld">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+		</member>
 		<member name="M:@yH_OnPlayerRegister@02" syntax="@yH_OnPlayerRegister@02(&amp;playerid)">
 			<attribute name="public"/>
 			<stacksize value="8"/>
@@ -11451,6 +11514,18 @@
 				<paraminfo> &amp; </paraminfo>
 			</param>
 			<param name="bodypart">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+		</member>
+		<member name="M:@yH_OnPlayerUpdate@02" syntax="@yH_OnPlayerUpdate@02(&amp;playerid)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnPlayerUpdate@02"/>
+			<dependency name="true"/>
+			<param name="playerid">
 				<paraminfo> &amp; </paraminfo>
 			</param>
 		</member>
@@ -12967,9 +13042,13 @@
 		<member name="M:Account_ShowCharacterNameDialog" syntax="Account_ShowCharacterNameDialog(playerid)">
 			<stacksize value="521"/>
 			<referrer name="_@yHOnPlayerAccountCheck@02"/>
+			<referrer name="_@yHOnCharacterNameCheck@02"/>
 			<referrer name="_@yHOnDialogResponse@02"/>
+			<dependency name="SendClientMessage"/>
 			<dependency name="ShowPlayerDialog"/>
 			<dependency name="format"/>
+			<dependency name="s_CharacterNameWarningShown"/>
+			<dependency name="true"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -12985,6 +13064,7 @@
 		</member>
 		<member name="M:Account_ShowRegistrationDialog" syntax="Account_ShowRegistrationDialog(playerid, badpass)">
 			<stacksize value="521"/>
+			<referrer name="_@yHOnCharacterNameCheck@02"/>
 			<referrer name="_@yHOnDialogResponse@02"/>
 			<dependency name="SendClientMessage"/>
 			<dependency name="ShowPlayerDialog"/>
@@ -13237,7 +13317,8 @@
 		</member>
 		<member name="M:ApplyPlayerName" syntax="ApplyPlayerName(playerid, charname[])">
 			<stacksize value="4"/>
-			<referrer name="FinishLogin"/>
+			<referrer name="_@yHOnPlayerRegister@02"/>
+			<referrer name="_@yHOnPasswordCheck@02"/>
 			<dependency name="SetPlayerName"/>
 			<param name="playerid">
 			</param>
@@ -18473,6 +18554,7 @@
 		<member name="M:DeletePVar" syntax="DeletePVar(playerid, pvar[])">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="_@yHOnCharacterNameCheck@02"/>
 			<referrer name="_@yHOnPasswordCheck@02"/>
 			<referrer name="_@yHOnPlayerDisconnect@02"/>
 			<param name="playerid">
@@ -19315,18 +19397,6 @@
 			</param>
 			<library>y_utils - files</library>      <remarks>  Moves a file from <c>src</c> to <c>dst</c>.  </remarks> 
 		</member>
-		<member name="M:FinishLogin" syntax="FinishLogin(playerid)">
-			<stacksize value="37"/>
-			<referrer name="_@yHOnPlayerRegister@02"/>
-			<referrer name="_@yHOnPasswordCheck@02"/>
-			<dependency name="ApplyPlayerName"/>
-			<dependency name="GetPlayerCharacterName"/>
-			<dependency name="Nametag_Show"/>
-			<dependency name="SetPlayerPos"/>
-			<dependency name="SpawnPlayer"/>
-			<param name="playerid">
-			</param>
-		</member>
 		<member name="M:FloatAbs" syntax="FloatAbs(value)">
 			<tagname value="Float"/>
 			<attribute name="native"/>
@@ -19335,6 +19405,21 @@
 				<paraminfo>Float </paraminfo>
 			</param>
 			<library>y_utils - maths</library>  <summary>  Float:FloatAbs(Float:number);  </summary>  <param name="number">The number to get the absolute value of.</param>  <returns>  The absolute value of a number.  </returns>  <remarks>  Get the absolute value of a number.  Easy in IEEE754, just remove the MSB.  </remarks> 
+		</member>
+		<member name="M:ForcePlayerSpawn" syntax="ForcePlayerSpawn(playerid)">
+			<attribute name="public"/>
+			<stacksize value="11"/>
+			<dependency name="GetPVarFloat"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="IsPlayerLoggedIn"/>
+			<dependency name="SetPlayerFacingAngle"/>
+			<dependency name="SetPlayerPos"/>
+			<dependency name="SetTimerEx"/>
+			<dependency name="SpawnPlayer"/>
+			<dependency name="false"/>
+			<dependency name="s_InLoginMenu"/>
+			<param name="playerid">
+			</param>
 		</member>
 		<member name="M:G@" syntax="G@(...)">
 			<stacksize value="1"/>
@@ -20233,8 +20318,22 @@
 			</param>
 			<library>amx_assembly opcode</library>
 		</member>
+		<member name="M:GetPVarFloat" syntax="GetPVarFloat(playerid, pvar[])">
+			<tagname value="Float"/>
+			<attribute name="native"/>
+			<referrer name="ForcePlayerSpawn"/>
+			<param name="playerid">
+				The ID of the player whose player variable you want to get
+			</param>
+			<param name="pvar">
+				<paraminfo> [] </paraminfo>
+				The name of the player variable
+			</param>
+			<library>omp_variable</library>  <summary>Gets a player variable as a float.</summary>      <seealso name="SetPVarInt" />  <seealso name="GetPVarInt" />  <seealso name="SetPVarString" />  <seealso name="GetPVarString" />  <seealso name="SetPVarFloat" />  <seealso name="DeletePVar" />  <returns>The float from the specified player variable.</returns> 
+		</member>
 		<member name="M:GetPVarString" syntax="GetPVarString(playerid, pvar[], output[], len)">
 			<attribute name="native"/>
+			<referrer name="_@yHOnCharacterNameCheck@02"/>
 			<referrer name="_@yHOnDialogResponse@02"/>
 			<referrer name="_@yHOnPasswordCheck@02"/>
 			<param name="playerid">
@@ -20257,6 +20356,7 @@
 			<stacksize value="3"/>
 			<referrer name="Account_UpdateCharacterName"/>
 			<referrer name="Account_LoadCharacterName"/>
+			<referrer name="_@yHOnPlayerDisconnect@02"/>
 			<dependency name="IsPlayerConnected"/>
 			<dependency name="s_PlayerAccountID"/>
 			<param name="playerid">
@@ -20282,9 +20382,11 @@
 			<stacksize value="6"/>
 			<referrer name="Account_ShowLoginDialog"/>
 			<referrer name="Account_Create"/>
-			<referrer name="FinishLogin"/>
 			<referrer name="_@yHOnDialogResponse@02"/>
+			<referrer name="_@yHOnPlayerRegister@02"/>
 			<referrer name="Nametag_BuildLabel"/>
+			<referrer name="Nametag_Show"/>
+			<referrer name="Nametag_Update"/>
 			<dependency name="IsPlayerConnected"/>
 			<dependency name="format"/>
 			<dependency name="s_PlayerCharacterName"/>
@@ -20296,6 +20398,19 @@
 			</param>
 			<param name="len">
 			</param>
+		</member>
+		<member name="M:GetPlayerFacingAngle" syntax="GetPlayerFacingAngle(playerid, &amp;angle)">
+			<tagname value="bool"/>
+			<attribute name="native"/>
+			<referrer name="_@yHOnPlayerDisconnect@02"/>
+			<param name="playerid">
+				The player you want to get the angle of
+			</param>
+			<param name="angle">
+				<paraminfo>Float &amp; </paraminfo>
+				The Float to store the angle in, passed by reference
+			</param>
+			<library>omp_player</library>  <summary>Gets the angle a player is facing.</summary>      <seealso name="GetVehicleZAngle" />  <seealso name="SetPlayerFacingAngle" />  <remarks>Angles are reversed in GTA:SA; 90 degrees would be East in the real world, but in GTA:SA  90 degrees is in fact West.  North and South are still 0/360 and 180.  To convert this, simply do  <b>360 - angle</b>.</remarks>  <remarks>Angles returned when inside a vehicle is rarely correct.  To get the correct facing angle  while inside a vehicle, use <a href="#GetVehicleZAngle">GetVehicleZAngle</a>.</remarks> 
 		</member>
 		<member name="M:GetPlayerInterior" syntax="GetPlayerInterior(playerid)">
 			<attribute name="native"/>
@@ -20352,6 +20467,7 @@
 		<member name="M:GetPlayerPos" syntax="GetPlayerPos(playerid, &amp;x, &amp;y, &amp;z)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="_@yHOnPlayerDisconnect@02"/>
 			<referrer name="GangPickupResetTimer"/>
 			<param name="playerid">
 				The ID of the player to get the position of
@@ -22402,6 +22518,8 @@
 			<referrer name="SetPlayerAccountName"/>
 			<referrer name="GetPlayerAccountName"/>
 			<referrer name="_@yHOnDialogResponse@02"/>
+			<referrer name="ResetPlayerCamera"/>
+			<referrer name="ForcePlayerSpawn"/>
 			<referrer name="Nametag_ResetColor"/>
 			<referrer name="GangPickupResetTimer"/>
 			<param name="playerid">
@@ -22412,8 +22530,12 @@
 		<member name="M:IsPlayerLoggedIn" syntax="IsPlayerLoggedIn(playerid)">
 			<tagname value="bool"/>
 			<stacksize value="3"/>
+			<referrer name="_@yHOnPlayerTakeDamage@02"/>
 			<referrer name="_@yHOnPlayerRequestSpawn@02"/>
+			<referrer name="_@yHOnPlayerFinishedDownloading@02"/>
 			<referrer name="_@yHOnPlayerSpawn@02"/>
+			<referrer name="ForcePlayerSpawn"/>
+			<referrer name="_@yHOnPlayerDisconnect@02"/>
 			<dependency name="IsPlayerConnected"/>
 			<dependency name="false"/>
 			<dependency name="s_IsPlayerLoggedIn"/>
@@ -23041,17 +23163,24 @@
 			</param>
 		</member>
 		<member name="M:Nametag_Show" syntax="Nametag_Show(playerid)">
-			<stacksize value="5"/>
-			<referrer name="FinishLogin"/>
+			<stacksize value="37"/>
+			<referrer name="_@yHOnPasswordCheck@02"/>
 			<referrer name="Nametag_Update"/>
+			<dependency name="GetPlayerCharacterName"/>
 			<dependency name="Nametag_CreateLabel"/>
+			<dependency name="SetPlayerName"/>
+			<dependency name="strlen"/>
 			<param name="playerid">
 			</param>
 		</member>
 		<member name="M:Nametag_Update" syntax="Nametag_Update(playerid)">
-			<stacksize value="4"/>
+			<stacksize value="37"/>
+			<referrer name="_@yHOnPlayerSpawn@02"/>
+			<dependency name="GetPlayerCharacterName"/>
 			<dependency name="Nametag_Hide"/>
 			<dependency name="Nametag_Show"/>
+			<dependency name="SetPlayerName"/>
+			<dependency name="strlen"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -23131,11 +23260,14 @@
 			<referrer name="@yH_OnGameModeInit@01"/>
 			<referrer name="@yH_OnGameModeExit@01"/>
 			<referrer name="@yH_OnPlayerConnect@02"/>
-			<referrer name="@yH_OnGameModeInit@02"/>
-			<referrer name="@yH_OnPlayerRequestSpawn@02"/>
-			<referrer name="@yH_OnPlayerSpawn@02"/>
 			<referrer name="@yH_OnPlayerTakeDamage@02"/>
+			<referrer name="@yH_OnPlayerRequestSpawn@02"/>
+			<referrer name="@yH_OnPlayerFinishedDownloading@02"/>
+			<referrer name="@yH_OnGameModeInit@02"/>
+			<referrer name="@yH_OnPlayerSpawn@02"/>
+			<referrer name="@yH_OnPlayerUpdate@02"/>
 			<referrer name="@yH_OnPlayerAccountCheck@02"/>
+			<referrer name="@yH_OnCharacterNameCheck@02"/>
 			<referrer name="@yH_OnDialogResponse@02"/>
 			<referrer name="@yH_OnPasswordHash@02"/>
 			<referrer name="@yH_OnPlayerRegister@02"/>
@@ -23207,6 +23339,12 @@
 			<dependency name="SSCANF_OnCachedInit"/>
 			<dependency name="SSCANF_RunInit"/>
 			<library>sscanf</library>  <remarks>  Called when the script starts if it is (legacy) YSI cached mode.  </remarks> 
+		</member>
+		<member name="M:OnCharacterNameCheck" syntax="OnCharacterNameCheck(playerid)">
+			<attribute name="public"/>
+			<stacksize value="1"/>
+			<param name="playerid">
+			</param>
 		</member>
 		<member name="M:OnCharacterNameLoaded" syntax="OnCharacterNameLoaded(playerid)">
 			<attribute name="public"/>
@@ -26098,6 +26236,14 @@
 		<member name="M:ResetCrashDetectLongCallTime" syntax="ResetCrashDetectLongCallTime()">
 			<stacksize value="1"/>
 		</member>
+		<member name="M:ResetPlayerCamera" syntax="ResetPlayerCamera(playerid)">
+			<attribute name="public"/>
+			<stacksize value="3"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="SetCameraBehindPlayer"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:ResetStaticAmxHeader" syntax="ResetStaticAmxHeader()">
 			<stacksize value="4"/>
 			<referrer name="GetAmxHeader"/>
@@ -26948,7 +27094,9 @@
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="Account_ShowRegistrationDialog"/>
+			<referrer name="Account_ShowCharacterNameDialog"/>
 			<referrer name="_@yHOnPlayerAccountCheck@02"/>
+			<referrer name="_@yHOnCharacterNameCheck@02"/>
 			<referrer name="_@yHOnDialogResponse@02"/>
 			<referrer name="_@yHOnPlayerRegister@02"/>
 			<referrer name="_@yHOnPasswordCheck@02"/>
@@ -27419,6 +27567,16 @@
 			<param name="ptr">
 			</param>
 		</member>
+		<member name="M:SetCameraBehindPlayer" syntax="SetCameraBehindPlayer(playerid)">
+			<tagname value="bool"/>
+			<attribute name="native"/>
+			<referrer name="_@yHOnPlayerSpawn@02"/>
+			<referrer name="ResetPlayerCamera"/>
+			<param name="playerid">
+				The player you want to restore the camera for
+			</param>
+			<library>omp_player</library>  <summary>Restore the camera to a place behind the player, after using a function like  <a href="#SetPlayerCameraPos">SetPlayerCameraPos</a>.</summary>    <seealso name="SetPlayerCameraPos" />  <seealso name="SetPlayerCameraLookAt" /> 
+		</member>
 		<member name="M:SetCrashDetectLongCallTime" syntax="SetCrashDetectLongCallTime(us_time)">
 			<stacksize value="1"/>
 			<param name="us_time">
@@ -27537,6 +27695,16 @@
 			<param name="idx">
 			</param>
 		</member>
+		<member name="M:SetLoginCamera" syntax="SetLoginCamera(playerid)">
+			<stacksize value="7"/>
+			<referrer name="_@yHOnPlayerConnect@02"/>
+			<referrer name="_@yHOnPlayerFinishedDownloading@02"/>
+			<referrer name="_@yHOnPlayerUpdate@02"/>
+			<dependency name="SetPlayerCameraLookAt"/>
+			<dependency name="SetPlayerCameraPos"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:SetModelSelectionMenuPage" syntax="SetModelSelectionMenuPage(playerid, page)">
 			<stacksize value="81"/>
 			<referrer name="OnPlayerClickTextDraw"/>
@@ -27594,10 +27762,28 @@
 				<paraminfo> [72] </paraminfo>
 			</param>
 		</member>
+		<member name="M:SetPVarFloat" syntax="SetPVarFloat(playerid, pvar[], value)">
+			<tagname value="bool"/>
+			<attribute name="native"/>
+			<referrer name="_@yHOnPlayerAccountCheck@02"/>
+			<param name="playerid">
+				The ID of the player whose player variable will be set
+			</param>
+			<param name="pvar">
+				<paraminfo> [] </paraminfo>
+				The name of the player variable
+			</param>
+			<param name="value">
+				<paraminfo>Float </paraminfo>
+				The float you want to save in the player variable
+			</param>
+			<library>omp_variable</library>  <summary>Set a float player variable's value.</summary>        <seealso name="SetPVarInt" />  <seealso name="GetPVarInt" />  <seealso name="SetPVarString" />  <seealso name="GetPVarString" />  <seealso name="GetPVarFloat" />  <seealso name="DeletePVar" />  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  Either the player specified is not connected,  or the variable name is null or over 40 characters.  </returns> 
+		</member>
 		<member name="M:SetPVarString" syntax="SetPVarString(playerid, pvar[], value[], ...)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="_@yHOnPlayerAccountCheck@02"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 			<param name="playerid">
 				The ID of the player whose player variable will be set
 			</param>
@@ -27653,7 +27839,7 @@
 		<member name="M:SetPlayerCameraLookAt" syntax="SetPlayerCameraLookAt(playerid, x, y, z, cut)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
-			<referrer name="_@yHOnPlayerConnect@02"/>
+			<referrer name="SetLoginCamera"/>
 			<param name="playerid">
 				The ID of the player whose camera to set
 			</param>
@@ -27678,7 +27864,7 @@
 		<member name="M:SetPlayerCameraPos" syntax="SetPlayerCameraPos(playerid, x, y, z)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
-			<referrer name="_@yHOnPlayerConnect@02"/>
+			<referrer name="SetLoginCamera"/>
 			<param name="playerid">
 				ID of the player
 			</param>
@@ -27698,7 +27884,7 @@
 		</member>
 		<member name="M:SetPlayerCharacterName" syntax="SetPlayerCharacterName(playerid, charname[])">
 			<stacksize value="5"/>
-			<referrer name="_@yHOnDialogResponse@02"/>
+			<referrer name="_@yHOnCharacterNameCheck@02"/>
 			<referrer name="_@yHOnPasswordCheck@02"/>
 			<referrer name="_@yHOnPlayerDisconnect@02"/>
 			<dependency name="IsPlayerConnected"/>
@@ -27710,6 +27896,20 @@
 			<param name="charname">
 				<paraminfo> [] </paraminfo>
 			</param>
+		</member>
+		<member name="M:SetPlayerFacingAngle" syntax="SetPlayerFacingAngle(playerid, angle)">
+			<tagname value="bool"/>
+			<attribute name="native"/>
+			<referrer name="_@yHOnPlayerRequestSpawn@02"/>
+			<referrer name="ForcePlayerSpawn"/>
+			<param name="playerid">
+				The ID of the player to set the facing angle of
+			</param>
+			<param name="angle">
+				<paraminfo>Float </paraminfo>
+				The angle the player should face
+			</param>
+			<library>omp_player</library>  <summary>Set a player's facing angle (z rotation).</summary>      <seealso name="GetPlayerFacingAngle" />  <seealso name="SetPlayerPos" />  <remarks>Angles are reversed in GTA:SA; 90 degrees would be East in the real world, but in GTA:SA  90 degrees is in fact West.  North and South are still 0/360 and 180.  To convert this, simply do  <b>360 - angle</b>.</remarks>  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  The player specified does not exist.  </returns> 
 		</member>
 		<member name="M:SetPlayerHealth" syntax="SetPlayerHealth(playerid, health)">
 			<tagname value="bool"/>
@@ -27752,6 +27952,8 @@
 		<member name="M:SetPlayerName" syntax="SetPlayerName(playerid, name[])">
 			<attribute name="native"/>
 			<referrer name="ApplyPlayerName"/>
+			<referrer name="Nametag_Show"/>
+			<referrer name="Nametag_Update"/>
 			<param name="playerid">
 				The ID of the player to set the name of
 			</param>
@@ -27764,7 +27966,8 @@
 		<member name="M:SetPlayerPos" syntax="SetPlayerPos(playerid, x, y, z)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
-			<referrer name="FinishLogin"/>
+			<referrer name="_@yHOnPlayerRequestSpawn@02"/>
+			<referrer name="ForcePlayerSpawn"/>
 			<param name="playerid">
 				The ID of the player to set the position of
 			</param>
@@ -27904,6 +28107,9 @@
 			<attribute name="native"/>
 			<referrer name="SetTimerAddr"/>
 			<referrer name="SetTimerExAddr"/>
+			<referrer name="_@yHOnPlayerRegister@02"/>
+			<referrer name="ForcePlayerSpawn"/>
+			<referrer name="_@yHOnPasswordCheck@02"/>
 			<referrer name="Nametag_OnDamage"/>
 			<param name="functionName">
 				<paraminfo> [] </paraminfo>
@@ -28157,7 +28363,7 @@
 			<referrer name="Account_ShowRegistrationDialog"/>
 			<referrer name="Account_ShowLoginDialog"/>
 			<referrer name="Account_ShowCharacterNameDialog"/>
-			<referrer name="_@yHOnPlayerConnect@02"/>
+			<referrer name="_@yHOnPlayerFinishedDownloading@02"/>
 			<referrer name="_@yHOnPlayerAccountCheck@02"/>
 			<referrer name="_@yHOnDialogResponse@02"/>
 			<referrer name="ShowLSPDRecruitmentDialog"/>
@@ -28290,7 +28496,7 @@
 		<member name="M:SpawnPlayer" syntax="SpawnPlayer(playerid)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
-			<referrer name="FinishLogin"/>
+			<referrer name="ForcePlayerSpawn"/>
 			<param name="playerid">
 				The ID of the player to spawn
 			</param>
@@ -28796,6 +29002,7 @@
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="_@yHOnPlayerSpawn@02"/>
+			<referrer name="_@yHOnPlayerUpdate@02"/>
 			<param name="playerid">
 				The ID of the player to toggle the controllability of
 			</param>
@@ -29584,11 +29791,14 @@
 			<referrer name="@yH_OnGameModeInit@01"/>
 			<referrer name="@yH_OnGameModeExit@01"/>
 			<referrer name="@yH_OnPlayerConnect@02"/>
-			<referrer name="@yH_OnGameModeInit@02"/>
-			<referrer name="@yH_OnPlayerRequestSpawn@02"/>
-			<referrer name="@yH_OnPlayerSpawn@02"/>
 			<referrer name="@yH_OnPlayerTakeDamage@02"/>
+			<referrer name="@yH_OnPlayerRequestSpawn@02"/>
+			<referrer name="@yH_OnPlayerFinishedDownloading@02"/>
+			<referrer name="@yH_OnGameModeInit@02"/>
+			<referrer name="@yH_OnPlayerSpawn@02"/>
+			<referrer name="@yH_OnPlayerUpdate@02"/>
 			<referrer name="@yH_OnPlayerAccountCheck@02"/>
+			<referrer name="@yH_OnCharacterNameCheck@02"/>
 			<referrer name="@yH_OnDialogResponse@02"/>
 			<referrer name="@yH_OnPasswordHash@02"/>
 			<referrer name="@yH_OnPlayerRegister@02"/>
@@ -29790,9 +30000,23 @@
 			<stacksize value="1"/>
 			<dependency name="seek_whence"/>
 		</member>
+		<member name="M:_@yHOnCharacterNameCheck@02" syntax="_@yHOnCharacterNameCheck@02(playerid)">
+			<attribute name="public"/>
+			<stacksize value="37"/>
+			<referrer name="@yH_OnCharacterNameCheck@02"/>
+			<dependency name="Account_ShowCharacterNameDialog"/>
+			<dependency name="Account_ShowRegistrationDialog"/>
+			<dependency name="DeletePVar"/>
+			<dependency name="GetPVarString"/>
+			<dependency name="SendClientMessage"/>
+			<dependency name="SetPlayerCharacterName"/>
+			<dependency name="cache_num_rows"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:_@yHOnDialogResponse@02" syntax="_@yHOnDialogResponse@02(playerid, dialogid, response, listitem, inputtext[])">
 			<attribute name="public"/>
-			<stacksize value="68"/>
+			<stacksize value="263"/>
 			<referrer name="@yH_OnDialogResponse@02"/>
 			<dependency name="Account_Check"/>
 			<dependency name="Account_ShowCharacterNameDialog"/>
@@ -29807,12 +30031,17 @@
 			<dependency name="IsValidPassword"/>
 			<dependency name="Kick"/>
 			<dependency name="SendClientMessage"/>
+			<dependency name="SetPVarString"/>
 			<dependency name="SetPlayerAccountName"/>
-			<dependency name="SetPlayerCharacterName"/>
 			<dependency name="ShowPlayerDialog"/>
 			<dependency name="bcrypt_verify"/>
 			<dependency name="false"/>
+			<dependency name="g_DatabaseHandle"/>
+			<dependency name="mysql_format"/>
+			<dependency name="mysql_tquery"/>
+			<dependency name="s_CharacterNameWarningShown"/>
 			<dependency name="s_IsRegistering"/>
+			<dependency name="s_PlayerLoginAttempts"/>
 			<dependency name="strcmp"/>
 			<dependency name="strlen"/>
 			<dependency name="true"/>
@@ -29858,16 +30087,19 @@
 			<stacksize value="136"/>
 			<referrer name="@yH_OnPasswordCheck@02"/>
 			<dependency name="Account_ShowLoginDialog"/>
+			<dependency name="ApplyPlayerName"/>
 			<dependency name="DeletePVar"/>
-			<dependency name="FinishLogin"/>
 			<dependency name="GetPVarString"/>
 			<dependency name="Kick"/>
+			<dependency name="Nametag_Show"/>
 			<dependency name="SendClientMessage"/>
 			<dependency name="SetPlayerCharacterName"/>
 			<dependency name="SetPlayerLoggedIn"/>
+			<dependency name="SetTimerEx"/>
 			<dependency name="false"/>
 			<dependency name="format"/>
 			<dependency name="s_CharacterNameSaved"/>
+			<dependency name="s_InLoginMenu"/>
 			<dependency name="s_IsFirstLogin"/>
 			<dependency name="s_PlayerLoginAttempts"/>
 			<dependency name="true"/>
@@ -29888,15 +30120,17 @@
 		</member>
 		<member name="M:_@yHOnPlayerAccountCheck@02" syntax="_@yHOnPlayerAccountCheck@02(playerid)">
 			<attribute name="public"/>
-			<stacksize value="100"/>
+			<stacksize value="104"/>
 			<referrer name="@yH_OnPlayerAccountCheck@02"/>
 			<dependency name="Account_ShowCharacterNameDialog"/>
 			<dependency name="Account_ShowLoginDialog"/>
 			<dependency name="SendClientMessage"/>
+			<dependency name="SetPVarFloat"/>
 			<dependency name="SetPVarString"/>
 			<dependency name="SetPlayerAccountID"/>
 			<dependency name="ShowPlayerDialog"/>
 			<dependency name="cache_get_value_name"/>
+			<dependency name="cache_get_value_name_float"/>
 			<dependency name="cache_get_value_name_int"/>
 			<dependency name="cache_num_rows"/>
 			<dependency name="s_IsRegistering"/>
@@ -29905,24 +30139,33 @@
 		</member>
 		<member name="M:_@yHOnPlayerConnect@02" syntax="_@yHOnPlayerConnect@02(playerid)">
 			<attribute name="public"/>
-			<stacksize value="9"/>
+			<stacksize value="4"/>
 			<referrer name="@yH_OnPlayerConnect@02"/>
-			<dependency name="SetPlayerCameraLookAt"/>
-			<dependency name="SetPlayerCameraPos"/>
-			<dependency name="ShowPlayerDialog"/>
+			<dependency name="SetLoginCamera"/>
+			<dependency name="s_InLoginMenu"/>
+			<dependency name="true"/>
 			<param name="playerid">
 			</param>
 		</member>
 		<member name="M:_@yHOnPlayerDisconnect@02" syntax="_@yHOnPlayerDisconnect@02(playerid, reason)">
 			<attribute name="public"/>
-			<stacksize value="5"/>
+			<stacksize value="272"/>
 			<referrer name="@yH_OnPlayerDisconnect@02"/>
 			<dependency name="DeletePVar"/>
+			<dependency name="GetPlayerAccountID"/>
+			<dependency name="GetPlayerFacingAngle"/>
+			<dependency name="GetPlayerPos"/>
+			<dependency name="IsPlayerLoggedIn"/>
 			<dependency name="Nametag_Hide"/>
 			<dependency name="SetPlayerCharacterName"/>
 			<dependency name="SetPlayerLoggedIn"/>
 			<dependency name="false"/>
+			<dependency name="g_DatabaseHandle"/>
+			<dependency name="mysql_format"/>
+			<dependency name="mysql_tquery"/>
 			<dependency name="s_CharacterNameSaved"/>
+			<dependency name="s_CharacterNameWarningShown"/>
+			<dependency name="s_InLoginMenu"/>
 			<dependency name="s_IsFirstLogin"/>
 			<dependency name="s_IsRegistering"/>
 			<dependency name="s_PlayerLoginAttempts"/>
@@ -29931,14 +30174,30 @@
 			<param name="reason">
 			</param>
 		</member>
+		<member name="M:_@yHOnPlayerFinishedDownloading@02" syntax="_@yHOnPlayerFinishedDownloading@02(playerid, virtualworld)">
+			<attribute name="public"/>
+			<stacksize value="9"/>
+			<referrer name="@yH_OnPlayerFinishedDownloading@02"/>
+			<dependency name="IsPlayerLoggedIn"/>
+			<dependency name="SetLoginCamera"/>
+			<dependency name="ShowPlayerDialog"/>
+			<dependency name="s_InLoginMenu"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+			<param name="virtualworld">
+			</param>
+		</member>
 		<member name="M:_@yHOnPlayerRegister@02" syntax="_@yHOnPlayerRegister@02(playerid)">
 			<attribute name="public"/>
-			<stacksize value="6"/>
+			<stacksize value="39"/>
 			<referrer name="@yH_OnPlayerRegister@02"/>
-			<dependency name="FinishLogin"/>
+			<dependency name="ApplyPlayerName"/>
+			<dependency name="GetPlayerCharacterName"/>
 			<dependency name="SendClientMessage"/>
 			<dependency name="SetPlayerAccountID"/>
 			<dependency name="SetPlayerLoggedIn"/>
+			<dependency name="SetTimerEx"/>
 			<dependency name="cache_insert_id"/>
 			<dependency name="false"/>
 			<dependency name="s_CharacterNameSaved"/>
@@ -29949,9 +30208,13 @@
 		</member>
 		<member name="M:_@yHOnPlayerRequestSpawn@02" syntax="_@yHOnPlayerRequestSpawn@02(playerid)">
 			<attribute name="public"/>
-			<stacksize value="4"/>
+			<stacksize value="6"/>
 			<referrer name="@yH_OnPlayerRequestSpawn@02"/>
 			<dependency name="IsPlayerLoggedIn"/>
+			<dependency name="SetPlayerFacingAngle"/>
+			<dependency name="SetPlayerPos"/>
+			<dependency name="false"/>
+			<dependency name="s_InLoginMenu"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -29960,7 +30223,11 @@
 			<stacksize value="4"/>
 			<referrer name="@yH_OnPlayerSpawn@02"/>
 			<dependency name="IsPlayerLoggedIn"/>
+			<dependency name="Nametag_Update"/>
+			<dependency name="SetCameraBehindPlayer"/>
 			<dependency name="TogglePlayerControllable"/>
+			<dependency name="false"/>
+			<dependency name="s_InLoginMenu"/>
 			<dependency name="true"/>
 			<param name="playerid">
 			</param>
@@ -29969,6 +30236,7 @@
 			<attribute name="public"/>
 			<stacksize value="4"/>
 			<referrer name="@yH_OnPlayerTakeDamage@02"/>
+			<dependency name="IsPlayerLoggedIn"/>
 			<dependency name="Nametag_OnDamage"/>
 			<param name="playerid">
 			</param>
@@ -29980,6 +30248,17 @@
 			<param name="weaponid">
 			</param>
 			<param name="bodypart">
+			</param>
+		</member>
+		<member name="M:_@yHOnPlayerUpdate@02" syntax="_@yHOnPlayerUpdate@02(playerid)">
+			<attribute name="public"/>
+			<stacksize value="4"/>
+			<referrer name="@yH_OnPlayerUpdate@02"/>
+			<dependency name="SetLoginCamera"/>
+			<dependency name="TogglePlayerControllable"/>
+			<dependency name="false"/>
+			<dependency name="s_InLoginMenu"/>
+			<param name="playerid">
 			</param>
 		</member>
 		<member name="M:_FIXES_OnClientCheckResponse" syntax="_FIXES_OnClientCheckResponse()">
@@ -30542,6 +30821,18 @@
 				<paraminfo>bool &amp; </paraminfo>
 			</param>
 		</member>
+		<member name="M:cache_get_value_name_float" syntax="cache_get_value_name_float(row_idx, column_name[], &amp;destination)">
+			<attribute name="native"/>
+			<referrer name="_@yHOnPlayerAccountCheck@02"/>
+			<param name="row_idx">
+			</param>
+			<param name="column_name">
+				<paraminfo> [] </paraminfo>
+			</param>
+			<param name="destination">
+				<paraminfo>Float &amp; </paraminfo>
+			</param>
+		</member>
 		<member name="M:cache_get_value_name_int" syntax="cache_get_value_name_int(row_idx, column_name[], &amp;destination)">
 			<attribute name="native"/>
 			<referrer name="cache_get_value_name_bool"/>
@@ -30570,6 +30861,7 @@
 		<member name="M:cache_num_rows" syntax="cache_num_rows()">
 			<stacksize value="4"/>
 			<referrer name="_@yHOnPlayerAccountCheck@02"/>
+			<referrer name="_@yHOnCharacterNameCheck@02"/>
 			<dependency name="cache_get_row_count"/>
 		</member>
 		<member name="M:ceildiv" syntax="ceildiv(numerator, denominator)">
@@ -30623,7 +30915,7 @@
 		</member>
 		<member name="M:cmd_joingang" syntax="cmd_joingang(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="170"/>
+			<stacksize value="171"/>
 			<dependency name="SendClientMessage"/>
 			<dependency name="format"/>
 			<dependency name="g_GangPickupColor"/>
@@ -31809,6 +32101,8 @@
 			<referrer name="Account_Create"/>
 			<referrer name="Account_UpdateCharacterName"/>
 			<referrer name="Account_LoadCharacterName"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
+			<referrer name="_@yHOnPlayerDisconnect@02"/>
 			<param name="handle">
 				<paraminfo>MySQL </paraminfo>
 			</param>
@@ -31830,6 +32124,8 @@
 			<referrer name="Account_Create"/>
 			<referrer name="Account_UpdateCharacterName"/>
 			<referrer name="Account_LoadCharacterName"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
+			<referrer name="_@yHOnPlayerDisconnect@02"/>
 			<param name="handle">
 				<paraminfo>MySQL </paraminfo>
 			</param>
@@ -32813,6 +33109,8 @@
 			<referrer name="IsValidCharacterName"/>
 			<referrer name="_@yHOnDialogResponse@02"/>
 			<referrer name="Nametag_BuildLabel"/>
+			<referrer name="Nametag_Show"/>
+			<referrer name="Nametag_Update"/>
 			<param name="string">
 				<paraminfo> [] </paraminfo>
 				The string to get the length of
